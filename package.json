@@ -1,0 +1,30 @@
+{
+  "name": "breezebnb",
+  "version": "1.0.0",
+  "description": "AirBnB clone",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/constantinosgeorgiou/breezebnb.git"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "keywords": [
+    "breezebnb",
+    "airbnb",
+    "nodejs",
+    "express",
+    "postgresql",
+    "rest"
+  ],
+  "author": "Constantinos Georgiou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/constantinosgeorgiou/breezebnb/issues"
+  },
+  "homepage": "https://github.com/constantinosgeorgiou/breezebnb#readme"
+}
