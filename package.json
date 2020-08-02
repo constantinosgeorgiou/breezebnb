@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "AirBnB clone",
   "main": "app.js",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/constantinosgeorgiou/breezebnb.git"
-  },
-  "engines": {
-    "node": "10.x"
   },
   "keywords": [
     "breezebnb",
@@ -26,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/constantinosgeorgiou/breezebnb/issues"
   },
-  "homepage": "https://github.com/constantinosgeorgiou/breezebnb#readme"
+  "homepage": "https://github.com/constantinosgeorgiou/breezebnb#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
 }
