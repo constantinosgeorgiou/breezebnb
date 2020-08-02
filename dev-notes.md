@@ -52,6 +52,8 @@ sudo apt-get install postgresql
 
 [How to setup a free PostgreSQL database on Heroku](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1)
 
+[Setting up a RESTful API with Node.js and PostgreSQL](https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/)
+
 ### Shell commands
 
 Log into the Heroku PostgreSQL instance:
@@ -69,20 +71,28 @@ Test and deploy:
 heroku local web
 ```
 
-Log in to root user:
-```shell
-sudo -u postgres psql
-```
+Postgres service commands:
+
+|          Command             |        Action        |
+| -----------------------------| -------------------- |
+| `service postgresql status`  | [Status check](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)     |
+| `service postgresql start`   | [Start Postgres](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)   |
+| `service postgresql stop`    | [Stop Postgres](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)    |
+| `service postgresql restart` | [Restart Postgres](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/) |
+
 
 Log in to postgres superuser:
 ```shell
-psql postgres
+psql -U postgres
 ```
+**FIX:** ["psql: FATAL: Peer authentication failed for user"](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614)
 
-Log in to breezebnb_admin:
+
+Log in to breezebnb:
 ```shell
-psql -d postgres -U breezebnb_admin
+psql -d postgres -U breezebnb
 ```
+**FIX:** "Peer authentication failed for user "breezebnb" **=>** in *pg_hba.conf* change `local all all peer` from `peer` to `md5`, then restart the service `service postgresql restart`
 
 Display information regarding current connection to postgres:
 ```shell
@@ -92,7 +102,8 @@ Display information regarding current connection to postgres:
 
 Connect to database:
 ```
-\c database
+\c <database>
+\c breezebnb
 ```
 
 [List users](https://www.postgresqltutorial.com/postgresql-list-users/):
