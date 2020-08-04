@@ -134,7 +134,7 @@ TABLE tablename;
 ###  PostgresQL GUI OmniDB
 1. Download OmniDB for [linux](https://omnidb.org/en/downloads-en)
 2. Setup
-2a. Connections->New Connection
+3. Connections->New Connection
 
 |          Field               |        Data       |
 | -----------------------------| -------------------- |
@@ -144,15 +144,15 @@ TABLE tablename;
 | `User                      ` | ***REMOVED*** |
 | `Title                      ` | ***REMOVED*** |
   
-3. Save Data
-4. Press green tick button in Action field
-5. Enter password
+4. Save Data
+5. Press green tick button in Action field
+6. Enter password
 ```shell
 ***REMOVED***
 ```
-6. Explore path and find our database
+7. Explore path and find our database
 PostgreSQL 12.3->Database->***REMOVED***
 (If password asked enter it again)
-7. Now you can view and edit database tables 
+8. Now you can view and edit database tables 
 
 
