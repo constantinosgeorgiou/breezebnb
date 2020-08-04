@@ -1,3 +1,4 @@
+
 # Developer notes
 
 ## File structure:
@@ -129,3 +130,29 @@ Show table data:
 ```shell
 TABLE tablename;
 ```
+
+###  PostgresQL GUI OmniDB
+1. Download OmniDB for [linux](https://omnidb.org/en/downloads-en)
+2. Setup
+2a. Connections->New Connection
+
+|          Field               |        Data       |
+| -----------------------------| -------------------- |
+| `Server                   `  | ***REMOVED***   |
+| `Port                    `   | ***REMOVED***  |
+| `Database`                   | ***REMOVED***  |
+| `User                      ` | ***REMOVED*** |
+| `Title                      ` | ***REMOVED*** |
+  
+3. Save Data
+4. Press green tick button in Action field
+5. Enter password
+```shell
+***REMOVED***
+```
+6. Explore path and find our database
+PostgreSQL 12.3->Database->***REMOVED***
+(If password asked enter it again)
+7. Now you can view and edit database tables 
+
+
