@@ -151,7 +151,7 @@ TABLE tablename;
 ***REMOVED***
 ```
 7. Explore path and find our database
-PostgreSQL 12.3->Database->***REMOVED***
+PostgreSQL 12.3->Database->***REMOVED***->Schemas
 (If password asked enter it again)
 8. Now you can view and edit database tables 
 
