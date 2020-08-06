@@ -1,3 +1,4 @@
+
 # Developer notes
 
 ## File structure:
@@ -21,13 +22,13 @@ heroku local web
 
 ## Dependencies
 
-|     Name      |                      Description                              |
+| Name          | Description                                                   |
 | ------------- | ------------------------------------------------------------- |
 | Express       | Web application framework                                     |
 | node-postgres | Used for interfacing with the PostgreSQL database             |
 | dotenv        | Loads environment variables from a .env file into process.env |
-| - | - |
-| - | - |
+| -             | -                                                             |
+| -             | -                                                             |
 **NOTE:** In the documentation hyperlink the name of each dependency to its corresponding website
 
 ## NodeJS on Heroku
@@ -84,8 +85,8 @@ heroku local web
 
 Postgres service commands:
 
-|          Command             |        Action        |
-| -----------------------------| -------------------- |
+| Command                      | Action                                                                            |
+| ---------------------------- | --------------------------------------------------------------------------------- |
 | `service postgresql status`  | [Status check](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)     |
 | `service postgresql start`   | [Start Postgres](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)   |
 | `service postgresql stop`    | [Stop Postgres](https://r2schools.com/how-to-start-stop-postgresql-on-ubuntu/)    |
@@ -140,7 +141,29 @@ Show table data:
 ```shell
 TABLE tablename;
 ```
+###  PostgresQL GUI OmniDB
+1. Download OmniDB for [linux](https://omnidb.org/en/downloads-en)
+2. Setup
+3. Connections->New Connection
 
+| Field                         | Data                                               |
+| ----------------------------- | -------------------------------------------------- |
+| `Server                   `   | ***REMOVED*** |
+| `Port                    `    | ***REMOVED***                                               |
+| `Database`                    | ***REMOVED***                                     |
+| `User                      `  | ***REMOVED***                                     |
+| `Title                      ` | ***REMOVED***                                        |
+  
+4. Save Data
+5. Press green tick button in Action field
+6. Enter password
+```shell
+***REMOVED***
+```
+7. Explore path and find our database
+PostgreSQL 12.3->Database->***REMOVED***->Schemas
+(If password asked enter it again)
+8. Now you can view and edit database tables 
 
 
 ## Javascript
