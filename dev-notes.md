@@ -19,6 +19,17 @@ npm install
 heroku local web
 ```
 
+## Dependencies
+
+|     Name      |                      Description                              |
+| ------------- | ------------------------------------------------------------- |
+| Express       | Web application framework                                     |
+| node-postgres | Used for interfacing with the PostgreSQL database             |
+| dotenv        | Loads environment variables from a .env file into process.env |
+| - | - |
+| - | - |
+**NOTE:** In the documentation hyperlink the name of each dependency to its corresponding website
+
 ## NodeJS on Heroku
 
 [Getting started with NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true)
@@ -52,7 +63,7 @@ sudo apt-get install postgresql
 
 [How to setup a free PostgreSQL database on Heroku](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1)
 
-[Setting up a RESTful API with Node.js and PostgreSQL](https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/)
+[**Setting up a RESTful API with Node.js and PostgreSQL**](https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/)
 
 ### Shell commands
 
@@ -129,3 +140,15 @@ Show table data:
 ```shell
 TABLE tablename;
 ```
+
+
+
+## Javascript
+
+[JavaScript Best Practices](https://www.w3schools.com/js/js_best_practices.asp)
+
+[JavaScript Naming Convention Best Practices](https://medium.com/javascript-in-plain-english/javascript-naming-convention-best-practices-b2065694b7d)
+
+[45 Useful JavaScript Tips, Tricks and Best Practices](https://modernweb.com/45-javascript-tips-tricks-practices/)
+
+[Jake Archibald: In The Loop - JSConf.Asia](https://www.youtube.com/watch?v=cCOL7MC4Pl0) watch in order to understand the inner workings of JS
