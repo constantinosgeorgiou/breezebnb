@@ -29,6 +29,7 @@ heroku local web
 | dotenv        | Loads environment variables from a .env file into process.env |
 | -             | -                                                             |
 | -             | -                                                             |
+
 **NOTE:** In the documentation hyperlink the name of each dependency to its corresponding website
 
 ## NodeJS on Heroku
@@ -145,23 +146,12 @@ TABLE tablename;
 1. Download OmniDB for [linux](https://omnidb.org/en/downloads-en)
 2. Setup
 3. Connections->New Connection
-
-| Field                         | Data                                               |
-| ----------------------------- | -------------------------------------------------- |
-| `Server                   `   | ***REMOVED*** |
-| `Port                    `    | ***REMOVED***                                               |
-| `Database`                    | ***REMOVED***                                     |
-| `User                      `  | ***REMOVED***                                     |
-| `Title                      ` | ***REMOVED***                                        |
-  
-4. Save Data
-5. Press green tick button in Action field
-6. Enter password
-```shell
-***REMOVED***
-```
-7. Explore path and find our database
-PostgreSQL 12.3->Database->***REMOVED***->Schemas
+4. Fill in data
+5. Save Data
+6. Press green tick button in Action field
+7. Enter password
+8. Explore path and find our database
+PostgreSQL 12.3->Database->(database_name)->Schemas
 (If password asked enter it again)
 8. Now you can view and edit database tables 
 
