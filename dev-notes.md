@@ -142,6 +142,19 @@ Show table data:
 ```shell
 TABLE tablename;
 ```
+
+Rotate Heroku database credentials:
+```bash
+heroku pg:credentials:rotate <database-name> --app <app-name>
+# Example
+heroku pg:credentials:rotate postgresql-color-99999 --app breezebnb
+```
+
+Information for Heroku database:
+```shell
+heroku pg:info
+``` 
+
 ###  PostgresQL GUI OmniDB
 1. Download OmniDB for [linux](https://omnidb.org/en/downloads-en)
 2. Setup
