@@ -23,3 +23,13 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS listings;
 
 DROP TABLE IF EXISTS reviews;
+
+-- ------------------------------
+-- CREATE TYPES
+-- ------------------------------
+CREATE TYPE user_role AS ENUM (
+    'admin',
+    'guest',
+    'host',
+    'ghost' -- guest AND host
+);
