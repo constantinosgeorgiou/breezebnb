@@ -22,7 +22,7 @@
     "postgresql",
     "rest"
   ],
-  "author": "Constantinos Georgiou",
+  "author": "Constantinos Georgiou, Leonidas Efraim",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/constantinosgeorgiou/breezebnb/issues"
