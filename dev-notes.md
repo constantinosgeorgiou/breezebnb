@@ -12,6 +12,17 @@
 - README.md
 - ΥΠΟΧΡΕΩΤΙΚΗ_ΕΡΓΑΣΙΑ_2020.pdf
 
+## Build and run server
+```bash
+git clone https://github.com/constantinosgeorgiou/breezebnb.git
+cd breezebnb
+npm init
+node app.js
+
+# NOTE: create .env file
+touch .env
+# Put enviroment variables in .env file
+```
 
 ## Build and run app locally:
 
@@ -76,7 +87,7 @@ heroku pg:psql postgresql-transparent-00915 --app breezebnb
 
 Create your table and entries on Heroku Postgres:
 ```Shell
-cat migrations/init.sql | heroku pg:psql postgresql-solid-93707 --app breezebnb
+cat databse/config.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
 ```
 
 Test and deploy:
@@ -168,6 +179,17 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 (If password asked enter it again)
 8. Now you can view and edit database tables 
 
+### Postgres database design:
+
+#### Tables:
+
+- users
+
+  - Phone numbers are stored as *VARCHAR* 
+
+    [Falsehoods Programmers Believe About Phone Numbers](https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md)
+  
+  - [what is the right data type for unique key in postgresql DB?](https://stackoverflow.com/questions/11778102/what-is-the-right-data-type-for-unique-key-in-postgresql-db)
 
 ## Javascript
 
