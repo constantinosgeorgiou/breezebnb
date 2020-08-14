@@ -65,10 +65,8 @@ CREATE TABLE listings
     cost VARCHAR NOT NULL,
     listing_type VARCHAR NOT NULL,
     listing_location VARCHAR NOT NULL,
-    picture VARCHAR
-);
-
-CREATE TABLE user_has_listings
-(
-    listing_owner UUID REFERENCES users(user_id)
+    rating INTEGER,
+    picture VARCHAR,
+    PRIMARY KEY (listing_id),
+    listing_owner UUID REFERENCES users(user_id),
 );
