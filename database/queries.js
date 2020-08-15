@@ -2,9 +2,10 @@ const Pool = require("pg").Pool;
 const pool = new Pool({ connectionString: process.env.DATABASE_URI });
 
 const getUsers = (request, response) => {
-    pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
+    pool.query("SELECT * FROM users ORDER BY user_id ASC", (error, results) => {
+        console.log(results)
         if (error) {
-            throw error;
+            console.error(error.message);
         }
         response.status(200).json(results.rows);
     });
@@ -13,7 +14,7 @@ const getUsers = (request, response) => {
 const getUserById = (request, response) => {
     const id = parseInt(request.params.id);
 
-    pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
+    pool.query("SELECT * FROM users WHERE user_id = $1", [id], (error, results) => {
         if (error) {
             throw error;
         }
@@ -41,7 +42,7 @@ const updateUser = (request, response) => {
     const { name, email } = request.body;
 
     pool.query(
-        "UPDATE users SET name = $1, email = $2 WHERE id = $3",
+        "UPDATE users SET name = $1, email = $2 WHERE user_id = $3",
         [name, email, id],
         (error, results) => {
             if (error) {
