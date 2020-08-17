@@ -1,22 +1,20 @@
 require("dotenv").config();
-
 const express = require("express");
-const db = require("./database/queries");
 const app = express();
-
 const PORT = process.env.PORT;
 
-app.get("/", (request, response) => {
-    response.json({ info: "Node.js, Express, and Postgres API" });
-});
+// Requiring routes
+const IndexRoutes = require("./routes/index.js");
+const UsersRoutes = require("./routes/users.js");
+// const ReviewsRoutes = require("./routes/reviews.js");
+// const ListingsRoutes = require("./routes/listings.js");
 
-// ROUTES
-app.get("/users", db.getUsers);
-app.get("/users/:id", db.getUserById);
-app.post("/users", db.createUser);
-app.put("/users/:id", db.updateUser);
-app.delete("/users/:id", db.deleteUser);
+// Using routes
+app.use("/", IndexRoutes);
+app.use("/users", UsersRoutes);
+// app.use("", ReviewsRoutes);
+// app.use("", ListingsRoutes);
 
 app.listen(PORT, () => {
-    console.log(`App running on port ${PORT}.`);
+    console.log(`Listening on ${PORT}.`);
 });
