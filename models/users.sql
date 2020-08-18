@@ -11,5 +11,6 @@ CREATE TABLE users
     phone VARCHAR,
     user_role USER_ROLE NOT NULL,
     picture VARCHAR,
+    UNIQUE(user_name, email, phone), -- user_name, email, phone must be unique
     PRIMARY KEY (user_id)
 );
