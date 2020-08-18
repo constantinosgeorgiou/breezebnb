@@ -200,3 +200,11 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 [45 Useful JavaScript Tips, Tricks and Best Practices](https://modernweb.com/45-javascript-tips-tricks-practices/)
 
 [Jake Archibald: In The Loop - JSConf.Asia](https://www.youtube.com/watch?v=cCOL7MC4Pl0) watch in order to understand the inner workings of JS
+
+## React
+
+[React Tutorial: An Overview and Walkthrough](https://www.taniarascia.com/getting-started-with-react/)
+
+[Intro to React](https://reactjs.org/tutorial/tutorial.html)
+
+[How to consume a RESTful API in React](https://pusher.com/tutorials/consume-restful-api-react)
