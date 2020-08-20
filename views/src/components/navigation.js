@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +61,6 @@ const Navigation = () => {
             position="static"
             color="default"
             elevation={0}
-            className={classes.appBar}
         >
             <Toolbar className={classes.toolbar}>
                 <Typography
@@ -72,14 +72,14 @@ const Navigation = () => {
                     BreezeBnB
                 </Typography>
                 <nav>
-                    <Link
+                    <NavLink
                         variant="button"
                         color="textPrimary"
-                        href="#"
+                        to="/travel"
                         className={classes.link}
                     >
                         Travel
-                    </Link>
+                    </NavLink>
                     <Link
                         variant="button"
                         color="textPrimary"
@@ -89,22 +89,26 @@ const Navigation = () => {
                         Host
                     </Link>
                 </nav>
-                <Button
-                    href="/register"
-                    color="primary"
-                    variant="outlined"
-                    className={classes.link}
-                >
-                    Register
-                </Button>
-                <Button
-                    href="/login"
-                    color="primary"
-                    variant="outlined"
-                    className={classes.link}
-                >
-                    Login
-                </Button>
+                <NavLink to="/register">
+                    <Button
+                        href="/register"
+                        color="primary"
+                        variant="outlined"
+                        className={classes.link}
+                    >
+                        Register
+                    </Button>
+                </NavLink>
+                <NavLink to="/login">
+                    <Button
+                        href="/login"
+                        color="primary"
+                        variant="outlined"
+                        className={classes.link}
+                    >
+                        Login
+                    </Button>
+                </NavLink>
             </Toolbar>
         </AppBar>
     );
