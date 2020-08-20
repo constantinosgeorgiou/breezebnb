@@ -1,7 +1,6 @@
-const { json } = require("express");
-
 const Pool = require("pg").Pool;
 const pool = new Pool({ connectionString: process.env.DATABASE_URI });
+const { json } = require("express");
 
 const findAllUsers = (request, response) => {
     pool.query("SELECT * FROM users ORDER BY user_id ASC", (error, results) => {
