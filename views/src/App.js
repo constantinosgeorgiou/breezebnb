@@ -1,3 +1,6 @@
+// Based on this tutorial
+// https://www.freecodecamp.org/news/a-complete-beginners-guide-to-react-router-include-router-hooks/
+
 import React from "react";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
