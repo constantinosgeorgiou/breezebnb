@@ -208,3 +208,7 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 [Intro to React](https://reactjs.org/tutorial/tutorial.html)
 
 [How to consume a RESTful API in React](https://pusher.com/tutorials/consume-restful-api-react)
+
+### React Installation Modules Commands
+
+npm i --save material-ui-search-bar
