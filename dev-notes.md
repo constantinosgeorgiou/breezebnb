@@ -212,5 +212,5 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 ### React Installation Modules Commands
 
 ```shell
-npm i --save material-ui-search-bar
+npm install @material-ui/lab
 ```
