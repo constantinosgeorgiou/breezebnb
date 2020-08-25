@@ -214,6 +214,6 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 ```shell
 npm install @material-ui/lab
 
-npm install react-bootstrap-validtion --save
+npm i --save react-bootstrap
 ```
 
