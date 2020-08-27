@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
 
 const Locations = [
   { Locations: 'Limassol' },
@@ -12,7 +11,7 @@ const Locations = [
   { Locations: 'Athens' },
 ];
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -22,58 +21,65 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-}));
-export default function LocationSearchBar() {
-  const classes = useStyles();
+});
 
+class LocationSearchBar extends React.Component {
 
-  return (
-    <Fragment>
-      <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs>
-            <Autocomplete
-              id="Location-box"
-              options={Locations}
-              getOptionLabel={(option) => option.Locations}
-              style={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Location" variant="outlined" />}
-            />
-          </Grid>
-          <Grid item xs>
-            <form className={classes.container} noValidate>
-              <TextField
-                id="Check_In"
-                label="Check In"
-                type="date"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+  onSearchRentals() {
+    alert('Write code for api post request')
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Fragment>
+        <div className={classes.root}>
+          <Grid container spacing={24}>
+            <Grid item xs>
+              <Autocomplete
+                id="Location-box"
+                options={Locations}
+                getOptionLabel={(option) => option.Locations}
+                style={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Location" variant="outlined" />}
               />
-            </form>
-          </Grid>
-          <Grid item xs>
-            <form className={classes.container} noValidate>
-              <TextField
-                id="Check_Out"
-                label="Check Out"
-                type="date"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </form>
-          </Grid>
-          <Grid item xs>
-            <Button variant="contained" color="primary">
-              Search
+            </Grid>
+            <Grid item xs>
+              <form className={classes.container} noValidate>
+                <TextField
+                  id="Check_In"
+                  label="Check In"
+                  type="date"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </form>
+            </Grid>
+            <Grid item xs>
+              <form className={classes.container} noValidate>
+                <TextField
+                  id="Check_Out"
+                  label="Check Out"
+                  type="date"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </form>
+            </Grid>
+            <Grid item xs>
+              <Button onClick={() => {this.onSearchRentals()} }variant="contained" color="primary">
+                Search
             </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    </Fragment>
+        </div>
+      </Fragment>
 
-  );
+    );
+  }
 }
+export default withStyles(useStyles)(LocationSearchBar);
