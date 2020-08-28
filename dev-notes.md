@@ -85,12 +85,32 @@ Log into the Heroku PostgreSQL instance:
 heroku pg:psql postgresql-transparent-00915 --app breezebnb
 ```
 
-Create your table and entries on Heroku Postgres:
+Create your table and entries on **Heroku** Postgres:
 ```Bash
 cat <sql file OR model> | heroku pg:psql postgresql-transparent-00915 --app breezebnb
 
-Example:
-cat database/config.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+# Example for heroku:
+cat models/listings.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+
+```
+
+Create your table and entries on **local** Postgres:
+```Bash
+cat <sql file OR model> | psql -d <database name> -U <user name>
+# OR
+cat models/* | psql -d <database name> -U <user name>
+
+
+
+# Examples for local dabatase:
+
+# For all models:
+cat models/* | psql -d breezebnb -U breezebnb
+
+
+# For single files:
+cat model/users.sql    | psql -d breezebnb -U breezebnb
+cat model/listings.sql | psql -d breezebnb -U breezebnb
 
 ```
 
