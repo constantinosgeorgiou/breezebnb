@@ -10,31 +10,31 @@ import NavBar from "./components/NavBar";
 import Home from "./components/home";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
+import SearchBar from "./components/searchbar";
 
 class App extends Component {
     render() {
         return (
             <Router></Router>
-            //     <main>
-            //         <nav>
-            //             <ul>
-            //                 <li>
-            //                     <Link to="/">Home</Link>
-            //                 </li>
-            //                 <li>
-            //                     <Link to="/signup">Sign Up</Link>
-            //                 </li>
-            //                 <li>
-            //                     <Link to="/signin">Sign In</Link>
-            //                 </li>
-            //             </ul>
-            //         </nav>
-            //         <Route exact path="/" component={Home} />
-            //         <Route path="/signup" component={SignUp} />
-            //         <Route path="/signin" component={SignIn} />
-            //     </main>
+                <main>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/signup">Sign Up</Link>
+                            </li>
+                            <li>
+                                <Link to="/signin">Sign In</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/signin" component={SignIn} />
+                </main>
         );
     }
 }
-
 export default App;
