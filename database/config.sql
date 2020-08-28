@@ -10,9 +10,10 @@
 -- https://stackoverflow.com/a/25859628/8049261
 --
 --
-DROP DATABASE IF EXISTS breezebnb;
+-- DROP DATABASE IF EXISTS breezebnb;
 --
-CREATE DATABASE breezebnb OWNER breezebnb;
+-- CREATE DATABASE breezebnb
+-- OWNER breezebnb;
 -- ------------------------------
 -- EXTENSIONS
 -- ------------------------------
@@ -23,14 +24,25 @@ IF NOT EXISTS "uuid-ossp";
 -- CREATE TYPES
 -- ------------------------------
 DROP TYPE IF EXISTS user_role;
+DROP TYPE IF EXISTS property_type;
 
 -- ------------------------------
 -- CREATE TYPES
 -- ------------------------------
-CREATE TYPE user_role AS ENUM
+CREATE TYPE USER_ROLE AS ENUM
 (
     'admin',
     'guest',
     'host',
     'ghost' -- guest AND host
+);
+
+CREATE TYPE PROPERTY_TYPE AS ENUM
+(
+    'House',
+    'Apartment',
+    'Bed and Breakfast',
+    'Hostel',
+    'Hotel',
+    'Villa'
 );

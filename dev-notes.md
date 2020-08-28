@@ -86,7 +86,7 @@ heroku pg:psql postgresql-transparent-00915 --app breezebnb
 ```
 
 Create your table and entries on **Heroku** Postgres:
-```Bash
+```bash
 cat <sql file OR model> | heroku pg:psql postgresql-transparent-00915 --app breezebnb
 
 # Example for heroku:
@@ -95,7 +95,7 @@ cat models/listings.sql | heroku pg:psql postgresql-transparent-00915 --app bree
 ```
 
 Create your table and entries on **local** Postgres:
-```Bash
+```bash
 cat <sql file OR model> | psql -d <database name> -U <user name>
 # OR
 cat models/* | psql -d <database name> -U <user name>
@@ -111,6 +111,32 @@ cat models/* | psql -d breezebnb -U breezebnb
 # For single files:
 cat model/users.sql    | psql -d breezebnb -U breezebnb
 cat model/listings.sql | psql -d breezebnb -U breezebnb
+
+```
+
+Seed database:
+```bash
+# LOCAL -> Generate seed and seed database:
+# --------------------------------------
+node database/generate-seed.js > database/seed.sql && cat database/seed.sql | psql -d <database> -U <user>
+
+# Example
+node database/generate-seed.js > database/seed.sql && cat database/seed.sql | psql -d breezebnb -U breezebnb
+
+
+# HEROKU -> Generate seed and seed database:
+# --------------------------------------
+node database/generate-seed.js > database/seed.sql && cat database/seed.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+
+
+# Generate seed only
+# ------------------
+node database/generate-seed.js > database/seed.sql
+
+
+# Seed database only
+# ------------------
+cat database/seed.sql | psql -d <database> -U <user>
 
 ```
 
@@ -173,6 +199,16 @@ Connect to database:
 \dt
 ```
 
+[Show types](https://stackoverflow.com/questions/9535937/is-there-a-way-to-show-a-user-defined-postgresql-enumerated-type-definition)
+```shell
+\dT
+```
+
+[Show extensions](https://stackoverflow.com/questions/21799956/using-psql-how-do-i-list-extensions-installed-in-a-database)
+```shell
+\dx
+```
+
 Show table data:
 ```shell
 TABLE tablename;
@@ -183,6 +219,11 @@ Rotate Heroku database credentials:
 heroku pg:credentials:rotate <database-name> --app <app-name>
 # Example
 heroku pg:credentials:rotate postgresql-color-99999 --app breezebnb
+```
+
+Reset Heroku database:
+```shell
+heroku pg:reset --app breezebnb
 ```
 
 Information for Heroku database:
