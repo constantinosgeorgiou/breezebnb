@@ -3,37 +3,39 @@
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+// import { AppBar, Toolbar, Typography } from "@material-ui/core";
 
 import NavBar from "./components/NavBar";
 
-import Home from "./components/home";
-import SignUp from "./components/signup";
-import SignIn from "./components/signin";
-import SearchBar from "./components/searchbar";
+import HomePage from "./components/pages/HomePage";
+import SignUp from "./components/pages/SignUp";
+import SignIn from "./components/pages/SignIn";
+// import Listings from "./components/pages/Listings";
+// import SearchBar from "./components/searchbar";
 
 class App extends Component {
+    // state = {
+    //     listings: [],
+    // };
+
+    // componentDidMount() {
+    //     fetch("http://localhost:5000/listings")
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             this.setState({ listings: data });
+    //         })
+    //         .catch(console.log);
+    // }
+
     render() {
         return (
-            <Router></Router>
-                <main>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/signup">Sign Up</Link>
-                            </li>
-                            <li>
-                                <Link to="/signin">Sign In</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/signin" component={SignIn} />
-                </main>
+            <Router>
+                <NavBar />
+                <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/signin" component={SignIn} />
+                {/* <Route path="/listings" component={Listings} /> */}
+            </Router>
         );
     }
 }

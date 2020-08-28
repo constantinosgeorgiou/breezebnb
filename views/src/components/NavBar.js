@@ -1,39 +1,28 @@
-import React from "react";
+import React, { Component } from "react";
 
-import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
-import { Link } from "@react-router-dom";
 
-const NavBar = (props) => {
-    return (
-        <List component="nav">
-            <ListItem compontent="div">
-                <ListItemText inset>
-                    <Link to="/">
-                        <Typography color="inherit" variant="title">
-                            Home
-                        </Typography>
-                    </Link>
-                </ListItemText>
-            </ListItem>
-        </List>
-    );
-};
+class NavBar extends Component {
+    render() {
+        return (
+            <main>
+                <nav>
+                    <ul>
+                        <li>
+                            <NavLink to="/">Home</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/signup">Sign Up</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/signin">Sign In</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            </main>
+        );
+    }
+}
 
 export default NavBar;
-{
-    /* <main>
-<nav>
-    <ul>
-        <li>
-            <Link to="/">Home</Link>
-        </li>
-        <li>
-            <Link to="/signup">Sign Up</Link>
-        </li>
-        <li>
-            <Link to="/signin">Sign In</Link>
-        </li>
-    </ul>
-</nav> */
-}
