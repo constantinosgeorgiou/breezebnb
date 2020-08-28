@@ -86,8 +86,12 @@ heroku pg:psql postgresql-transparent-00915 --app breezebnb
 ```
 
 Create your table and entries on Heroku Postgres:
-```Shell
-cat databse/config.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+```Bash
+cat <sql file OR model> | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+
+Example:
+cat database/config.sql | heroku pg:psql postgresql-transparent-00915 --app breezebnb
+
 ```
 
 Test and deploy:
