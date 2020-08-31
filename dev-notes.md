@@ -274,11 +274,13 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 
 [How to consume a RESTful API in React](https://pusher.com/tutorials/consume-restful-api-react)
 
-### React Installation Modules Commands
+### Modules Installation Commands
 
 ```shell
 npm install @material-ui/lab
 
 npm i --save react-bootstrap
+
+npm install helmet --save
 ```
 
