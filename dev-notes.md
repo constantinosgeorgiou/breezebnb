@@ -98,8 +98,8 @@ Create your table and entries on **local** Postgres:
 ```bash
 cat <sql file OR model> | psql -d <database name> -U <user name>
 # OR
+cat database/config.sql | psql -d <database name> -U <user name>
 cat models/* | psql -d <database name> -U <user name>
-
 
 
 # Examples for local dabatase:
