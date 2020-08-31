@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); // Incoming request body parsing middleware
 const cors = require("cors"); // Used for Cross-origin resource sharing
 const helmet = require("helmet"); // Used as protection from some well-known web vulnerabilities by setting HTTP headers appropriately
 
