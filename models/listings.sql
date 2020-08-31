@@ -12,5 +12,8 @@ CREATE TABLE listings
     is_available BOOLEAN,
     picture VARCHAR,
     PRIMARY KEY (listing_id)
+    -- can accomodate children: how many
+    -- can accomodate adults: how many
+    -- rooms: how many
     -- listing_owner UUID REFERENCES users(user_id)
 );
