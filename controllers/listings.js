@@ -1,4 +1,3 @@
-const { request, response } = require("express");
 const database = require("../database/index");
 
 const retrieveListings = (request, response) => {
