@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Jumbotron } from "react-bootstrap";
-
+import { Jumbotron, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import SearchBar from "../SearchBar";
-import Listings from "./Listings";
 
 class Home extends Component {
     render() {
@@ -12,7 +11,9 @@ class Home extends Component {
                     <h1>Stay somewhere</h1>
                     {/* <SearchBar /> */}
                 </Jumbotron>
-                <Listings />
+                <Link to="/listings">
+                    <Button>Start exploring</Button>
+                </Link>
             </>
         );
     }
