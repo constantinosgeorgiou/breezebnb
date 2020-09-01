@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import SearchBar from "./../searchbar";
 
 class Home extends Component {
     render() {
-        return <h1>Home</h1>;
+
+        return (
+            <div>
+                <h1>Welcome home</h1>
+                <SearchBar/>
+            </div>
+        );
     }
 }
 
