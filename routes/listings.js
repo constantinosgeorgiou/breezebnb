@@ -8,6 +8,9 @@ router.get("/", Listings.retrieveListings);
 // Retrieve all available listings
 router.get("/available", Listings.retrieveAvailableListings);
 
+// Retrieve all available listings
+router.post("/search", Listings.SearchForAvailableListings);
+
 // TODO:
 // Retrieve all non-available listings
 
