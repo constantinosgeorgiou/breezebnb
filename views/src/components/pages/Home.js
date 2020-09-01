@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Jumbotron } from "react-bootstrap";
 
-import Search from "../Search";
+// import SearchBar from "../SearchBar";
 import Listings from "./Listings";
 
 class Home extends Component {
@@ -10,7 +10,7 @@ class Home extends Component {
             <>
                 <Jumbotron>
                     <h1>Stay somewhere</h1>
-                    <Search />
+                    {/* <SearchBar /> */}
                 </Jumbotron>
                 <Listings />
             </>

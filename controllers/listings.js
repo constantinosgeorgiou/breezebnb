@@ -11,7 +11,9 @@ const retrieveListings = (request, response) => {
                     },
                 });
             }
-
+            else{
+                console.log('query succed');
+            }
             response.status(200).json(results.rows);
         }
     );
@@ -158,6 +160,34 @@ const deleteListing = (request, response) => {
     );
 };
 
+const SearchForAvailableListings = (request, response) => {
+    console.log(request.body);
+    const {
+        listing_location
+    } = request.body;
+
+    database.query(
+        "SELECT * FROM listings WHERE listing_location = $1 AND is_available='true'",
+        [
+            listing_location
+        ],
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            console.log(results.rows);
+            response.status(200).json(results.rows);
+        }
+    );
+};
+
+
+
 module.exports = {
     retrieveListings,
     retrieveAvailableListings,
@@ -165,4 +195,5 @@ module.exports = {
     createListing,
     updateListing,
     deleteListing,
+    SearchForAvailableListings,
 };
