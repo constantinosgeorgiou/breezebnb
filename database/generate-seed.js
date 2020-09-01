@@ -408,7 +408,7 @@ function generateListing() {
     listing.listing_location = pickLocation();
     listing.rating = Math.floor(Math.random() * 10 + 5);
     listing.is_available = Math.random() < 0.5 ? "yes" : "no";
-    listing.picture = "picture of listing";
+    listing.picture = "https://media-cdn.tripadvisor.com/media/vr-splice-j/05/a0/88/17.jpg";
 
     return listing;
 }
