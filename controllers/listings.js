@@ -167,7 +167,7 @@ const SearchForAvailableListings = (request, response) => {
     } = request.body;
 
     database.query(
-        "SELECT * FROM listings WHERE listing_location = $1",
+        "SELECT * FROM listings WHERE listing_location = $1 AND is_available='true'",
         [
             listing_location
         ],
