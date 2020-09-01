@@ -98,8 +98,8 @@ Create your table and entries on **local** Postgres:
 ```bash
 cat <sql file OR model> | psql -d <database name> -U <user name>
 # OR
+cat database/config.sql | psql -d <database name> -U <user name>
 cat models/* | psql -d <database name> -U <user name>
-
 
 
 # Examples for local dabatase:
@@ -274,11 +274,13 @@ PostgreSQL 12.3->Database->(database_name)->Schemas
 
 [How to consume a RESTful API in React](https://pusher.com/tutorials/consume-restful-api-react)
 
-### React Installation Modules Commands
+### Modules Installation Commands
 
 ```shell
 npm install @material-ui/lab
 
 npm i --save react-bootstrap
+
+npm install helmet --save
 ```
 
