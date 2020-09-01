@@ -282,5 +282,9 @@ npm install @material-ui/lab
 npm i --save react-bootstrap
 
 npm install helmet --save
+
+npm i -S bootstrap
+npm i -S popper.js
+npm i -S jquery
 ```
 
