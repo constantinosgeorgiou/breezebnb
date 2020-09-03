@@ -287,6 +287,7 @@ npm i -S bootstrap
 npm i -S popper.js
 npm i -S jquery
 
-npm i react-router-bootstrap --save
+npm install axios --save
 ```
+
 
