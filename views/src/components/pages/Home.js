@@ -1,20 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import SearchBar from "../SearchBar";
+import SearchBar from "./../SearchBar";
 
 class Home extends Component {
     render() {
-        return (
-            <>
+        return (<Fragment>
                 <Jumbotron>
                     <h1>Stay somewhere</h1>
-                    {/* <SearchBar /> */}
+                     <SearchBar /> 
                 </Jumbotron>
                 <Link to="/listings">
                     <Button>Start exploring</Button>
-                </Link>
-            </>
+                </Link>  
+                </Fragment>    
         );
     }
 }
