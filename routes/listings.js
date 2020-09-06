@@ -5,10 +5,10 @@ const Listings = require("../controllers/listings");
 // Retrieve all listings
 router.get("/", Listings.retrieveListings);
 
-// Retrieve all available listings
-router.get("/available", Listings.retrieveAvailableListings);
+// Retrieve all listings
+router.get("/available", Listings.retrieveListings);
 
-// Retrieve all available listings
+// Retrieve all available listings on specific search
 router.post("/search", Listings.SearchForAvailableListings);
 
 // TODO:

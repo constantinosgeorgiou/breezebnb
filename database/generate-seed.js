@@ -407,7 +407,6 @@ function generateListing() {
     listing.property_type = pickListingType();
     listing.listing_location = pickLocation();
     listing.rating = Math.floor(Math.random() * 10 + 5);
-    listing.is_available = Math.random() < 0.5 ? "yes" : "no";
     listing.picture = "https://media-cdn.tripadvisor.com/media/vr-splice-j/05/a0/88/17.jpg";
 
     return listing;
@@ -450,7 +449,7 @@ function generateUsers() {
 
 function generateListings() {
     console.log(
-        "INSERT INTO listings (listing_title,listing_description,cost,property_type,listing_location,rating,is_available,picture) VALUES"
+        "INSERT INTO listings (listing_title,listing_description,cost,property_type,listing_location,rating,picture) VALUES"
     );
     for (let index = 0; index < MAX_USERS; index++) {
         let Listing = generateListing();
@@ -473,9 +472,6 @@ function generateListings() {
                 "'," +
                 "'" +
                 Listing.rating +
-                "'," +
-                "'" +
-                Listing.is_available +
                 "'," +
                 "'" +
                 Listing.picture +

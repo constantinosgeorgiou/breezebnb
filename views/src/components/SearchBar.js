@@ -1,67 +1,82 @@
 import React, { Fragment } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Grid from '@material-ui/core/Grid';
-import { Button } from 'react-bootstrap';
-import { withStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import ListingPreview from "./ListingPreview";
+import axios from "axios";
 
-const Locations = [
-  { Locations: 'Limassol' },
-  { Locations: 'Nicosia' },
-  { Locations: 'Athens' },
-];
-
-const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-});
 
 class LocationSearchBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      error: null,
+      isLoaded: false,
+      listings: [],
+      listing_location: '',
+      check_in: '',
+      check_out: '',
 
     }
   }
 
-  componentDidMount() {
+  handleChangeOnLocation = event => {
+    this.setState({ listing_location: event.target.value });
   }
-  onSearchRentals(event) {
+  handleChangeOnCheckIn = event => {
+    this.setState({ check_in: event.target.value });
+  }
+  handleChangeOnCheckOut = event => {
+    this.setState({ check_out: event.target.value });
+  }
+  handleSubmit = event => {
     event.preventDefault();
-    console.log("BACK END reqest working");
-    let data = {
-      listing_location: this.refs.Location.value
+
+    const location = {
+      listing_location: this.state.listing_location,
+      check_in: this.state.check_in,
+      check_out: this.state.check_out,
     };
 
-    var request = new Request('http://localhost:5000/listings/search', {
-      method: 'POST',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify(data)
-    });
-    fetch(request)
-      .then(function (response) {
-        response.json().then(function (data) {
-          console.log(data)
+    axios.post(`http://localhost:5000/listings/search`, location)
+      .then(res => {
+        this.setState({
+          isLoaded: true,
+          listings: res.data,
+        });
+      },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
         })
-      })
-    alert('Check in console to see results F12 Devtools')
   }
-
   render() {
-    const { classes } = this.props;
-    return (
-      <Fragment><form>
-        <input type="text" ref="Location" />
-        <button onClick={this.onSearchRentals.bind(this)}>Search</button>
-      </form> </Fragment>
+    return (<Fragment>
+      <form onSubmit={this.handleSubmit}>
+
+        <input type="text" name="listing_location" onChange={this.handleChangeOnLocation} />
+        <input type="text" name="check_in" placeholder="DD/MM/YYYY" onChange={this.handleChangeOnCheckIn}/>
+        <input type="text" name="check_out" placeholder="DD/MM/YYYY"  onChange={this.handleChangeOnCheckOut}/>
+        <button >Search</button>
+
+      </form>
+      <Container fluid="md">
+        <Jumbotron>
+          <h1>Available places to stay</h1>
+        </Jumbotron>
+        <Row>
+          {this.state.listings.map((listing) => (
+            <Col md={3}>
+              <Link to={`/listings/${listing.listing_id}`}>
+                <ListingPreview key={listing.listing_id} {...listing} />
+              </Link>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </Fragment>
     );
   }
 }
-export default withStyles(useStyles)(LocationSearchBar);
+export default (LocationSearchBar);

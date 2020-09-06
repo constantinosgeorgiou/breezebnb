@@ -9,7 +9,6 @@ CREATE TABLE listings
     property_type PROPERTY_TYPE NOT NULL,
     listing_location VARCHAR NOT NULL,
     rating INTEGER,
-    is_available BOOLEAN,
     picture VARCHAR,
     PRIMARY KEY (listing_id)
     -- can accomodate children: how many
@@ -17,3 +16,13 @@ CREATE TABLE listings
     -- rooms: how many
     -- listing_owner UUID REFERENCES users(user_id)
 );
+DROP TABLE IF EXISTS Rentals_reserved;
+
+CREATE TABLE Rentals_reserved
+(
+    listing_id character varying(37) NOT NULL,
+    check_in date NOT NULL,
+    check_out date NOT NULL,
+    PRIMARY KEY (listing_id, check_in, check_out)
+)
+;

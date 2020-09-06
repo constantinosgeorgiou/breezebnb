@@ -1,4 +1,5 @@
 const database = require("../database/index");
+const { checkout } = require("../routes/listings");
 
 const retrieveListings = (request, response) => {
     database.query(
@@ -19,22 +20,6 @@ const retrieveListings = (request, response) => {
     );
 };
 
-const retrieveAvailableListings = (request, response) => {
-    database.query(
-        "SELECT * FROM listings WHERE is_available = 'yes' ORDER BY listing_id ASC",
-        (error, results) => {
-            if (error) {
-                response.status(error.status || 500).json({
-                    error: {
-                        message: error.message,
-                    },
-                });
-            }
-
-            response.status(200).json(results.rows);
-        }
-    );
-};
 
 const retrieveListingById = (request, response) => {
     const { listingId } = request.params;
@@ -161,15 +146,20 @@ const deleteListing = (request, response) => {
 };
 
 const SearchForAvailableListings = (request, response) => {
+    const { listingId } = request.params;
     console.log(request.body);
     const {
-        listing_location
+        listing_location,
+        check_in,
+        check_out,
     } = request.body;
 
     database.query(
-        "SELECT * FROM listings WHERE listing_location = $1 AND is_available='true'",
+        "SELECT * FROM listings where listing_location = $1 and listing_id::text NOT IN (SELECT listing_id FROM rentals_reserved where (check_in>=$2 AND check_in<=$3) Or (check_out>=$2 and check_out<=$3 ))",
         [
-            listing_location
+            listing_location,
+            check_in,
+            check_out,
         ],
         (error, results) => {
             if (error) {
@@ -190,7 +180,6 @@ const SearchForAvailableListings = (request, response) => {
 
 module.exports = {
     retrieveListings,
-    retrieveAvailableListings,
     retrieveListingById,
     createListing,
     updateListing,

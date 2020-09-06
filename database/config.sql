@@ -19,7 +19,10 @@
 -- ------------------------------
 CREATE EXTENSION
 IF NOT EXISTS "uuid-ossp";
-
+-- ------------------------------
+-- EUROPEAN DATE FORMAT
+-- ------------------------------
+SET DateStyle TO European;
 -- ------------------------------
 -- CREATE TYPES
 -- ------------------------------
