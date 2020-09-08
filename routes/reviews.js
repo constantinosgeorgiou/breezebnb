@@ -7,7 +7,7 @@ const Reviews = require("../controllers/reviews");
 router.post("/", Reviews.createReview);
 
 //Update review
-router.put("/:reviewId", Reviews.updateReview);
+router.put("/:review_id", Reviews.updateReview);
 
 // Delete review
 //router.delete("/:reviewId", Reviews.deleteReviewById);

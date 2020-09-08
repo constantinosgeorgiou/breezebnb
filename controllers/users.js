@@ -73,7 +73,7 @@ const createUser = (request, response) => {
             console.log(results);
             response
                 .status(201)
-                .send(`User added with username: ${results.insertId}`);
+                .send(`User added with username: ${userName}`);
         }
     );
 };
@@ -83,7 +83,7 @@ const updateUserByUserName = (request, response) => {
     const { name, email } = request.body;
 
     database.query(
-        "UPDATE users SET name = $1, email = $2 WHERE user_name = $3",
+        "UPDATE users SET first_name = $1, email = $2 WHERE user_name = $3",
         [name, email, userName],
         (error, results) => {
             if (error) {

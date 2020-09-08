@@ -36,11 +36,11 @@ const createReview = (request, response) => {
 };
 
 const updateReview = (request, response) => {
-    //const listing_id = request.params.listing_id;
-    const { description, rating,user_id,listing_id } = request.body;
+    const review_id = request.params.review_id;
+    const { description, rating } = request.body;
     database.query(
-        "UPDATE reviews SET description = $1, rating = $2 WHERE user_id = $3 AND listing_id = $4",
-        [description,rating,user_id, listing_id],
+        "UPDATE reviews SET description = $1, rating = $2 WHERE review_id=$3",
+        [description,rating, review_id],
         (error, results) => {
             if (error) {
                 response.status(error.status || 400).json({
@@ -49,7 +49,7 @@ const updateReview = (request, response) => {
                     },
                 });
             }
-            response.status(204).send(`Review modified with ID: ${listing_id}`);
+            response.status(204).send(`Review modified with ID:`);
         }
     );
 };
