@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs"); // Used to hash and compare passwords of users
+
 const MAX_USERS = 10;
 
 const FIRST_NAMES = [
@@ -372,6 +374,10 @@ function createPhoneNumber() {
     return Math.floor(Math.random() * 1000000000).toString();
 }
 
+// async function passwordHasher(string) {
+//     return await bcrypt.hash(string, 10).then();
+// }
+
 function generateUser() {
     const user = {};
 
@@ -386,7 +392,7 @@ function generateUser() {
     user.user_name =
         user.first_name.toLocaleLowerCase() +
         Math.floor(Math.random() * 10 + 1);
-    user.password = "password";
+    user.password = bcrypt.hashSync("password", 10);
     user.phone = createPhoneNumber();
     user.user_role = pickUserRole();
     user.picture = "picture";
@@ -407,7 +413,8 @@ function generateListing() {
     listing.property_type = pickListingType();
     listing.listing_location = pickLocation();
     listing.rating = Math.floor(Math.random() * 10 + 5);
-    listing.picture = "https://media-cdn.tripadvisor.com/media/vr-splice-j/05/a0/88/17.jpg";
+    listing.picture =
+        "https://media-cdn.tripadvisor.com/media/vr-splice-j/05/a0/88/17.jpg";
 
     return listing;
 }

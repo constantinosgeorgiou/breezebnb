@@ -8,9 +8,11 @@ CREATE TABLE users
     last_name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
+    -- password hashed using bcrypt
     phone VARCHAR,
     user_role USER_ROLE NOT NULL,
     picture VARCHAR,
-    UNIQUE(user_name, email, phone), -- user_name, email, phone must be unique
+    UNIQUE(user_name, email, phone),
+    -- user_name, email, phone must be unique
     PRIMARY KEY (user_id)
 );
