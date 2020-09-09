@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs"); // Used to hash and compare passwords of users
-
 const database = require("../database/index");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Retrieves all users
 const retrieveUsers = (request, response) => {
@@ -164,11 +165,90 @@ const deleteUserByUserName = (request, response) => {
     );
 };
 
+const authenticate = async (request, response) => {};
+
+const signin = (request, response) => {
+    const { userName, password } = request.body;
+
+    // Find user with given username
+    database.query(
+        "SELECT * FROM users WHERE user_name = $1",
+        [userName],
+        (error, results) => {
+            if (error) {
+                // Internal server error
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            } else if (results.rowCount === 0) {
+                // User not found
+                response.statue(404).send({ message: "User not found." });
+            } else {
+                // Map result data to user object
+                const user = results.rows[0];
+
+                // Verify password is correct
+                bcrypt.compare(
+                    user.password,
+                    password,
+                    (error, passwordIsValid) => {
+                        if (error) {
+                            // Error while comparing hashes
+                            response.status(error.status || 500).json({
+                                error: {
+                                    message: error.message,
+                                },
+                            });
+                        } else if (passwordIsValid === false) {
+                            // Password is invalid
+                            response.status(401).send({
+                                accessToken: null,
+                                message: "Password is invalid.",
+                            });
+                        } else {
+                            // Password is valid
+                            // Generate token
+                            const token = jwt.sign(
+                                { userId: user.userId },
+                                JWT_SECRET,
+                                {
+                                    expiresIn: "1h",
+                                }
+                            );
+
+                            response.status(200).send({
+                                userId: user.userId,
+                                userName: user.userName,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                email: user.email,
+                                phone: user.phone,
+                                userRole: user.userRole,
+                                picture: user.picture,
+                                accessToken: token,
+                            });
+                        }
+                    }
+                );
+            }
+        }
+    );
+    // find user if it exists
+    // compare passwords
+    // generate jwt
+    // return user info + jwt
+};
+
 module.exports = {
     retrieveUsers,
     retrieveUserByUserName,
-    // signIn,
+
     createUser,
     updateUserByUserName,
     deleteUserByUserName,
+
+    signin,
+    authenticate,
 };
