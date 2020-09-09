@@ -7,11 +7,24 @@ const helmet = require("helmet"); // Used as protection from some well-known web
 
 const app = express();
 const PORT = process.env.PORT;
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
-app.use(cors());
+// Cords set up
+// ------------
+// Only allow requests from CORS_ORIGIN
+const corsOptions = { origin: CORS_ORIGIN };
+app.use(cors(corsOptions));
+
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// Body parser set up
+// ------------------
+// Parses requests where Content-Type header
+// is of type application/json
 app.use(bodyParser.json());
+// Parses requests where Content-Type header
+// is of type application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Requiring routes
 const IndexRoutes = require("./routes/index.js");
