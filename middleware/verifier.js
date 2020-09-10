@@ -1,4 +1,4 @@
-import { index as database } from "../database";
+const database = require("../database/index");
 
 // Check for duplicate usernames
 const isUsernameUnique = (request, response, next) => {
@@ -64,7 +64,7 @@ const isEmailUnique = (request, response, next) => {
     );
 };
 
-export default {
+module.exports = {
     isUsernameUnique,
     isEmailUnique,
 };
