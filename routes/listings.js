@@ -27,5 +27,6 @@ router.put("/:listingId/edit", Listings.updateListing);
 router.delete("/:listingId/delete", Listings.deleteListing);
 
 // Retrieve all listings of certain type
+router.get("/type/:property_type", Listings.retrieveListingOfCertainType);
 
 module.exports = router;
