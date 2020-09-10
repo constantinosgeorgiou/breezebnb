@@ -2,7 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../controllers/users");
 
-const verifier = require("../middleware/verifier");
+const {
+    isUsernameUnique,
+    isEmailUnique,
+    isRoleValid,
+    isRoleNotAdmin,
+} = require("../middleware/verifier");
 
 router.get("/", (request, response) => {
     response.json({ info: "Node.js, Express, and Postgres API" });
@@ -10,15 +15,10 @@ router.get("/", (request, response) => {
 
 router.post(
     "/auth/signup",
-    [
-        verifier.isUsernameUnique,
-        verifier.isEmailUnique,
-        verifier.isRoleValid,
-        verifier.isRoleNotAdmin,
-    ],
+    [isUsernameUnique, isEmailUnique, isRoleValid, isRoleNotAdmin],
     Users.createUser
 );
 
-// router.post("/signin", Users.)
+router.post("/auth/signin", Users.signin);
 
 module.exports = router;

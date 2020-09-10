@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs"); // Used to hash and compare passwords of users
+const jwt = require("jsonwebtoken"); // Used to generate jwt token
+const JWT_SECRET = process.env.JWT_SECRET; // Used to generate jwt token
+
 const database = require("../database/index");
-const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET;
 
 // Retrieves all users
 const retrieveUsers = (request, response) => {
@@ -131,8 +132,7 @@ const deleteUserByUserName = (request, response) => {
     );
 };
 
-const authenticate = async (request, response) => {};
-
+// Sign in user
 const signin = (request, response) => {
     const { userName, password } = request.body;
 
@@ -175,6 +175,7 @@ const signin = (request, response) => {
                             });
                         } else {
                             // Password is valid
+
                             // Generate token
                             const token = jwt.sign(
                                 { userId: user.userId },
@@ -212,5 +213,4 @@ module.exports = {
     deleteUserByUserName,
 
     signin,
-    authenticate,
 };

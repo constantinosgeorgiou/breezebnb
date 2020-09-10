@@ -1,5 +1,4 @@
 const database = require("../database/index");
-const { response } = require("express");
 
 // Check for duplicate usernames
 const isUsernameUnique = (request, response, next) => {
