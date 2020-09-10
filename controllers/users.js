@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs"); // Used to hash and compare passwords of users
+const bcrypt = require("bcrypt"); // Used to hash and compare passwords of users
 const jwt = require("jsonwebtoken"); // Used to generate jwt token
 const JWT_SECRET = process.env.JWT_SECRET; // Used to generate jwt token
 
@@ -57,7 +57,7 @@ const createUser = async (request, response) => {
     } = request.body;
 
     // Retrieve and hash password
-    const password = await bcrypt.hash(request.body.password, 10);
+    const password = await bcrypt.hash(request.body.password, 10); // Salt rounds: 10
 
     // Create new user
     database.query(
@@ -133,7 +133,7 @@ const deleteUserByUserName = (request, response) => {
 };
 
 // Sign in user
-const signin = (request, response) => {
+const signin = async (request, response) => {
     const { userName, password } = request.body;
 
     // Find user with given username
@@ -150,15 +150,21 @@ const signin = (request, response) => {
                 });
             } else if (results.rowCount === 0) {
                 // User not found
-                response.statue(404).send({ message: "User not found." });
+                response.status(404).send({ message: "User not found." });
             } else {
                 // Map result data to user object
                 const user = results.rows[0];
 
                 // Verify password is correct
+                // Compares plain text password with hash
+                // IMPORTANT NOTE:
+                //   When comparing, plain text password
+                //   goes FIRST, followd by hash
+                //   Example:
+                //    bcrypt.compare(PLAIN_TEXT, HASH, callback function)
                 bcrypt.compare(
-                    user.password,
                     password,
+                    user.password,
                     (error, passwordIsValid) => {
                         if (error) {
                             // Error while comparing hashes
@@ -168,6 +174,9 @@ const signin = (request, response) => {
                                 },
                             });
                         } else if (passwordIsValid === false) {
+                            console.log(password);
+                            console.log(user.password);
+
                             // Password is invalid
                             response.status(401).send({
                                 accessToken: null,
@@ -185,14 +194,18 @@ const signin = (request, response) => {
                                 }
                             );
 
+                            // NOTE Regarding the underscores ( _ ):
+                            //   Data was mapped to the user object
+                            //   from the results of the database.
+                            //   In the database fields have underscores.
                             response.status(200).send({
-                                userId: user.userId,
-                                userName: user.userName,
-                                firstName: user.firstName,
-                                lastName: user.lastName,
+                                userId: user.user_id,
+                                userName: user.user_name,
+                                firstName: user.first_name,
+                                lastName: user.last_name,
                                 email: user.email,
                                 phone: user.phone,
-                                userRole: user.userRole,
+                                userRole: user.user_role,
                                 picture: user.picture,
                                 accessToken: token,
                             });
