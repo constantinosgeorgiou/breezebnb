@@ -8,6 +8,9 @@ router.get("/", Users.retrieveUsers);
 // Find user by ID
 router.get("/:userName", Users.retrieveUserByUserName);
 
+// Find first name and last name by ID
+router.get("/name/:user_id", Users.retrieveUserNameByUserId);
+
 // Create user
 router.post("/", Users.createUser);
 
