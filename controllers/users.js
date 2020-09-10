@@ -58,65 +58,31 @@ const createUser = async (request, response) => {
     // Retrieve and hash password
     const password = await bcrypt.hash(request.body.password, 10);
 
-    // Check if username or email is already in use
+    // Create new user
     database.query(
-        "SELECT user_id FROM users WHERE email = $1 OR user_name = $2",
-        [email, userName],
+        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        [
+            userName,
+            firstName,
+            lastName,
+            email,
+            password,
+            phone,
+            userRole,
+            picture,
+        ],
         (error, results) => {
             if (error) {
-                console.log("Error: ", error);
-
-                // Internal server error
-                response.status(error.status || 500).json({
+                response.status(error.status || 400).json({
                     error: {
                         message: error.message,
                     },
                 });
-            } else if (results.rowCount !== 0) {
-                // Email or username already in use
-                response.status(200).json({
-                    response: {
-                        message: "Email and username already in use",
-                    },
-                });
             } else {
-                // Make sure that received role is valid
-                if (role !== "admin") {
-                    // Create new user
-                    database.query(
-                        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-                        [
-                            userName,
-                            firstName,
-                            lastName,
-                            email,
-                            password,
-                            phone,
-                            userRole,
-                            picture,
-                        ],
-                        (error, results) => {
-                            if (error) {
-                                response.status(error.status || 400).json({
-                                    error: {
-                                        message: error.message,
-                                    },
-                                });
-                            } else {
-                                // User created
-                                response.status(201).send(
-                                    `User added with username: ${userName}` // SUCCESS
-                                );
-                            }
-                        }
-                    );
-                } else {
-                    // Anauthorised request to create an admin user.
-                    // Administrator profiles are created directly with the database.
-                    response
-                        .status(401)
-                        .json({ message: "You are not allowed to do that." });
-                }
+                // User created
+                response.status(201).send(
+                    `User added with username: ${userName}` // SUCCESS
+                );
             }
         }
     );
@@ -235,10 +201,6 @@ const signin = (request, response) => {
             }
         }
     );
-    // find user if it exists
-    // compare passwords
-    // generate jwt
-    // return user info + jwt
 };
 
 module.exports = {
