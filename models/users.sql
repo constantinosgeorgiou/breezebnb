@@ -12,7 +12,22 @@ CREATE TABLE users
     phone VARCHAR,
     user_role USER_ROLE NOT NULL,
     picture VARCHAR,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE(user_name, email, phone),
     -- user_name, email, phone must be unique
     PRIMARY KEY (user_id)
+);
+
+DROP TABLE IF EXISTS tokens;
+
+-- Each user has many JWT tokens
+-- Storing the tokens enables a user to be logged in
+-- on different devices and once they log out of one device
+-- we still want to make sure that they are still logged in on
+-- another device that they had logged in.
+CREATE TABLE tokens
+(
+    token VARCHAR NOT NULL,
+    bearer UUID NOT NULL REFERENCES users(user_id),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
