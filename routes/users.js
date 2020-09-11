@@ -12,6 +12,9 @@ router.get("/", [isAdmin], Users.retrieveUsers);
 // Find user by ID
 router.get("/:userName", Users.retrieveUserByUserName);
 
+// Find first name and last name by ID
+router.get("/name/:user_id", Users.retrieveUserNameByUserId);
+
 // Update user
 router.put("/:userName", verifyToken, Users.updateUserByUserName);
 

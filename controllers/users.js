@@ -291,6 +291,24 @@ const deleteUserByUserName = (request, response) => {
     );
 };
 
+const retrieveUserNameByUserId = (request, response) => {
+    const user_id = request.params.user_id;
+    database.query(
+        "SELECT first_name,last_name FROM users WHERE user_id = $1",
+        [user_id],
+        (error, results) => {
+            if (error) {
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            response.status(200).json(results.rows);
+        }
+    );
+};
+
 module.exports = {
     signup,
     signin,
@@ -300,4 +318,5 @@ module.exports = {
 
     updateUserByUserName,
     deleteUserByUserName,
+    retrieveUserNameByUserId,
 };

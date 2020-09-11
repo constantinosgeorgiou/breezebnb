@@ -177,6 +177,27 @@ const SearchForAvailableListings = (request, response) => {
 };
 
 
+const retrieveListingOfCertainType = (request, response) => {
+    const { property_type } = request.params;
+
+    database.query(
+        "SELECT * FROM listings WHERE property_type = $1",
+        [property_type],
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+
+            response.status(200).json(results.rows);
+        }
+    );
+};
+
 
 module.exports = {
     retrieveListings,
@@ -185,4 +206,5 @@ module.exports = {
     updateListing,
     deleteListing,
     SearchForAvailableListings,
+    retrieveListingOfCertainType,
 };
