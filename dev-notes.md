@@ -3,14 +3,26 @@
 
 ## File structure:
 
-- .env
-- .gitignore
-- dev-notes.md
-- LICENSE
-- package.json
-- Procfile
-- README.md
-- ΥΠΟΧΡΕΩΤΙΚΗ_ΕΡΓΑΣΙΑ_2020.pdf
+| Name | Description |
+| --- | --- |
+| .env | Used for enviroment variables |
+| .gitignore | Specifies intentionally untracked files to ignore |
+| LICENSE | License of the project |
+| [README.md](README.md) | Future documentation of repository|
+| README.pdf | University documentation |
+| ΥΠΟΧΡΕΩΤΙΚΗ_ΕΡΓΑΣΙΑ_2020.pdf | Objective and specifications of project |
+| [dev-notes.md](dev-notes.md) | Developer notes |
+| Procfile | Heroku apps include a Procfile that specifies the commands that are executed by the app on startup. |
+| package.json | Central repository of configuration for tools |
+| package-lock.json | Stores an exact, versioned dependency tree |
+| app.js | Starting point of application |
+| controllers/ | Folder containing various controllers |
+| database/ | Folder containing various database files |
+| middleware/ | Folder containing the middleware used in the application |
+| models/ | Folder containing schemas of database |
+| routes/ | Folder containing the routes of the application |
+| views/ | Folder containing the Front end part of the application | 
+
 
 ## Build and run server
 ```bash
@@ -290,4 +302,21 @@ npm i -S jquery
 npm install axios --save
 ```
 
+## .env
 
+Define the following enviroment variables for the application to run properly
+
+```bash
+# Port that server is listening
+PORT = <port>
+
+# Cors allows only requests from this url 
+CORS_ORIGIN = "http://localhost:<port>/"
+
+# Database credentials
+DATABASE_URI = 'postgresql://<username>:<password>@<host>:<port>/<database>'
+
+# JWT secret
+JWT_SECRET = "<256 bit alphanumeric string>"
+
+```
