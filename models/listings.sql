@@ -10,11 +10,12 @@ CREATE TABLE listings
     listing_location VARCHAR NOT NULL,
     rating INTEGER,
     picture VARCHAR,
+    listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
     -- can accomodate children: how many
     -- can accomodate adults: how many
     -- rooms: how many
-    -- listing_owner UUID REFERENCES users(user_id)
+    
 );
 DROP TABLE IF EXISTS Rentals_reserved;
 
