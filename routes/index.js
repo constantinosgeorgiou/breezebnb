@@ -16,7 +16,7 @@ router.get("/", (request, response) => {
 router.post(
     "/auth/signup",
     [isUsernameUnique, isEmailUnique, isRoleValid, isRoleNotAdmin],
-    Users.createUser
+    Users.signup
 );
 
 router.post("/auth/signin", Users.signin);

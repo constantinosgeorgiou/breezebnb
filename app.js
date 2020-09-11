@@ -15,6 +15,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN;
 const corsOptions = { origin: CORS_ORIGIN };
 app.use(cors(corsOptions));
 
+// TODO: add what helmet does: https://www.npmjs.com/package/helmet
 app.use(helmet());
 
 // Body parser set up
