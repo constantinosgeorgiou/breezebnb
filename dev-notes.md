@@ -57,6 +57,8 @@ heroku local web
 
 ## NodeJS on Heroku
 
+[Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
+
 [Getting started with NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true)
 
 [Deploying NodeJS](https://devcenter.heroku.com/articles/deploying-nodejs)
