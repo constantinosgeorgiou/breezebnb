@@ -97,7 +97,7 @@ const signup = async (request, response) => {
                                             userRole: user.user_role,
                                             picture: user.picture,
                                             token: token,
-                                        });
+                                        }); // SUCCESS
                                     }
                                 }
                             );
@@ -197,10 +197,61 @@ const signin = (request, response) => {
                                             userRole: user.user_role,
                                             picture: user.picture,
                                             token: token,
-                                        });
+                                        }); // SUCCESS
                                     }
                                 }
                             );
+                        }
+                    }
+                );
+            }
+        }
+    );
+};
+
+// Sign user out of the application
+const signout = (request, response) => {
+    // Find all tokens of the user
+    database.query(
+        "SELECT tokens.token FROM users, tokens WHERE users.user_id = tokens.bearer AND users.user_name = $1",
+        [request.user.userName],
+        (error, results) => {
+            if (error) {
+                // Error while fetching tokens of user
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            } else {
+                // Remove current token from database
+                database.query(
+                    "DELETE FROM tokens WHERE token = $1",
+                    [request.token],
+                    (error, removed) => {
+                        if (error) {
+                            // Error while deleting token
+                            response.status(error.status || 500).json({
+                                error: {
+                                    message: error.message,
+                                },
+                            });
+                        } else {
+                            // Construct array of tokens
+                            let tokens = [];
+                            results.rows.forEach((row) => {
+                                tokens.push(row.token);
+                            });
+
+                            // Remove current token from request.user.tokens
+                            const leftOverTokens = tokens.filter(
+                                (token) => token !== request.token
+                            );
+                            request.user.tokens = leftOverTokens;
+
+                            response
+                                .status(204)
+                                .send({ message: "Successful sign out." }); // SUCCESS
                         }
                     }
                 );
@@ -222,7 +273,7 @@ const retrieveUsers = (request, response) => {
                 });
             }
 
-            response.status(200).json(results.rows);
+            response.status(200).json(results.rows); // SUCCESS
         }
     );
 };
@@ -312,6 +363,8 @@ const retrieveUserNameByUserId = (request, response) => {
 module.exports = {
     signup,
     signin,
+    signout,
+    // signoutAll,
 
     retrieveUsers,
     retrieveUserByUserName,

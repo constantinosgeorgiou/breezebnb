@@ -3,7 +3,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const database = require("../database/index");
 
-const verifyToken = (request, response, next) => {
+const isAuthenticated = (request, response, next) => {
     const userName = request.params.userName;
     const token = request.header("Authorization").replace("Bearer ", "");
 
@@ -13,11 +13,6 @@ const verifyToken = (request, response, next) => {
             if (error) {
                 response.status(401).send({ message: "Unauthorized!" });
             } else {
-                // Decoded has this:
-                // { id: '9507374b-5c27-46ee-977e-b6929ae180c9',
-                //     iat: 1599827875,
-                //     exp: 1599856675 }
-
                 // Find all tokens of the user
                 database.query(
                     "SELECT * FROM users, tokens WHERE users.user_id = tokens.bearer AND users.user_name = $1",
@@ -35,6 +30,12 @@ const verifyToken = (request, response, next) => {
                                 .status(404)
                                 .send({ message: "User not found." });
                         } else {
+                            // Construct array of tokens
+                            let tokens = [];
+                            results.rows.forEach((row) => {
+                                tokens.push(row.token);
+                            });
+
                             // Construct user object from query results
                             const user = {
                                 userId: results.rows[0].user_id,
@@ -45,13 +46,8 @@ const verifyToken = (request, response, next) => {
                                 phone: results.rows[0].phone,
                                 role: results.rows[0].role,
                                 picture: results.rows[0].picture,
+                                tokens: tokens,
                             };
-
-                            // Construct array of tokens
-                            let tokens = [];
-                            results.rows.forEach((row) => {
-                                tokens.push(row.token);
-                            });
 
                             // Check if token is in tokens array
                             if (tokens.includes(token) === false) {
@@ -80,5 +76,5 @@ const verifyToken = (request, response, next) => {
 };
 
 module.exports = {
-    verifyToken,
+    isAuthenticated,
 };
