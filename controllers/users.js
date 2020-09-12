@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt"); // Used to hash and compare passwords of users
-const { response } = require("express");
 const jwt = require("jsonwebtoken"); // Used to generate jwt token
 const JWT_SECRET = process.env.JWT_SECRET; // Used to generate jwt token
 

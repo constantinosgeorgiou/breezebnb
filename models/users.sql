@@ -29,5 +29,6 @@ CREATE TABLE tokens
 (
     token VARCHAR NOT NULL,
     bearer UUID NOT NULL REFERENCES users(user_id),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (token)
 );
