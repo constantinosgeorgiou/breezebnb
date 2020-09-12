@@ -261,44 +261,23 @@ const signout = (request, response) => {
 
 // Sign user out of all devices
 const signoutAll = (request, response) => {
-    // Find all tokens of the user
+    // Delete all tokens of the user
     database.query(
-        "SELECT tokens.token, users.user_id FROM users, tokens WHERE users.user_id = tokens.bearer AND users.user_name = $1",
-        [request.user.userName],
-        (error, results) => {
+        "DELETE FROM tokens WHERE tokens.bearer = $1",
+        [request.user.userId],
+        (error, deleted) => {
             if (error) {
-                // Error while fetching tokens of user
+                // Error while deleting tokens of user
                 response.status(error.status || 500).json({
                     error: {
                         message: error.message,
                     },
                 });
             } else {
-                // Delete all tokens of the user
-                database.query(
-                    "DELETE FROM tokens WHERE tokens.bearer = $1",
-                    [results.rows[0].user_id],
-                    (error, deleted) => {
-                        if (error) {
-                            // Error while deleting tokens of user
-                            response.status(error.status || 500).json({
-                                error: {
-                                    message: error.message,
-                                },
-                            });
-                        } else {
-                            // Remove all tokens from request.user.tokens
-                            request.user.tokens.splice(
-                                0,
-                                request.user.tokens.length
-                            );
+                // Remove all tokens from request.user.tokens
+                request.user.tokens.splice(0, request.user.tokens.length);
 
-                            response
-                                .status(204)
-                                .send({ message: "Successful sign out." }); // SUCCESS
-                        }
-                    }
-                );
+                response.status(204).send({ message: "Successful sign out." }); // SUCCESS
             }
         }
     );
