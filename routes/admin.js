@@ -8,10 +8,10 @@ const { isAuthenticated } = require("../middleware/authentication");
 router.post("/auth/signin", Admin.signin);
 
 // Sign out route
-router.post("/admin/:userName/signout", isAuthenticated, Admin.signout);
+router.post("/:userName/signout", isAuthenticated, Admin.signout);
 
 // Sign all out route
-router.post("/admin/:userName/signoutall", isAuthenticated, Admin.signoutAll);
+router.post("/:userName/signoutall", isAuthenticated, Admin.signoutAll);
 
 
 
