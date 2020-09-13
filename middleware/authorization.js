@@ -1,8 +1,7 @@
 const database = require("../database/index");
 
 const isAdmin = (request, response, next) => {
-    console.log(request.headers);
-    const { userId } = request.userId; // userId was placed here by verifyToken
+    const { userId } = request.user; // user.userId was placed here by isAuthenticated middleware
 
     // User not authenticated
     if (!userId) {

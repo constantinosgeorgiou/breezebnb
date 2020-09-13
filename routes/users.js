@@ -7,7 +7,7 @@ const { isAuthenticated } = require("../middleware/authentication");
 const { isAdmin } = require("../middleware/authorization");
 
 // Find all users
-router.get("/", [isAdmin], Users.retrieveUsers);
+router.get("/", [isAuthenticated, isAdmin], Users.retrieveUsers);
 
 // Find user by ID
 router.get("/:userName", Users.retrieveUserByUserName);
