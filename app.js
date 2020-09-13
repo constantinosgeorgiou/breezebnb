@@ -33,6 +33,8 @@ const UsersRoutes = require("./routes/users.js");
 const ListingsRoutes = require("./routes/listings.js");
 const ReviewsRoutes = require("./routes/reviews.js");
 const MessagesRoutes = require("./routes/messages.js");
+const AdminRoutes = require("./routes/admin.js");
+
 
 // Using routes
 app.use("/", IndexRoutes);
@@ -40,6 +42,8 @@ app.use("/users", UsersRoutes);
 app.use("/listings", ListingsRoutes);
 app.use("/reviews", ReviewsRoutes);
 app.use("/messages", MessagesRoutes);
+app.use("/admin", AdminRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}.`);
