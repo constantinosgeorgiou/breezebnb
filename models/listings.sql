@@ -7,6 +7,7 @@ CREATE TABLE listings
     listing_description VARCHAR NOT NULL,
     cost VARCHAR NOT NULL,
     property_type PROPERTY_TYPE NOT NULL,
+    listing_location VARCHAR NOT NULL,
     listing_address UUID REFERENCES addresses(address_id),
     rating INTEGER,
     picture VARCHAR,
