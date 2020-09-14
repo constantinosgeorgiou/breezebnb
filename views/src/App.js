@@ -1,24 +1,34 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 
-import Navigation from "./components/partials/Navigation";
-import Footer from "./components/partials/Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
-import Home from "./components/pages/Home";
-import SignIn from "./components/pages/SignIn";
-import SignUp from "./components/pages/SignUp";
-import Listings from "./components/pages/Listings";
+import Navigation from "./_components/Navigation";
+import Footer from "./_components/Footer";
+
+// import Home from "./pages/Home";
+// import Listings from "./pages/Listings";
+
+import HomePage from "./HomePage";
+import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
 
 class App extends Component {
+    // constructor(props) {
+    //     const { pathname } = useLocation();
+    // }
+
     render() {
         return (
             <div>
                 <Navigation />
+
                 <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/signin" component={SignIn} />
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/listings" component={Listings} />
+                    <Route exact path="/" component={HomePage} />
+                    <Route path="/signin" component={SignInPage} />
+                    <Route path="/signup" component={SignUpPage} />
+                    {/* <Route path="/listings" component={Listings} /> */}
                 </Switch>
                 <Footer />
             </div>

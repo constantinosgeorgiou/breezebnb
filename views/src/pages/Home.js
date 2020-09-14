@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import SearchBar from "./../SearchBar";
+import SearchBar from "../_components/SearchBar";
 
 class Home extends Component {
     render() {
