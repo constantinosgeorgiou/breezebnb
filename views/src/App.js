@@ -8,11 +8,11 @@ import Navigation from "./_components/Navigation";
 import Footer from "./_components/Footer";
 
 // import Home from "./pages/Home";
-// import SignUp from "./pages/SignUp";
 // import Listings from "./pages/Listings";
 
 import HomePage from "./HomePage";
 import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
 
 class App extends Component {
     // constructor(props) {
@@ -27,7 +27,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={HomePage} />
                     <Route path="/signin" component={SignInPage} />
-                    {/* <Route path="/signup" component={SignUp} /> */}
+                    <Route path="/signup" component={SignUpPage} />
                     {/* <Route path="/listings" component={Listings} /> */}
                 </Switch>
                 <Footer />
