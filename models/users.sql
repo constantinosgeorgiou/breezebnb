@@ -16,6 +16,7 @@ CREATE TABLE users
     birthday VARCHAR NOT NULL,
     joined_in TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    address UUID REFERENCES addresses(address_id),
     UNIQUE(user_name, email, phone),
     -- user_name, email, phone must be unique
     PRIMARY KEY (user_id)

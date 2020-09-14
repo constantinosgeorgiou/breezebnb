@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS Messages;
 
 CREATE TABLE Messages
 (
-    message_id serial NOT NULL,
+    message_id UUID DEFAULT uuid_generate_v4 (),
     sender_id character varying(37) NOT NULL,
     receiver_id character varying(37) NOT NULL,
     listing_id character varying(37) NOT NULL,
