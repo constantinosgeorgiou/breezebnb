@@ -178,10 +178,29 @@ const signoutAll = (request, response) => {
         }
     );
 };
+const approve = (request, response) => {
+    const userName = request.params.userName;
+
+    database.query(
+        "UPDATE users SET approved = 'true' WHERE user_name = $1",
+        [userName],
+        (error, results) => {
+            if (error) {
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            response.status(204).send(`User approved with username: ${userName}`);
+        }
+    );
+};
 
 
 module.exports = {
     signin,
     signout,
     signoutAll,
+    approve,
 };

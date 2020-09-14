@@ -9,6 +9,7 @@ const {
     isEmailUnique,
     isRoleValid,
     isRoleNotAdmin,
+    isApproved,
 } = require("../middleware/verifier");
 
 router.get("/", (request, response) => {

@@ -12,6 +12,9 @@ CREATE TABLE users
     phone VARCHAR,
     user_role USER_ROLE NOT NULL,
     picture VARCHAR,
+    approved boolean,
+    birthday VARCHAR NOT NULL,
+    joined_in TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE(user_name, email, phone),
     -- user_name, email, phone must be unique

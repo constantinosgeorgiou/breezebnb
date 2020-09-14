@@ -396,7 +396,7 @@ function generateUser() {
     user.phone = createPhoneNumber();
     user.user_role = pickUserRole();
     user.picture = "picture";
-
+    user.birthday="1/1/1990";
     return user;
 }
 
@@ -421,7 +421,7 @@ function generateListing() {
 
 function generateUsers() {
     console.log(
-        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture) VALUES"
+        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture, birthday) VALUES"
     );
     for (let index = 0; index < MAX_USERS; index++) {
         let User = generateUser();
@@ -449,6 +449,9 @@ function generateUsers() {
                 "'," +
                 "'" +
                 User.picture +
+                "'," +
+                "'" +
+                User.birthday +
                 (index + 1 === MAX_USERS ? "');" : "'),")
         );
     }

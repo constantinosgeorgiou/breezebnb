@@ -110,10 +110,42 @@ const isRoleNotAdmin = (request, response, next) => {
         next(); // SUCCESS
     }
 };
+// Check for duplicate usernames
+const isApproved = (request, response, next) => {
+    const { userName } = request.body;
 
+    database.query(
+        "SELECT approved FROM users WHERE user_name = $1",
+        [userName],
+        (error, results) => {
+            if (error) {
+                console.log("Error: ", error);
+
+                // Internal server error
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            } else if (results.rows[0].approved === false) {
+                console.log(results.rows[0].answer);
+                // Username already in use
+                response.status(200).json({
+                    response: {
+                        message: "User is not approved",
+                    },
+                });
+            } else {
+                // approved user
+                next(); // SUCCESS
+            }
+        }
+    );
+};
 module.exports = {
     isUsernameUnique,
     isEmailUnique,
     isRoleValid,
     isRoleNotAdmin,
+    isApproved,
 };
