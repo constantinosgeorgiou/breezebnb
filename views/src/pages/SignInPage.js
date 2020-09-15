@@ -4,57 +4,53 @@ import sign_in_img from "../assets/imgs/sign_in_img.jpg";
 import sign_in from "../assets/imgs/sign_in.jpg";
 import { BiLock } from "react-icons/bi";
 
-class SignInForm extends Component {
-    render() {
-        return (
-            <form>
-                <div class="form-group">
-                    <label for="inputUsername">Username</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="inputUsername"
-                        placeholder="janedoe"
-                    />
+const SignInForm = () => {
+    return (
+        <form>
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="inputUsername"
+                    placeholder="janedoe"
+                />
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword">Password</label>
+                <input
+                    type="Password"
+                    class="form-control"
+                    id="exampleInputPassword"
+                    placeholder="password"
+                />
+            </div>
+            <button
+                type="submit"
+                class="btn btn-primary btn-block mt-5 font-weight-bold"
+            >
+                SIGN IN
+            </button>
+            <div class="form-row mt-2">
+                <div class="col-auto">
+                    <small class="form-text">
+                        <Link to="/forgot-password">Forgot password?</Link>
+                    </small>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword">Password</label>
-                    <input
-                        type="Password"
-                        class="form-control"
-                        id="exampleInputPassword"
-                        placeholder="password"
-                    />
+                <div class="col text-right">
+                    <small class="forlm-text">
+                        <Link to="/signup">Don't have an account? Sign Up</Link>
+                    </small>
                 </div>
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-block mt-5 font-weight-bold"
-                >
-                    SIGN IN
-                </button>
-                <div class="form-row mt-2">
-                    <div class="col-auto">
-                        <small class="form-text">
-                            <Link to="/forgot-password">Forgot password?</Link>
-                        </small>
-                    </div>
-                    <div class="col text-right">
-                        <small class="forlm-text">
-                            <Link to="/signup">
-                                Don't have an account? Sign Up
-                            </Link>
-                        </small>
-                    </div>
-                </div>
-            </form>
-        );
-    }
-}
+            </div>
+        </form>
+    );
+};
 
 class SignInPage extends Component {
     render() {
         return (
-            <main role="main pt-4 pt-sm-5">
+            <main role="main" class="pt-4 pt-sm-5">
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-lg-8 d-none d-lg-block">
