@@ -8,6 +8,30 @@
     border-color: blue;
 }
 
-.padding-top-5 {
-    padding-top: 5%;
+.green-border {
+    border-style: solid;
+    border-color: green;
+}
+
+.yellow-border {
+    border-style: solid;
+    border-color: yellow;
+}
+
+/* Centers and resizes an image, height: 252px, width: 252px */
+.img-circle-252 {
+    border-radius: 50%;
+    height: 252px;
+    width: 252px;
+    object-fit: cover;
+}
+
+
+/* Centers and resizes an image, height: 60px, width: 60px */
+.img-circle-60 {
+    border-radius: 50%;
+
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
 }
