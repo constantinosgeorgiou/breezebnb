@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
-import sign_in_img from "../assets/imgs/sign_in_img.jpg";
-import sign_in from "../assets/imgs/sign_in.jpg";
+
 import { BiLock } from "react-icons/bi";
+
+import sign_in from "../assets/imgs/sign_in.jpg";
 
 const SignInForm = () => {
     return (
@@ -38,7 +40,7 @@ const SignInForm = () => {
                     </small>
                 </div>
                 <div class="col text-right">
-                    <small class="forlm-text">
+                    <small class="form-text">
                         <Link to="/signup">Don't have an account? Sign Up</Link>
                     </small>
                 </div>
@@ -50,7 +52,7 @@ const SignInForm = () => {
 class SignInPage extends Component {
     render() {
         return (
-            <main role="main" class="pt-4 pt-sm-5">
+            <main role="main" class="pt-sm-2">
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-lg-8 d-none d-lg-block">
