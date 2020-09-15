@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -7,12 +7,10 @@ import "./App.css";
 import Navigation from "./_components/Navigation";
 import Footer from "./_components/Footer";
 
-// import Home from "./pages/Home";
-// import Listings from "./pages/Listings";
-
-import HomePage from "./HomePage";
-import SignInPage from "./SignInPage";
-import SignUpPage from "./SignUpPage";
+import HomePage from "./pages/HomePage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+import ProfilePage from "./pages/ProfilePage";
 
 class App extends Component {
     // constructor(props) {
@@ -29,6 +27,8 @@ class App extends Component {
                     <Route path="/signin" component={SignInPage} />
                     <Route path="/signup" component={SignUpPage} />
                     {/* <Route path="/listings" component={Listings} /> */}
+                    {/* <Route path="/search/" component={ResultsPage} /> */}
+                    <Route path="/users" component={ProfilePage} />
                 </Switch>
                 <Footer />
             </div>
