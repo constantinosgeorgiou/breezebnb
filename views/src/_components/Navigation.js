@@ -6,7 +6,7 @@ class Navigation extends Component {
     render() {
         return (
             <Navbar collapseOnSelect expand="lg">
-                <Container>
+                <Container fluid>
                     <Navbar.Brand href="/">BreezeBnB</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -15,6 +15,7 @@ class Navigation extends Component {
                             <Nav.Link href="/hosting">Become a host</Nav.Link>
                             <Nav.Link href="/signin">Sign In</Nav.Link>
                             <Nav.Link href="/signup">Sign Up</Nav.Link>
+                            <Nav.Link href="/users">Profile</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
