@@ -8,6 +8,7 @@ CREATE TABLE listings
     cost VARCHAR NOT NULL,
     property_type PROPERTY_TYPE NOT NULL,
     listing_location VARCHAR NOT NULL,
+    listing_address UUID REFERENCES addresses(address_id),
     rating INTEGER,
     picture VARCHAR,
     listing_owner UUID REFERENCES users(user_id),
@@ -25,5 +26,4 @@ CREATE TABLE Rentals_reserved
     check_in date NOT NULL,
     check_out date NOT NULL,
     PRIMARY KEY (listing_id, check_in, check_out)
-)
-;
+);
