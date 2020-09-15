@@ -1,97 +1,118 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Jumbotron } from "react-bootstrap";
-import ListingPreview from "./ListingPreview";
-import axios from "axios";
+import React, { Component } from "react";
 
-class LocationSearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            listings: [],
-            listing_location: "",
-            check_in: "",
-            check_out: "",
-        };
-    }
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
-    handleChangeOnLocation = (event) => {
-        this.setState({ listing_location: event.target.value });
-    };
-    handleChangeOnCheckIn = (event) => {
-        this.setState({ check_in: event.target.value });
-    };
-    handleChangeOnCheckOut = (event) => {
-        this.setState({ check_out: event.target.value });
-    };
-    handleSubmit = (event) => {
-        event.preventDefault();
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-        const location = {
-            listing_location: this.state.listing_location,
-            check_in: this.state.check_in,
-            check_out: this.state.check_out,
-        };
+import { BiSearchAlt } from "react-icons/bi";
 
-        axios.post(`http://localhost:5000/listings/search`, location).then(
-            (res) => {
-                this.setState({
-                    isLoaded: true,
-                    listings: res.data,
-                });
+class SearchBar extends Component {
+    state = {
+        location: "",
+        checkInDate: new Date(),
+        checkOutDate: new Date(),
+
+        options: [
+            { id: 0, country: "Anywhere", state: "", city: "" },
+            { id: 1, country: "Greece", state: "Athens", city: "Zografou" },
+            { id: 2, country: "Greece", state: "Athens", city: "Kolonaki" },
+            {
+                id: 3,
+                country: "Greece",
+                state: "Thessaloniki",
+                city: "Kentro",
             },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error,
-                });
-            }
-        );
+            { id: 4, country: "Cyprus", state: "Nicosia", city: "Dali" },
+            { id: 5, country: "Cyprus", state: "Limassol", city: "Azgata" },
+        ],
     };
+
+    handleChange = (dates) => {
+        const [start, end] = dates;
+        this.setState({
+            checkInDate: start,
+            checkOutDate: end,
+        });
+    };
+
     render() {
         return (
-            <Fragment>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        name="listing_location"
-                        onChange={this.handleChangeOnLocation}
-                    />
-                    <input
-                        type="text"
-                        name="check_in"
-                        placeholder="DD/MM/YYYY"
-                        onChange={this.handleChangeOnCheckIn}
-                    />
-                    <input
-                        type="text"
-                        name="check_out"
-                        placeholder="DD/MM/YYYY"
-                        onChange={this.handleChangeOnCheckOut}
-                    />
-                    <button>Search</button>
-                </form>
-                <Container fluid="md">
-                    <Jumbotron>
-                        <h1>Available places to stay</h1>
-                    </Jumbotron>
-                    <Row>
-                        {this.state.listings.map((listing) => (
-                            <Col md={3}>
-                                <Link to={`/listings/${listing.listing_id}`}>
-                                    <ListingPreview
-                                        key={listing.listing_id}
-                                        {...listing}
+            <div>
+                <div className="card rounded-pill">
+                    <div className="card-body">
+                        <form>
+                            <div className="row">
+                                {/* Location */}
+                                <div className="card-text form-group col red-border">
+                                    <label htmlFor="locationTypeheadInput">
+                                        Location
+                                    </label>
+                                    <Typeahead
+                                        className="rounded-pill"
+                                        id="locationTypeaheadInput"
+                                        options={this.state.options}
+                                        onChange={(selected) => {
+                                            this.setState({
+                                                location: selected,
+                                            });
+                                        }}
+                                        labelKey={(option) => {
+                                            if (option.country === "Anywhere") {
+                                                return `${option.country}`;
+                                            } else {
+                                                return `${option.city}, ${option.state}, ${option.country}`;
+                                            }
+                                        }}
+                                        placeholder="Anywhere"
+                                        emptyLabel="No matches found for given location."
+                                        highlightOnlyResult={true}
+                                        caseSensitive // Filtering ignores case
+                                        ignoreDiacritics // Filtering ignores accents and diacritical marks
                                     />
-                                </Link>
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-            </Fragment>
+                                </div>
+
+                                {/* Check in / Check out */}
+                                <div className="card-text form-group col blue-border">
+                                    <label htmlFor="checkInInput">Check in</label>
+                                    <DatePicker
+                                        // id="checkInInput"
+                                        selected={this.state.checkInDate}
+                                        closeOnScroll={true}
+                                        // Used for selecting range of dates
+                                        onChange={this.handleChange}
+                                        startDate={this.state.checkInDate}
+                                        endDate={this.state.checkOutDate}
+                                        selectsRange
+                                        inline
+                                        // Disable pass dates
+                                        minDate={new Date()}
+                                        showDisabledMonthNavigation
+                                    />
+                                </div>
+
+                                {/* Guests */}
+                                <div className="card-text form-group col green-border">
+                                    <label htmlFor="guestsInput">Guests</label>
+                                </div>
+
+                                {/* Search */}
+                                <div className="card-text from group col-auto yellow-border">
+                                    <button
+                                        className="btn btn-primary float-right rounded"
+                                        type="submit"
+                                    >
+                                        <BiSearchAlt />
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
-export default LocationSearchBar;
+
+export default SearchBar;

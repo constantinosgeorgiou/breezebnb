@@ -148,31 +148,31 @@ class SignUpPage extends Component {
     render() {
         return (
             <main role="main">
-                <div class="pt-sm-2">
-                    <div class="card">
-                        <div class="row no-gutters">
-                            <div class="col-lg-8 d-none d-lg-block">
+                <div className="pt-sm-2">
+                    <div className="card">
+                        <div className="row no-gutters">
+                            <div className="col-lg-8 d-none d-lg-block">
                                 <img
                                     src={sign_up}
-                                    class="card-img img-sign-in"
+                                    className="card-img img-sign-in"
                                     alt=""
                                 ></img>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="card-body">
-                                    <div class="container-sm">
-                                        <div class="text-center my-2">
+                            <div className="col-lg-4">
+                                <div className="card-body">
+                                    <div className="container-sm">
+                                        <div className="text-center my-2">
                                             <BiDoorOpen
                                                 className="text-primary"
                                                 size={60}
                                             />
                                         </div>
-                                        <h3 class="card-title mb-4 font-weight-normal text-center">
+                                        <h3 className="card-title mb-4 font-weight-normal text-center">
                                             Sign Up
                                         </h3>
-                                        <div class="progress mt-5 mb-4">
+                                        <div className="progress mt-5 mb-4">
                                             <div
-                                                class="progress-bar progress-bar-striped bg-primary"
+                                                className="progress-bar progress-bar-striped bg-primary"
                                                 role="progressbar"
                                                 aria-valuenow="100"
                                                 aria-valuemin="50"
@@ -252,19 +252,19 @@ const Step1 = (props) => {
     }
 
     return (
-        <div class="mb-5">
-            <small class="form-text mb-2">
+        <div className="mb-5">
+            <small className="form-text mb-2">
                 <Link to="/signin">Already have an account? Sign in</Link>
             </small>
-            <h4 class="mb-4">
-                Step 1: <span class="text-muted">Personal Information</span>
+            <h4 className="mb-4">
+                Step 1: <span className="text-muted">Personal Information</span>
             </h4>
             {/* First name */}
-            <div class="form-group">
-                <label for="firstNameInput">First name</label>
+            <div className="form-group">
+                <label htmlFor="firstNameInput">First name</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="firstNameInput"
                     placeholder="Jane"
                     aria-describedby="firstNameNote"
@@ -272,17 +272,17 @@ const Step1 = (props) => {
                     value={props.firstName}
                     onChange={props.handleChange}
                 />
-                <small id="firstNameNote" class="form-text text-muted">
+                <small id="firstNameNote" className="form-text text-muted">
                     Make sure it matches the name on your goverment ID.
                 </small>
             </div>
 
             {/* Last name */}
-            <div class="form-group">
-                <label for="lastNameInput">Last name</label>
+            <div className="form-group">
+                <label htmlFor="lastNameInput">Last name</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="lastNameInput"
                     placeholder="Doe"
                     aria-describedby="lastNameNote"
@@ -290,17 +290,17 @@ const Step1 = (props) => {
                     value={props.lastName}
                     onChange={props.handleChange}
                 />
-                <small id="lastNameNote" class="form-text text-muted">
+                <small id="lastNameNote" className="form-text text-muted">
                     Make sure it matches the name on your goverment ID.
                 </small>
             </div>
 
             {/* Birthday */}
-            <div class="form-group">
-                <label for="birthdayInput">Birthday</label>
+            <div className="form-group">
+                <label htmlFor="birthdayInput">Birthday</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="birthdayInput"
                     placeholder="01 JANUARY 2000"
                     name="birthday"
@@ -310,11 +310,11 @@ const Step1 = (props) => {
             </div>
 
             {/* Phone */}
-            <div class="form-group">
-                <label for="phoneInput">Phone</label>
+            <div className="form-group">
+                <label htmlFor="phoneInput">Phone</label>
                 <input
                     type="phone"
-                    class="form-control"
+                    className="form-control"
                     id="phoneInput"
                     placeholder="123 456 7891"
                     name="phone"
@@ -333,20 +333,20 @@ const Step2 = (props) => {
     }
 
     return (
-        <div class="mb-5">
-            <small class="form-text mb-2">
+        <div className="mb-5">
+            <small className="form-text mb-2">
                 <Link to="/signin">Already have an account? Sign in</Link>
             </small>
-            <h4 class="mb-4">
-                Step 2: <span class="text-muted">Address</span>
+            <h4 className="mb-4">
+                Step 2: <span className="text-muted">Address</span>
             </h4>
 
             {/* Country */}
-            <div class="form-group">
-                <label for="inputCountry">Country</label>
+            <div className="form-group">
+                <label htmlFor="inputCountry">Country</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputCountry"
                     placeholder="Greece"
                     name="country"
@@ -356,11 +356,11 @@ const Step2 = (props) => {
             </div>
 
             {/* State */}
-            <div class="form-group">
-                <label for="inputState">State</label>
+            <div className="form-group">
+                <label htmlFor="inputState">State</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputState"
                     placeholder="Attiki"
                     name="state"
@@ -370,11 +370,11 @@ const Step2 = (props) => {
             </div>
 
             {/* City */}
-            <div class="form-group">
-                <label for="inputCity">City</label>
+            <div className="form-group">
+                <label htmlFor="inputCity">City</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputCity"
                     placeholder="Athens"
                     name="city"
@@ -384,11 +384,11 @@ const Step2 = (props) => {
             </div>
 
             {/* Zipcode */}
-            <div class="form-group">
-                <label for="inputZipCode">Zip code</label>
+            <div className="form-group">
+                <label htmlFor="inputZipCode">Zip code</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputZipCode"
                     placeholder="12345"
                     name="zipCode"
@@ -398,11 +398,11 @@ const Step2 = (props) => {
             </div>
 
             {/* Street Address */}
-            <div class="form-group">
-                <label for="inputAddress">Street Address</label>
+            <div className="form-group">
+                <label htmlFor="inputAddress">Street Address</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputAddress"
                     placeholder="1234 Main St"
                     name="streetAddress"
@@ -412,11 +412,11 @@ const Step2 = (props) => {
             </div>
 
             {/* Apartment Number */}
-            <div class="form-group">
-                <label for="inputApartmentNumber">Apartment number</label>
+            <div className="form-group">
+                <label htmlFor="inputApartmentNumber">Apartment number</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="inputApartmentNumber"
                     placeholder="1234 Main St"
                     name="apartmentNumber"
@@ -435,20 +435,20 @@ const Step3 = (props) => {
     }
 
     return (
-        <div class="mb-5">
-            <small class="form-text mb-2">
+        <div className="mb-5">
+            <small className="form-text mb-2">
                 <Link to="/signin">Already have an account? Sign in</Link>
             </small>
-            <h4 class="mb-4">
-                Step 3: <span class="text-muted">Account Information</span>
+            <h4 className="mb-4">
+                Step 3: <span className="text-muted">Account Information</span>
             </h4>
 
             {/* Username */}
-            <div class="form-group">
-                <label for="usernameInput">Username</label>
+            <div className="form-group">
+                <label htmlFor="usernameInput">Username</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="usernameInput"
                     placeholder="janedoe"
                     name="userName"
@@ -458,11 +458,11 @@ const Step3 = (props) => {
             </div>
 
             {/* Email */}
-            <div class="form-group">
-                <label for="emailInput">Email</label>
+            <div className="form-group">
+                <label htmlFor="emailInput">Email</label>
                 <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="emailInput"
                     placeholder="jane@doe.com"
                     aria-describedby="emailNote"
@@ -470,17 +470,17 @@ const Step3 = (props) => {
                     value={props.email}
                     onChange={props.handleChange}
                 />
-                <small id="emailNote" class="form-text text-muted">
+                <small id="emailNote" className="form-text text-muted">
                     We'll email you trip confirmations and receipts.
                 </small>
             </div>
 
             {/* Password */}
-            <div class="form-group">
-                <label for="passwordInput">Password</label>
+            <div className="form-group">
+                <label htmlFor="passwordInput">Password</label>
                 <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="passwordInput"
                     placeholder="password"
                     name="password"
@@ -490,11 +490,11 @@ const Step3 = (props) => {
             </div>
 
             {/* Confirm password */}
-            <div class="form-group">
-                <label for="confirmPasswordInput">Confirm password</label>
+            <div className="form-group">
+                <label htmlFor="confirmPasswordInput">Confirm password</label>
                 <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="confirmPasswordInput"
                     placeholder="Write your password again."
                 />
@@ -510,35 +510,35 @@ const Step4 = (props) => {
     }
 
     return (
-        <div class="mb-5">
-            <div class="mb-4 align-middle">
-                <small class="form-text mb-2">
+        <div className="mb-5">
+            <div className="mb-4 align-middle">
+                <small className="form-text mb-2">
                     <Link to="/signin">Already have an account? Sign in</Link>
                 </small>
-                <span class="h4 align-middle">Step 4: </span>
-                <span class="h4 text-muted align-middle">Hosting </span>
+                <span className="h4 align-middle">Step 4: </span>
+                <span className="h4 text-muted align-middle">Hosting </span>
                 <BiHomeSmile className="text-muted align-middle" size={36} />
             </div>
 
             {/* Hosting */}
-            <div class="form-group">
-                <p class="form-text">
+            <div className="form-group">
+                <p className="form-text">
                     If you have an extra room, entire home, or expertise, you
                     can earn money by sharing it with anyone in the world. You
                     can host your home, activity, or do both. When you host is
                     up to you.
                 </p>
 
-                <div class="custom-control custom-checkbox">
+                <div className="custom-control custom-checkbox">
                     <input
                         type="checkbox"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         id="checkboxInput"
                         name="applyForHost"
                         value={props.applyForHost}
                         onChange={props.handleChange}
                     />
-                    <label class="custom-control-label" for="checkboxInput">
+                    <label className="custom-control-label" htmlFor="checkboxInput">
                         Apply for host
                     </label>
                 </div>

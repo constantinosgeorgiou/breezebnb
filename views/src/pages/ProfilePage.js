@@ -54,19 +54,19 @@ class ProfilePage extends Component {
     render() {
         return (
             <main role="main">
-                <div class="container pt-sm-2">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="row">
-                                <div class="col">
+                <div className="container pt-sm-2">
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div className="row">
+                                <div className="col">
                                     <Synopsis user={this.state.user} />
                                     <Hosting />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col">
+                        <div className="col-lg-8">
+                            <div className="row">
+                                <div className="col">
                                     <Profile user={this.state.user} />
                                 </div>
                             </div>
@@ -80,24 +80,24 @@ class ProfilePage extends Component {
 
 const Hosting = () => {
     return (
-        <div class="card border-info my-4">
-            <div class="card-body text-info">
-                <div class="card-title">
-                    <span class="align-middle">
+        <div className="card border-info my-4">
+            <div className="card-body text-info">
+                <div className="card-title">
+                    <span className="align-middle">
                         <BiHomeSmile className="align-middle" size={24} />
-                        <span class="card-title pl-2 h5 align-middle">
+                        <span className="card-title pl-2 h5 align-middle">
                             What is hosting?
                         </span>
                     </span>
                 </div>
 
-                <p class="card-text">
+                <p className="card-text">
                     If you have an extra room, entire home, or expertise, you
                     can earn money by sharing it with anyone in the world. You
                     can host your home, activity, or do both. When you host is
                     up to you.
                 </p>
-                <div class="text-center">
+                <div className="text-center">
                     <Link className="btn btn-lg btn-outline-info">
                         Apply for hosting
                     </Link>
@@ -109,14 +109,14 @@ const Hosting = () => {
 
 const ProfilePicture = (props) => {
     return (
-        <div class="card">
-            <div class="card-body text-center">
+        <div className="card">
+            <div className="card-body text-center">
                 <img
-                    class="card-img-center rounded-circle img-fluid img-circle-252 "
+                    className="card-img-center rounded-circle img-fluid img-circle-252 "
                     src={props.picture}
                     alt=""
                 />
-                <p class="card-text pt-4">
+                <p className="card-text pt-4">
                     <Link className="text-dark">Update phote</Link>
                 </p>
             </div>
@@ -126,15 +126,15 @@ const ProfilePicture = (props) => {
 
 const Stats = (props) => {
     return (
-        <div class="card my-4">
-            <div class="card-body">
-                <p class="card-text">
+        <div className="card my-4">
+            <div className="card-body">
+                <p className="card-text">
                     <BiUser className="align-middle" size={24} />
-                    <span class="pl-2">{props.userName}</span>
+                    <span className="pl-2">{props.userName}</span>
                 </p>
-                <p class="card-text">
+                <p className="card-text">
                     <BiStar className="align-middle" size={24} />
-                    <span class="card-text pl-2">{props.reviews} reviews</span>
+                    <span className="card-text pl-2">{props.reviews} reviews</span>
                 </p>
             </div>
         </div>
@@ -143,10 +143,10 @@ const Stats = (props) => {
 
 const Greeting = (props) => {
     return (
-        <div class="card mb-4">
-            <div class="card-body">
-                <h1 class="card-title">Hi, I'm {props.firstName}</h1>
-                <p class="card-text">{props.joined}</p>
+        <div className="card mb-4">
+            <div className="card-body">
+                <h1 className="card-title">Hi, I'm {props.firstName}</h1>
+                <p className="card-text">{props.joined}</p>
                 <Link className="card-text btn btn-outline-dark">
                     Edit profile
                 </Link>
@@ -157,13 +157,13 @@ const Greeting = (props) => {
 
 const About = (props) => {
     return (
-        <div class="card mb-4">
-            <div class="card-body">
-                <h2 class="card-title">About</h2>
-                <p class="card-text">{props.about}</p>
-                <div class="card-text mt-4">
+        <div className="card mb-4">
+            <div className="card-body">
+                <h2 className="card-title">About</h2>
+                <p className="card-text">{props.about}</p>
+                <div className="card-text mt-4">
                     <BiHomeCircle className="align-middle" size={24} />
-                    <span class="h5 pl-2 align-middle">
+                    <span className="h5 pl-2 align-middle">
                         Lives in {props.address}
                     </span>
                 </div>
@@ -176,22 +176,22 @@ const ReviewAuthor = (props) => {
     const author = props.author;
 
     return (
-        <div class="">
-            <div class="row no-gutters">
-                <div class="col-auto mr-2">
+        <div className="">
+            <div className="row no-gutters">
+                <div className="col-auto mr-2">
                     <img
                         src={author.picture}
-                        class="rounded-circle img-circle-60"
+                        className="rounded-circle img-circle-60"
                         alt=""
                     />
                 </div>
-                <div class="col">
-                    <p class="mb-0 ">
+                <div className="col">
+                    <p className="mb-0 ">
                         <strong>
                             {author.firstName}, {author.address}
                         </strong>
                     </p>
-                    <small class="text-muted m-0">
+                    <small className="text-muted m-0">
                         Joined in {author.joined_on}
                     </small>
                 </div>
@@ -206,13 +206,13 @@ const ListReviews = (props) => {
 
     return (
         <div>
-            <div class="card-body">
+            <div className="card-body">
                 <small>{review.posted_on}</small>
                 <p>{review.text}</p>
                 <ReviewAuthor author={review.author} />
             </div>
             <div>
-                {isLast ? <hr class="my-0 d-none" /> : <hr class="my-0" />}
+                {isLast ? <hr className="my-0 d-none" /> : <hr className="my-0" />}
             </div>
         </div>
     );
@@ -229,12 +229,12 @@ const Reviews = (props) => {
     );
 
     return (
-        <div class="card mb-5">
-            <div class="card-body">
-                <div class="card-title">
-                    <span class="align-middle">
+        <div className="card mb-5">
+            <div className="card-body">
+                <div className="card-title">
+                    <span className="align-middle">
                         <BiStar className="align-middle" size={36} />
-                        <span class="h2 pl-2 align-middle">
+                        <span className="h2 pl-2 align-middle">
                             {reviews.length} reviews
                         </span>
                     </span>

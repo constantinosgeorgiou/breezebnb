@@ -1,14 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Jumbotron, Container } from "react-bootstrap";
 
 import SearchBar from "../_components/SearchBar";
 
 const HomePage = () => {
     return (
-        <Fragment>
+        <main role="main">
             <Jumbotron>
                 <Container>
-                    <h1>Start exploring</h1>
                     <SearchBar />
                 </Container>
             </Jumbotron>
@@ -54,7 +53,7 @@ const HomePage = () => {
                     mollit laborum id cillum.
                 </p>
             </Container>
-        </Fragment>
+        </main>
     );
 };
 
