@@ -1,3 +1,4 @@
+/* DEVELOPER CLASSES!!! DONT USE IN PRODUCTION */
 .red-border {
     border-style: solid;
     border-color: red;
@@ -17,6 +18,7 @@
     border-style: solid;
     border-color: yellow;
 }
+/* END OF DEVELOPER CLASSES */
 
 /* Centers and resizes an image, height: 252px, width: 252px */
 .img-circle-252 {
@@ -26,12 +28,18 @@
     object-fit: cover;
 }
 
-
 /* Centers and resizes an image, height: 60px, width: 60px */
 .img-circle-60 {
     border-radius: 50%;
 
     height: 60px;
     width: 60px;
+    object-fit: cover;
+}
+
+/* Applied to the image at the sign in page */
+.img-sign-in {
+    height: 50rem;
+    width: 100%;
     object-fit: cover;
 }
