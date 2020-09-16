@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
@@ -75,11 +75,14 @@ class SearchBar extends Component {
 
                                 {/* Check in / Check out */}
                                 <div className="card-text form-group col blue-border">
-                                    <label htmlFor="checkInInput">Check in</label>
+                                    <label htmlFor="dateRangeInput">
+                                        Check in / Check out
+                                    </label>
+                                    <p>test</p>
                                     <DatePicker
-                                        // id="checkInInput"
-                                        selected={this.state.checkInDate}
-                                        closeOnScroll={true}
+                                        id="dateRangeInput"
+                                        // selected={this.state.checkInDate}
+                                        // closeOnScroll={true}
                                         // Used for selecting range of dates
                                         onChange={this.handleChange}
                                         startDate={this.state.checkInDate}
