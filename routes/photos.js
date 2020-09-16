@@ -5,11 +5,21 @@ const photos = require("../controllers/photos");
 
 
 
-// Create review
-router.post("/upload", photos.photoUpload);
+// Upload listing photo
+router.post("/listings/upload", photos.photoListingUpload);
 
+// Photo listing Retrieve
+router.get("/listings/:listing_id", photos.photoListingRetrieve);
+
+
+// Upload user photo
+router.post("/users/upload", photos.photoUserUpload);
 
 // Photo Retrieve
-router.get("/:listing_id", photos.photoRetrieve);
+router.get("/users/:user_id", photos.photoUserRetrieve);
+
+
+
+
 
 module.exports = router;
