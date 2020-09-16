@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProfilePage from "./pages/ProfilePage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 class App extends Component {
     // constructor(props) {
@@ -23,12 +24,11 @@ class App extends Component {
                 <Navigation />
 
                 <Switch>
-                    <Route exact path="/" component={HomePage} />
                     <Route path="/signin" component={SignInPage} />
                     <Route path="/signup" component={SignUpPage} />
-                    {/* <Route path="/listings" component={Listings} /> */}
-                    {/* <Route path="/search/" component={ResultsPage} /> */}
+                    <Route exact path="/" component={HomePage} />
                     <Route path="/users" component={ProfilePage} />
+                    <Route path="/results" component={SearchResultsPage} />
                 </Switch>
                 <Footer />
             </div>
