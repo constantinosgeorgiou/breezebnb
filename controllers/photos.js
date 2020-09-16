@@ -1,7 +1,7 @@
 const database = require("../database/index");
 const cloudinary = require('cloudinary').v2
 
-const photoUpload = (request, response) => {
+const photoListingUpload = (request, response) => {
     
     const data = {
         listing_id: request.body.listing_id,
@@ -32,7 +32,7 @@ const photoUpload = (request, response) => {
     });
 }
     
-const photoRetrieve = (request, response) => {
+const photoListingRetrieve = (request, response) => {
     const { listing_id } = request.params;
 
     database.query(
@@ -53,9 +53,62 @@ const photoRetrieve = (request, response) => {
     );
 };
 
+const photoUserUpload = (request, response) => {
+    
+    const data = {
+        user_id: request.body.listing_id,
+        image: request.body.image
+      }
+    
+      // upload image
+      cloudinary.uploader.upload(data.image)
+      .then((image) => {
+        database.query(
+            "INSERT INTO users (photo_url) VALUES ($1)",
+            [ 
+                image.secure_url
+            ],
+            (error, results) => {
+                if (error) {
+                    response.status(error.status || 400).json({
+                        error: {
+                            message: error.message,
+                        },
+                    });
+                }
+                response
+                    .status(204)
+                    .send(`User deleted with id`);
+            }
+         );
+    });
+}
+
+const photoUserRetrieve = (request, response) => {
+    const { user_id } = request.params;
+
+    database.query(
+        "SELECT photo_url FROM users WHERE user_id = $1",
+        [listing_id],
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+
+            response.status(200).json(results.rows);
+        }
+    );
+};
 
 
 module.exports = {
-    photoUpload,
-    photoRetrieve,
+    photoListingUpload,
+    photoListingRetrieve,
+    photoUserUpload,
+    photoUserRetrieve,
 };

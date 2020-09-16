@@ -14,7 +14,6 @@ CREATE TABLE listings
     rooms INTEGER NOT NULL,
     square_meters INTEGER NOT NULL,
     rating INTEGER,
-    photo_id UUID NOT NULL REFERENCES photos(photo_id),
     listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
     -- can accomodate children: how many
