@@ -19,7 +19,7 @@ CREATE TABLE reviews_users
     author UUID NOT NULL REFERENCES users(user_id),
     review_id serial NOT NULL,
     rating numeric(1), 
-    reviewee UUID NOT NULL REFERENCES listings(listing_id),
+    reviewee UUID NOT NULL REFERENCES users(user_id),
     text character varying(500), 
     date TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     PRIMARY KEY (review_id)

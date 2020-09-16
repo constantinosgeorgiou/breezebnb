@@ -9,8 +9,12 @@ CREATE TABLE listings
     property_type PROPERTY_TYPE NOT NULL,
     listing_location VARCHAR NOT NULL,
     listing_address UUID REFERENCES addresses(address_id),
+    beds INTEGER NOT NULL,
+    bathrooms INTEGER NOT NULL,
+    rooms INTEGER NOT NULL,
+    square_meters INTEGER NOT NULL,
     rating INTEGER,
-    picture VARCHAR,
+    photo_id UUID NOT NULL REFERENCES photos(photo_id),
     listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
     -- can accomodate children: how many
