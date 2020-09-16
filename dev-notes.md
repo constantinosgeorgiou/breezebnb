@@ -302,6 +302,7 @@ npm i -S popper.js
 npm i -S jquery
 
 npm install axios --save
+npm install cloudinary --save
 ```
 
 ## .env
