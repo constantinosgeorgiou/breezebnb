@@ -1,4 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
+
+import { Redirect } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,7 +10,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { BiSearchAlt } from "react-icons/bi";
+import { BiSearch } from "react-icons/bi";
 
 class SearchBar extends Component {
     constructor(props) {
@@ -87,6 +89,7 @@ class SearchBar extends Component {
 
     handleSubmit = (event) => {
         // event.preventDefault();
+        const url = "/results";
 
         const query = {
             location: this.state.location,
@@ -95,8 +98,6 @@ class SearchBar extends Component {
             guests: this.state.guests,
         };
 
-        // alert("Submited query with: " + JSON.stringify(query, null, 4));
-
         const dummyQuery = {
             listing_location: this.state.location.state,
             check_in: this.state.checkInDate,
@@ -104,17 +105,19 @@ class SearchBar extends Component {
         };
 
         // Retrieve data with axios
-        axios
-            .post(`/listings/searc`, dummyQuery)
-            .then((response) => {
-                this.setState({ isLoaded: true, listings: response.data });
-            })
-            .catch((error) => {
-                this.setState({ isLoaded: true, error: error });
-            });
+        // axios
+        //     .post(url, dummyQuery)
+        //     .then((response) => {
+        //         this.setState({ isLoaded: true, listings: response.data });
+        //     })
+        //     .catch((error) => {
+        //         this.setState({ isLoaded: true, error: error });
+        //     });
 
-        alert("Received listings: " + this.state.listings);
-        // Redirect with data as props
+        // alert("Received listings: " + this.state.listings);
+        this.setState({
+            listings: [{ listingId: 1, listingTitle: "asdf" }],
+        });
     };
 
     render() {
@@ -232,18 +235,7 @@ class SearchBar extends Component {
                                                 className="btn btn-primary p-2 rounded-circle"
                                                 type="submit"
                                             >
-                                                <BiSearchAlt size={24} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    {/* Seach block */}
-                                    <div className="col-md d-md-none mt-3">
-                                        <div className="card-text from group">
-                                            <button
-                                                className="btn btn-primary btn-block rounded-lg"
-                                                type="submit"
-                                            >
-                                                <BiSearchAlt /> Search
+                                                <BiSearch size={24} />
                                             </button>
                                         </div>
                                     </div>
@@ -349,7 +341,7 @@ class SearchBar extends Component {
                                                 className="btn btn-primary btn-block rounded-pill"
                                                 type="submit"
                                             >
-                                                <BiSearchAlt /> Search
+                                                <BiSearch /> Search
                                             </button>
                                         </div>
                                     </div>
@@ -357,6 +349,14 @@ class SearchBar extends Component {
                             </div>
                         </form>
                     </div>
+                )}
+                {this.state.listings.length > 0 && (
+                    <Redirect
+                        to={{
+                            pathname: "/results",
+                            state: { results: this.state.results },
+                        }}
+                    />
                 )}
             </div>
         );
