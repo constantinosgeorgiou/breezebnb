@@ -40,7 +40,7 @@ class SignUpPage extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let user = {
+        const user = {
             // Personal Information
             firstName: this.state.firstName,
             lastName: this.state.lastName,
