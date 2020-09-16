@@ -14,10 +14,6 @@ import ProfilePage from "./pages/ProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 
 class App extends Component {
-    // constructor(props) {
-    //     const { pathname } = useLocation();
-    // }
-
     render() {
         return (
             <div>
@@ -28,8 +24,12 @@ class App extends Component {
                     <Route path="/signup" component={SignUpPage} />
                     <Route exact path="/" component={HomePage} />
                     <Route path="/users" component={ProfilePage} />
-                    <Route path="/results" component={SearchResultsPage} />
+                    <Route
+                        path="/results"
+                        render={(props) => <SearchResultsPage {...props} />}
+                    />
                 </Switch>
+
                 <Footer />
             </div>
         );

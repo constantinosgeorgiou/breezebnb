@@ -116,7 +116,45 @@ class SearchBar extends Component {
 
         // alert("Received listings: " + this.state.listings);
         this.setState({
-            listings: [{ listingId: 1, listingTitle: "asdf" }],
+            listings: [
+                {
+                    listingId: 1,
+                    listingTitle: "Cozy aparetment",
+                    listingDescription: "This is a descriptions",
+                    cost: "10",
+                    propertyType: "apartment",
+                    location: "Athens",
+                    beds: 1,
+                    bathrooms: 1,
+                    rooms: 2,
+                    squareMeters: 100,
+                    rating: 5,
+                },{
+                    listingId: 2,
+                    listingTitle: "Magneficent house",
+                    listingDescription: "This is a descriptions",
+                    cost: "10",
+                    propertyType: "apartment",
+                    location: "Athens",
+                    beds: 1,
+                    bathrooms: 1,
+                    rooms: 2,
+                    squareMeters: 100,
+                    rating: 5,
+                },{
+                    listingId: 3,
+                    listingTitle: "Alternative villa",
+                    listingDescription: "This is a descriptions",
+                    cost: "10",
+                    propertyType: "apartment",
+                    location: "Athens",
+                    beds: 1,
+                    bathrooms: 1,
+                    rooms: 2,
+                    squareMeters: 100,
+                    rating: 5,
+                },
+            ],
         });
     };
 
@@ -354,7 +392,7 @@ class SearchBar extends Component {
                     <Redirect
                         to={{
                             pathname: "/results",
-                            state: { results: this.state.results },
+                            state: { listings: this.state.listings },
                         }}
                     />
                 )}
