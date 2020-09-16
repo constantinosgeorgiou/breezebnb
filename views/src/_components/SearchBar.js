@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 
+import axios from "axios";
+
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
@@ -12,11 +14,23 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDesktop: false,
-            location: "",
+            // Query information
+            location: {},
             checkInDate: new Date(),
             checkOutDate: new Date(),
+            guests: 0,
 
+            // Query results
+            listings: [],
+
+            // Used with axios
+            error: null,
+            isLoaded: false,
+
+            isDesktop: false, // Used to render different views
+
+            // Option for typeahead
+            // options: [],
             options: [
                 { id: 0, country: "Anywhere", state: "", city: "" },
                 { id: 1, country: "Greece", state: "Athens", city: "Zografou" },
@@ -32,9 +46,15 @@ class SearchBar extends Component {
             ],
         };
 
+        this.retrieveLocations = this.retrieveLocations.bind(this);
         this.updateViewForDesktop = this.updateViewForDesktop.bind(this);
     }
+
     componentDidMount() {
+        // Retrieve available listings locations
+        // this.retrieveLocations();
+
+        // Update view
         this.updateViewForDesktop();
         window.addEventListener("resize", this.updateViewForDesktop);
     }
@@ -43,16 +63,58 @@ class SearchBar extends Component {
         window.removeEventListener("resize", this.updateViewForDesktop);
     }
 
+    // Retrieve Locations
+    retrieveLocations() {
+        axios
+            .get(`/listings-locations`)
+            .then((response) => {
+                this.setState({ options: response });
+            })
+            .catch((error) => {
+                this.setState({ error: error });
+            });
+    }
+
     updateViewForDesktop() {
         this.setState({ isDesktop: window.innerWidth >= 768 });
     }
 
-    handleChange = (dates) => {
-        const [start, end] = dates;
-        this.setState({
-            checkInDate: start,
-            checkOutDate: end,
-        });
+    handleChange = (event) => {
+        const { name, value } = event.target;
+
+        this.setState({ [name]: value });
+    };
+
+    handleSubmit = (event) => {
+        // event.preventDefault();
+
+        const query = {
+            location: this.state.location,
+            checkIn: this.state.checkInDate,
+            checkout: this.state.checkOutDate,
+            guests: this.state.guests,
+        };
+
+        // alert("Submited query with: " + JSON.stringify(query, null, 4));
+
+        const dummyQuery = {
+            listing_location: this.state.location.state,
+            check_in: this.state.checkInDate,
+            check_out: this.state.checkOutDate,
+        };
+
+        // Retrieve data with axios
+        axios
+            .post(`/listings/searc`, dummyQuery)
+            .then((response) => {
+                this.setState({ isLoaded: true, listings: response.data });
+            })
+            .catch((error) => {
+                this.setState({ isLoaded: true, error: error });
+            });
+
+        alert("Received listings: " + this.state.listings);
+        // Redirect with data as props
     };
 
     render() {
@@ -62,7 +124,7 @@ class SearchBar extends Component {
             <div className="container-sm">
                 {isDesktop ? (
                     <div className="card rounded-pill">
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div className="card-body">
                                 {/* Pill search. Displayed until md viewport */}
                                 <div className="row pl-2 align-items-center">
@@ -81,7 +143,7 @@ class SearchBar extends Component {
                                                 options={this.state.options}
                                                 onChange={(selected) => {
                                                     this.setState({
-                                                        location: selected,
+                                                        location: selected[0],
                                                     });
                                                 }}
                                                 labelKey={(option) => {
@@ -117,6 +179,8 @@ class SearchBar extends Component {
                                                 type="date"
                                                 name="checkInDate"
                                                 className="form-control"
+                                                value={this.checkInDate}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
@@ -135,6 +199,8 @@ class SearchBar extends Component {
                                                 type="date"
                                                 name="checkOutDate"
                                                 className="form-control"
+                                                value={this.checkOutDate}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
@@ -153,6 +219,8 @@ class SearchBar extends Component {
                                                 type="number"
                                                 name="guests"
                                                 className="form-control"
+                                                value={this.guests}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
@@ -185,7 +253,7 @@ class SearchBar extends Component {
                     </div>
                 ) : (
                     <div className="card rounded-lg">
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div className="card-body">
                                 {/* Form search. Displayed below md viewport */}
                                 <div className="row pl-2 align-items-center">
@@ -234,6 +302,8 @@ class SearchBar extends Component {
                                                 type="date"
                                                 name="checkInDate"
                                                 className="form-control"
+                                                value={this.checkInDate}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
@@ -249,6 +319,8 @@ class SearchBar extends Component {
                                                 type="date"
                                                 name="checkOutDate"
                                                 className="form-control"
+                                                value={this.checkOutDate}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
@@ -264,6 +336,8 @@ class SearchBar extends Component {
                                                 type="number"
                                                 name="guests"
                                                 className="form-control"
+                                                value={this.guests}
+                                                onChange={this.handleChange}
                                             />
                                         </div>
                                     </div>
