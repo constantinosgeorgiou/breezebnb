@@ -118,41 +118,200 @@ class SearchBar extends Component {
         this.setState({
             listings: [
                 {
-                    listingId: 1,
-                    listingTitle: "Cozy aparetment",
-                    listingDescription: "This is a descriptions",
+                    id: 1,
+                    title: "Cozy aparetment",
+                    description:
+                        "Sint nulla ex tempor voluptate quis nostrud. Aute ea ipsum ullamco ut do consectetur do. Laboris reprehenderit dolor Lorem quis. Pariatur consectetur enim ex veniam aliqua nulla cillum. Excepteur elit fugiat elit adipisicing cupidatat est consequat et. Culpa velit incididunt sunt id veniam deserunt irure Lorem deserunt fugiat ipsum Lorem. Cillum fugiat minim velit dolore est.",
                     cost: "10",
-                    propertyType: "apartment",
-                    location: "Athens",
-                    beds: 1,
-                    bathrooms: 1,
-                    rooms: 2,
-                    squareMeters: 100,
+                    type: "Apartment",
                     rating: 5,
-                },{
-                    listingId: 2,
-                    listingTitle: "Magneficent house",
-                    listingDescription: "This is a descriptions",
+                    guests: 3,
+                    pictures: [
+                        {
+                            id: 0,
+                            url:
+                                "https://a0.muscache.com/im/pictures/26f549d7-4a09-4faa-b1e4-71fcd1f3a611.jpg?im_w=720",
+                        },
+                        {
+                            id: 1,
+                            url:
+                                "https://a0.muscache.com/im/pictures/af40aa25-8309-414d-b584-600ff0fb8393.jpg?im_w=720",
+                        },
+                        {
+                            id: 2,
+                            url:
+                                "https://a0.muscache.com/im/pictures/e9ebee08-6956-40c2-a1bf-34350ea51b3b.jpg?im_w=720",
+                        },
+                    ],
+                    address: {
+                        country: "Greece",
+                        state: "Athens",
+                        city: "Panormou",
+                        zipCode: 12345,
+                        street: "Papantreou 10",
+                        apartmentNumber: "B1",
+                    },
+                    space: {
+                        beds: 1,
+                        bedrooms: 1,
+                        bathrooms: 1,
+                        livingrooms: 1,
+                        kitchen: true,
+                        rooms: 4,
+                        squareMeters: 100,
+                    },
+                    amenities: {
+                        wifi: true,
+                        shampoo: true,
+                        heating: true,
+                        airConditioning: true,
+                        washer: true,
+                        dryer: true,
+                        breakfast: true,
+                        indoorFireplace: true,
+                        hangers: true,
+                        iron: true,
+                        hairDryer: true,
+                        laptopFriendlyWorkspace: true,
+                        tv: true,
+                        crib: true,
+                    },
+                    rules: {
+                        pets: true,
+                        smoking: true,
+                        events: true,
+                    },
+                },
+                {
+                    id: 2,
+                    title: "Cozy aparetment",
+                    description:
+                        "Sint nulla ex tempor voluptate quis nostrud. Aute ea ipsum ullamco ut do consectetur do. Laboris reprehenderit dolor Lorem quis. Pariatur consectetur enim ex veniam aliqua nulla cillum. Excepteur elit fugiat elit adipisicing cupidatat est consequat et. Culpa velit incididunt sunt id veniam deserunt irure Lorem deserunt fugiat ipsum Lorem. Cillum fugiat minim velit dolore est.",
                     cost: "10",
-                    propertyType: "apartment",
-                    location: "Athens",
-                    beds: 1,
-                    bathrooms: 1,
-                    rooms: 2,
-                    squareMeters: 100,
+                    type: "Apartment",
                     rating: 5,
-                },{
-                    listingId: 3,
-                    listingTitle: "Alternative villa",
-                    listingDescription: "This is a descriptions",
+                    guests: 3,
+
+                    pictures: [
+                        {
+                            id: 0,
+                            url:
+                                "https://a0.muscache.com/im/pictures/26f549d7-4a09-4faa-b1e4-71fcd1f3a611.jpg?im_w=720",
+                        },
+                        {
+                            id: 1,
+                            url:
+                                "https://a0.muscache.com/im/pictures/af40aa25-8309-414d-b584-600ff0fb8393.jpg?im_w=720",
+                        },
+                        {
+                            id: 2,
+                            url:
+                                "https://a0.muscache.com/im/pictures/e9ebee08-6956-40c2-a1bf-34350ea51b3b.jpg?im_w=720",
+                        },
+                    ],
+                    address: {
+                        country: "Greece",
+                        state: "Athens",
+                        city: "Panormou",
+                        zipCode: 12345,
+                        street: "Papantreou 10",
+                        apartmentNumber: "B1",
+                    },
+                    space: {
+                        beds: 1,
+                        bedrooms: 1,
+                        bathrooms: 1,
+                        livingrooms: 1,
+                        kitchen: true,
+                        rooms: 4,
+                        squareMeters: 100,
+                    },
+                    amenities: {
+                        wifi: true,
+                        shampoo: true,
+                        heating: true,
+                        airConditioning: true,
+                        washer: true,
+                        dryer: true,
+                        breakfast: true,
+                        indoorFireplace: true,
+                        hangers: true,
+                        iron: true,
+                        hairDryer: true,
+                        laptopFriendlyWorkspace: true,
+                        tv: true,
+                        crib: true,
+                    },
+                    rules: {
+                        pets: true,
+                        smoking: true,
+                        events: true,
+                    },
+                },
+                {
+                    id: 3,
+                    title: "Cozy aparetment",
+                    description:
+                        "Sint nulla ex tempor voluptate quis nostrud. Aute ea ipsum ullamco ut do consectetur do. Laboris reprehenderit dolor Lorem quis. Pariatur consectetur enim ex veniam aliqua nulla cillum. Excepteur elit fugiat elit adipisicing cupidatat est consequat et. Culpa velit incididunt sunt id veniam deserunt irure Lorem deserunt fugiat ipsum Lorem. Cillum fugiat minim velit dolore est.",
                     cost: "10",
-                    propertyType: "apartment",
-                    location: "Athens",
-                    beds: 1,
-                    bathrooms: 1,
-                    rooms: 2,
-                    squareMeters: 100,
+                    type: "Apartment",
                     rating: 5,
+                    guests: 1,
+                    pictures: [
+                        {
+                            id: 0,
+                            url:
+                                "https://a0.muscache.com/im/pictures/26f549d7-4a09-4faa-b1e4-71fcd1f3a611.jpg?im_w=720",
+                        },
+                        {
+                            id: 1,
+                            url:
+                                "https://a0.muscache.com/im/pictures/af40aa25-8309-414d-b584-600ff0fb8393.jpg?im_w=720",
+                        },
+                        {
+                            id: 2,
+                            url:
+                                "https://a0.muscache.com/im/pictures/e9ebee08-6956-40c2-a1bf-34350ea51b3b.jpg?im_w=720",
+                        },
+                    ],
+                    address: {
+                        country: "Greece",
+                        state: "Athens",
+                        city: "Panormou",
+                        zipCode: 12345,
+                        street: "Papantreou 10",
+                        apartmentNumber: "B1",
+                    },
+                    space: {
+                        beds: 1,
+                        bedrooms: 1,
+                        bathrooms: 1,
+                        livingrooms: 1,
+                        kitchen: true,
+                        rooms: 4,
+                        squareMeters: 100,
+                    },
+                    amenities: {
+                        wifi: true,
+                        shampoo: true,
+                        heating: true,
+                        airConditioning: true,
+                        washer: true,
+                        dryer: true,
+                        breakfast: true,
+                        indoorFireplace: true,
+                        hangers: true,
+                        iron: true,
+                        hairDryer: true,
+                        laptopFriendlyWorkspace: true,
+                        tv: true,
+                        crib: true,
+                    },
+                    rules: {
+                        pets: true,
+                        smoking: true,
+                        events: true,
+                    },
                 },
             ],
         });
