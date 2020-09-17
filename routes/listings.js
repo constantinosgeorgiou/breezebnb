@@ -29,4 +29,7 @@ router.delete("/:listingId/delete", Listings.deleteListing);
 // Retrieve all listings of certain type
 router.get("/type/:property_type", Listings.retrieveListingOfCertainType);
 
+// Retrieve all locations
+router.get("/all/locations", Listings.retrieveLocations);
+
 module.exports = router;
