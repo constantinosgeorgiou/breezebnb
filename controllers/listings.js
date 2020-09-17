@@ -197,6 +197,24 @@ const retrieveListingOfCertainType = (request, response) => {
         }
     );
 };
+const retrieveLocations = (request, response) => {
+
+    database.query(
+        "SELECT DISTINCT country,city, state FROM addresses",
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+
+            response.status(200).json(results.rows);
+        }
+    );
+};
 
 
 module.exports = {
@@ -207,4 +225,5 @@ module.exports = {
     deleteListing,
     SearchForAvailableListings,
     retrieveListingOfCertainType,
+    retrieveLocations,
 };
