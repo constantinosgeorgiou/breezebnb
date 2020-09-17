@@ -56,17 +56,18 @@ const photoListingRetrieve = (request, response) => {
 const photoUserUpload = (request, response) => {
     
     const data = {
-        user_id: request.body.listing_id,
+        user_id: request.body.user_id,
         image: request.body.image
       }
     
       // upload image
       cloudinary.uploader.upload(data.image)
       .then((image) => {
+          console.log(image);
         database.query(
-            "INSERT INTO users (photo_url) VALUES ($1)",
+            "UPDATE users SET photo_url = $1 WHERE user_id = $2",
             [ 
-                image.secure_url
+                image.secure_url, data.user_id
             ],
             (error, results) => {
                 if (error) {
@@ -89,7 +90,7 @@ const photoUserRetrieve = (request, response) => {
 
     database.query(
         "SELECT photo_url FROM users WHERE user_id = $1",
-        [listing_id],
+        [user_id],
         (error, results) => {
             if (error) {
                 console.log(error);
