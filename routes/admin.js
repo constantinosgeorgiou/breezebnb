@@ -17,4 +17,9 @@ router.post("/:userName/signoutall", isAuthenticated, Admin.signoutAll);
 // Approve user in route
 router.put("/approve/:userName", Admin.approve);
 
+// Retrive all listings of a user in route
+router.get("/:userName/listings", Admin.retrieveListingByOwner);
+
+
+
 module.exports = router; 

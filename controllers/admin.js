@@ -197,10 +197,32 @@ const approve = (request, response) => {
     );
 };
 
+const retrieveListingByOwner = (request, response) => {
+    const { userName } = request.params;
+    
+    database.query(
+        "SELECT * FROM listings WHERE listing_owner = $1",
+        [userName],
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+
+            response.status(200).json(results.rows);
+        }
+    );
+};
+
 
 module.exports = {
     signin,
     signout,
     signoutAll,
     approve,
+    retrieveListingByOwner,
 };
