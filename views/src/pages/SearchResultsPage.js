@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import { BiPlus, BiMinus, BiWifi0 } from "react-icons/bi";
+import { BiPlus, BiMinus, BiStar } from "react-icons/bi";
 
 class SearchResultsPage extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class SearchResultsPage extends Component {
 
         return (
             <main role="main">
-                <div className="container-md">
+                <div className="container-lg">
                     <div className="row">
                         <div className="col-md-4">
                             {/* Filters */}
@@ -78,17 +79,8 @@ class SearchResultsPage extends Component {
                             />
                         </div>
                         <div className="col-md-8">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h1>Stays in {listings[0].location}</h1>
-                                    {listings.map((listing) => (
-                                        <Listing
-                                            key={listing.id}
-                                            listing={listing}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                            {/* Listings */}
+                            <Listings listings={listings} />
                         </div>
                     </div>
                 </div>
@@ -97,28 +89,117 @@ class SearchResultsPage extends Component {
     }
 }
 
+const Listings = (props) => {
+    const { listings } = props;
+    const listListings = listings.map((listing) =>
+        // Is current listing the last one? Do not display <hr /> else display <hr />
+        listing === listings[listings.length - 1] ? (
+            <>
+                <Listing key={listing.id} listing={listing} />
+                <hr className="d-none" />
+            </>
+        ) : (
+            <>
+                <Listing key={listing.id} listing={listing} />
+
+                <hr className="my-4" />
+            </>
+        )
+    );
+
+    return (
+        <div className="card">
+            <div className="card-body">
+                <h1 className="mb-5">Stays in {listings[0].location}</h1>
+                {listListings}
+            </div>
+        </div>
+    );
+};
+
 const Listing = (props) => {
     const { listing } = props;
     return (
-        <div className="card">
+        <div className="card rounded-lg border-0">
             <div className="row no-gutters">
-                <div className="col-md-4 red-border">A</div>
-                <div className="col-md-8 green-border">
+                <div className="col-md-4">
+                    <Link
+                        to={`/listings/${listing.id}`}
+                        className="stretched-link text-reset"
+                    >
+                        <img
+                            src={listing.pictures[0].url}
+                            alt=""
+                            className=" card-img"
+                        />
+                    </Link>
+                </div>
+                <div className="col-md-8">
                     <div className="card-body">
-                        <p className="card-text">
-                            <small>
-                                {listing.type} in {listing.address.state}
-                            </small>
-                        </p>
-                        <h5 className="card-title">{listing.title}</h5>
-                        <p className="card-text">
-                            {listing.guests} guest
-                            {listing.guests === 1 ? "" : "s"} ·{" "}
-                            {listing.space.beds} bed
-                            {listing.space.beds === 1 ? "" : "s"} ·{" "}
-                            {listing.space.bathrooms} bathroom
-                            {listing.space.bathrooms === 1 ? "" : "s"}
-                        </p>
+                        <Link
+                            style={{ textDecoration: "none" }}
+                            to={`/listings/${listing.id}`}
+                            className="stretched-link text-reset"
+                            onHover
+                        >
+                            <div className="row">
+                                <div className="col">
+                                    <p className="card-text mb-0">
+                                        <small>
+                                            {listing.type} in{" "}
+                                            {listing.address.state}
+                                        </small>
+                                    </p>
+                                    <h5 className="card-title mb-0">
+                                        {listing.title}
+                                    </h5>
+                                    <p className="card-text mb-0">
+                                        <small>
+                                            {listing.guests} guest
+                                            {listing.guests === 1
+                                                ? ""
+                                                : "s"} · {listing.space.beds}{" "}
+                                            bed
+                                            {listing.space.beds === 1
+                                                ? ""
+                                                : "s"}{" "}
+                                            · {listing.space.bathrooms} bathroom
+                                            {listing.space.bathrooms === 1
+                                                ? ""
+                                                : "s"}
+                                        </small>
+                                    </p>
+                                    <p className="card-text">
+                                        <small>
+                                            {listing.amenities.airConditioning
+                                                ? "Air conditioning"
+                                                : ""}{" "}
+                                            ·{" "}
+                                            {listing.amenities.wifi
+                                                ? "Wifi"
+                                                : ""}{" "}
+                                            ·{" "}
+                                            {listing.amenities.breakfast
+                                                ? "Breakfast"
+                                                : ""}
+                                        </small>
+                                    </p>
+                                </div>
+                                <div className="col-auto">
+                                    <p className="card-text">
+                                        <span className="align-middle">
+                                            <BiStar
+                                                className="text-primary align-middle"
+                                                size={24}
+                                            />{" "}
+                                            <span className="h5 align-middle">
+                                                {listing.rating}
+                                            </span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
