@@ -11,7 +11,7 @@ class SearchResultsPage extends Component {
             // listing filter
             minimumBookinDays: 0,
             // space filters
-            filterBeds: 0,
+            beds: 0,
             filterBedrooms: 0,
             filterBathrooms: 0,
             filterLivingRooms: 0,
@@ -24,6 +24,8 @@ class SearchResultsPage extends Component {
             filterPropertyTypes: [],
             // rules
             filterRules: [],
+
+            number: 0,
 
             // Listings for display
             listings: props.location.state.listings,
@@ -46,39 +48,40 @@ class SearchResultsPage extends Component {
     // TODO: Write functions to retrieve all amenities from api
     // TODO: Write functions to retrieve all rules from api
 
-    handleClick = (event) => {
-        const { name, value } = event.target;
+    handleNumberInputChange = (change) => {
+        const { name, value } = change.target;
 
-        // let a = this.state.arr.slice(); //creates the clone of the state
-        // a[index] = "random element";
-        // this.setState({arr: a});
+        console.log("name: " + name + " value: " + value);
 
-        const currentState = { ...this.state };
-        console.log("name: " + name + ", value: " + value);
-        console.log("currentState: " + JSON.stringify(currentState));
-        if (Array.isArray(currentState[name])) {
-            alert("array");
-        } else {
-            alert("not array");
-        }
+        this.setState((prevState) => ({
+            [name]: value,
+        }));
     };
+
+    handleChecboxChange = (change) => {};
+
     render() {
         const listings = this.state.listings;
 
         return (
             <main role="main">
-                <div className="container-lg">
+                <div className="container-md">
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             {/* Filters */}
                             <Filters
+                                beds={this.state.beds}
                                 propertyTypes={this.state.propertyTypes}
                                 amenities={this.state.amenities}
                                 rules={this.state.rules}
-                                handleClick={this.handleClick}
+                                handleNumberInputChange={
+                                    this.handleNumberInputChange
+                                }
+                                handleChecboxChange={this.handleChecboxChange}
+                                number={this.state.number}
                             />
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-lg-8">
                             {/* Listings */}
                             <Listings listings={listings} />
                         </div>
@@ -140,7 +143,6 @@ const Listing = (props) => {
                             style={{ textDecoration: "none" }}
                             to={`/listings/${listing.id}`}
                             className="stretched-link text-reset"
-                            onHover
                         >
                             <div className="row">
                                 <div className="col">
@@ -208,7 +210,8 @@ const Listing = (props) => {
 };
 
 const Filters = (props) => {
-    const { handleClick } = props;
+    const { handleNumberInputChange, handleChecboxChange } = props;
+    let { beds } = props;
     return (
         <form>
             <div className="card">
@@ -216,27 +219,44 @@ const Filters = (props) => {
                     <h4 className="card-title">Filters</h4>
 
                     {/* Rooms and beds */}
-                    <RoomsAndBedsFilter handleClick={handleClick} />
+                    <h5 className="card-text pb-1">Rooms and Beds</h5>
+
+                    {/* Beds */}
+                    <NumberFilter
+                        filterName={"Beds"}
+                        filterValue={beds}
+                        handleNumberInputChange={handleNumberInputChange}
+                    />
+                    {/* Bedrooms */}
+                    <NumberFilter
+                        filterName={"Bedrooms"}
+                        handleNumberInputChange={handleNumberInputChange}
+                    />
+                    {/* Bathrooms */}
+                    <NumberFilter
+                        filterName={"Bathrooms"}
+                        handleNumberInputChange={handleNumberInputChange}
+                    />
 
                     {/* Property type */}
                     <CheckboxFilter
                         title={"Property type"}
                         values={props.propertyTypes}
-                        handleClick={handleClick}
+                        handleChecboxChange={handleChecboxChange}
                     />
 
                     {/* Amenities */}
                     <CheckboxFilter
                         title={"Amenities"}
                         values={props.amenities}
-                        handleClick={handleClick}
+                        handleChecboxChange={handleChecboxChange}
                     />
 
                     {/* House rules */}
                     <CheckboxFilter
                         title={"House rules"}
                         values={props.rules}
-                        handleClick={handleClick}
+                        handleChecboxChange={handleChecboxChange}
                     />
                 </div>
             </div>
@@ -244,50 +264,51 @@ const Filters = (props) => {
     );
 };
 
-const RoomsAndBedsFilter = (props) => {
-    const { handleClick } = props;
-
-    return (
-        <div className="pb-4">
-            <h5 className="card-text pb-1">Rooms and Beds</h5>
-            {/* Beds */}
-            <NumberFilter filterName={"Beds"} handleClick={handleClick} />
-            {/* Bedrooms */}
-            <NumberFilter filterName={"Bedrooms"} handleClick={handleClick} />
-            {/* Bathrooms */}
-            <NumberFilter filterName={"Bathrooms"} handleClick={handleClick} />
-        </div>
-    );
-};
-
 const NumberFilter = (props) => {
-    const { filterName, handleClick } = props;
+    const { filterName, handleNumberInputChange } = props;
+    let { filterValue } = props;
+
     return (
-        <div className="row">
-            <div className="col pl-2 pt-2 red-border">
-                <label htmlFor={filterName} className="blue-border">
+        <div className="row mb-2">
+            <div className="col pl-2 pt-2">
+                <label htmlFor={filterName} className="">
                     {filterName}
                 </label>
             </div>
-            <div className="col-auto blue-border">
-                <div className="row pt-2">
-                    {/* <div className="col-auto yellow-border"> */}
-                    <button
-                        className="col-auto btn yellow-border"
-                        type="button"
-                        onClick={handleClick}
-                    >
-                        <BiMinus />
-                    </button>
-                    {/* </div> */}
-                    <p className="col-auto red-border">b</p>
-                    <button
-                        className="col-auto btn green-border"
-                        type="button"
-                        onClick={handleClick}
-                    >
-                        <BiPlus />
-                    </button>
+            <div className="col-auto">
+                <div className="d-inline-flex flex-row h-100 align-items-center ">
+                    <div className=" align-self-middle">
+                        <button
+                            name={filterName}
+                            value={filterValue === 0 ? 0 : filterValue--}
+                            type="button"
+                            className="btn p-0"
+                            onClick={handleNumberInputChange}
+                            disabled={filterValue > 0 ? false : true}
+                        >
+                            <BiMinus
+                                className="border border-secondary text-muted rounded-circle"
+                                size={24}
+                            />
+                        </button>
+                    </div>
+                    <div className="align-self-middle">
+                        <p className="my-0 mx-3">{filterValue}</p>
+                    </div>
+                    <div className="align-self-middle">
+                        <button
+                            name={filterName}
+                            value={filterValue++}
+                            type="button"
+                            className="btn p-0"
+                            onClick={handleNumberInputChange}
+                        >
+                            <BiPlus
+                                className="border border-secondary text-muted rounded-circle"
+                                size={24}
+                            />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
