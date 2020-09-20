@@ -12,6 +12,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import openstreetmap from "./pages/openstreetmap_example";
 
 class App extends Component {
     render() {
@@ -28,6 +29,7 @@ class App extends Component {
                         path="/results"
                         render={(props) => <SearchResultsPage {...props} />}
                     />
+                    <Route path="/maps" component={openstreetmap} />
                 </Switch>
 
                 <Footer />
