@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS Rentals_reserved;
+DROP TABLE IF EXISTS rentals_reserved;
 
-CREATE TABLE Rentals_reserved
+CREATE TABLE rentals_reserved
 (
     listing_id character VARYING(37) NOT NULL,
     check_in DATE NOT NULL,
