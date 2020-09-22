@@ -43,3 +43,8 @@
     width: 100%;
     object-fit: cover;
 }
+
+.number-input-filter {
+    width: 4rem
+
+}
