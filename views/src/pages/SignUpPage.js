@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import { BiDoorOpen, BiHomeSmile } from "react-icons/bi";
-
 import sign_up from "../assets/imgs/sign_up.jpg";
+
+import { signup } from "../_services/authentication.js";
 
 class SignUpPage extends Component {
     constructor(props) {
@@ -25,21 +26,25 @@ class SignUpPage extends Component {
             streetAddress: "",
             apartmentNumber: "",
             // Account Information
+            photo:
+                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L31LdL2f4L0Z9C_MpZlAnwHaEK%26pid%3DApi&f=1",
             userName: "",
             email: "",
             password: "",
             // Hosting
-            applyForHost: false,
+            userRole: "guest",
         };
     }
 
     handleChange = (event) => {
+        // If checkbox and checkbox is true then userRole === host
         const { name, value } = event.target;
         this.setState({ [name]: value });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
+
         const user = {
             // Personal Information
             firstName: this.state.firstName,
@@ -59,10 +64,19 @@ class SignUpPage extends Component {
             userName: this.state.userName,
             email: this.state.email,
             password: this.state.password,
-            applyForHost: this.state.applyForHost,
+            userRole: this.state.userRole,
         };
 
-        alert("You are submitting " + user);
+        signup(user).then(
+            (response) => {
+                // Redirect to profile page
+                this.props.history.push("/profile");
+                window.location.reload();
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     };
 
     // Helper function for next step
@@ -538,7 +552,10 @@ const Step4 = (props) => {
                         value={props.applyForHost}
                         onChange={props.handleChange}
                     />
-                    <label className="custom-control-label" htmlFor="checkboxInput">
+                    <label
+                        className="custom-control-label"
+                        htmlFor="checkboxInput"
+                    >
                         Apply for host
                     </label>
                 </div>

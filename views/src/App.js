@@ -24,7 +24,7 @@ class App extends Component {
                     <Route path="/signin" component={SignInPage} />
                     <Route path="/signup" component={SignUpPage} />
                     <Route exact path="/" component={HomePage} />
-                    <Route path="/users" component={ProfilePage} />
+                    <Route path="/profile" component={ProfilePage} />
                     <Route
                         path="/results"
                         render={(props) => <SearchResultsPage {...props} />}
