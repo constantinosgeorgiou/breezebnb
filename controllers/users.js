@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt"); // Used to hash and compare passwords of users
 const jwt = require("jsonwebtoken"); // Used to generate jwt token
+const { query } = require("../database/index");
 const JWT_SECRET = process.env.JWT_SECRET; // Used to generate jwt token
 
 const database = require("../database/index");
@@ -14,53 +15,80 @@ const signup = async (request, response) => {
         email,
         phone,
         userRole,
-        picture,
-    } = request.body;
+        photo,
+        birthday,
+        address,
+    } = request.body.user;
 
     // Retrieve and hash password
-    const password = await bcrypt.hash(request.body.password, 10); // Salt rounds: 10
+    const password = await bcrypt.hash(request.body.user.password, 10); // Salt rounds: 10
 
-    // Create new user
+    // Store address of user
     database.query(
-        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        "INSERT INTO addresses (country,state,city,zip_code,street_address,apartment_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id",
         [
-            userName,
-            firstName,
-            lastName,
-            email,
-            password,
-            phone,
-            userRole,
-            picture,
+            address.country,
+            address.state,
+            address.city,
+            address.zipCode,
+            address.streetAddress,
+            address.apartmentNumber,
         ],
-        (error, results) => {
+        (error, addressQuery) => {
             if (error) {
-                response.status(error.status || 400).json({
+                // Error while retrieving user id
+                response.status(error.status || 500).json({
                     error: {
                         message: error.message,
                     },
                 });
             } else {
-                // User created
+                // Store address id to pass as parameter in INSET INTO USERS query
+                const addressId = addressQuery.rows[0].address_id;
 
-                // Retrieve new user
+                // Create new user
                 database.query(
-                    "SELECT * FROM users WHERE user_name = $1",
-                    [userName],
+                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on",
+                    [
+                        userName,
+                        firstName,
+                        lastName,
+                        email,
+                        password,
+                        phone,
+                        userRole,
+                        photo,
+                        birthday,
+                        addressId,
+                    ],
                     (error, results) => {
                         if (error) {
-                            // Error while retrieving user id
-                            response.status(error.status || 500).json({
+                            response.status(error.status || 400).json({
                                 error: {
                                     message: error.message,
                                 },
                             });
                         } else {
-                            // Map result data to user object
-                            const user = results.rows[0];
+                            // User created
+
+                            // Create user object with all the data
+                            let user = {
+                                // Add user id and "joined on" to user object
+                                id: results.rows[0].user_id,
+                                joined: results.rows[0].joined_on,
+                                userName: userName,
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                phone: phone,
+                                userRole: userRole,
+                                photo: photo,
+                                birthday: birthday,
+                                address: address,
+                            };
 
                             // Construct the payload
-                            const payload = { id: user.user_id };
+                            const payload = { id: user.id };
 
                             // Generate an authentication token
                             const token = jwt.sign(payload, JWT_SECRET, {
@@ -70,7 +98,7 @@ const signup = async (request, response) => {
                             // Store token into database
                             database.query(
                                 "INSERT INTO tokens VALUES ($1, $2)",
-                                [token, user.user_id],
+                                [token, user.id],
                                 (error, results) => {
                                     if (error) {
                                         // Error while storing the token
@@ -82,20 +110,16 @@ const signup = async (request, response) => {
                                                 },
                                             });
                                     } else {
-                                        // NOTE Regarding the underscores ( _ ):
-                                        //   Data was mapped to the user object
-                                        //   from the results of the database.
-                                        //   In the database fields have underscores.
+                                        // Add token to user object
+                                        user.token = token;
+
                                         response.status(201).send({
-                                            userId: user.user_id,
-                                            userName: user.user_name,
-                                            firstName: user.first_name,
-                                            lastName: user.last_name,
-                                            email: user.email,
-                                            phone: user.phone,
-                                            userRole: user.user_role,
-                                            picture: user.picture,
-                                            token: token,
+                                            message:
+                                                "Successfully created account! Welcome " +
+                                                user.userName +
+                                                "!",
+                                            user,
+                                            accessToken: token,
                                         }); // SUCCESS
                                     }
                                 }
@@ -187,15 +211,20 @@ const signin = (request, response) => {
                                         //   from the results of the database.
                                         //   In the database fields have underscores.
                                         response.status(200).send({
-                                            userId: user.user_id,
-                                            userName: user.user_name,
-                                            firstName: user.first_name,
-                                            lastName: user.last_name,
-                                            email: user.email,
-                                            phone: user.phone,
-                                            userRole: user.user_role,
-                                            picture: user.picture,
-                                            token: token,
+                                            user: {
+                                                id: user.user_id,
+                                                userName: user.user_name,
+                                                firstName: user.first_name,
+                                                lastName: user.last_name,
+                                                email: user.email,
+                                                phone: user.phone,
+                                                userRole: user.user_role,
+                                                picture: user.picture,
+                                                approved: user.birthday,
+                                                joined: user.joined_on,
+                                                created: user.create_on,
+                                                token: token,
+                                            },
                                         }); // SUCCESS
                                     }
                                 }
