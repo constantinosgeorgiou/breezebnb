@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS coordinates;
+DROP TABLE IF EXISTS rentals_reserved;
+DROP TABLE IF EXISTS listing_amenities;
+DROP TABLE IF EXISTS listing_space;
+DROP TABLE IF EXISTS listing_rules;
+DROP TABLE IF EXISTS photos_listings;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS reviews_listings;
+DROP TABLE IF EXISTS reviews_users;
+DROP TABLE IF EXISTS listings;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS addresses;
