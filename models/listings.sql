@@ -33,7 +33,8 @@ CREATE TABLE listing_amenities
     carbon_monoxide_alarm BOOLEAN NOT NULL,
     private_bathroom BOOLEAN NOT NULL,
     beachfront BOOLEAN NOT NULL,
-    waterfront BOOLEAN NOT NULL
+    waterfront BOOLEAN NOT NULL,
+    PRIMARY KEY(listing_amenities_id)
 );
 
 DROP TABLE IF EXISTS listing_space;
@@ -47,7 +48,8 @@ CREATE TABLE listing_space
     square_meters INTEGER,
     bedrooms INTEGER,
     living_rooms INTEGER,
-    kitchen BOOLEAN
+    kitchen BOOLEAN,
+    PRIMARY KEY(listing_space_id)
 );
 
 DROP TABLE IF EXISTS listing_rules;
@@ -57,7 +59,8 @@ CREATE TABLE listing_rules
     listing_rules_id UUID DEFAULT uuid_generate_v4 (),
     pets_allowed BOOLEAN NOT NULL,
     smoking_allowed BOOLEAN NOT NULL,
-    events_allowed BOOLEAN NOT NULL
+    events_allowed BOOLEAN NOT NULL,
+    PRIMARY KEY (listing_rules_id)
 );
 
 
