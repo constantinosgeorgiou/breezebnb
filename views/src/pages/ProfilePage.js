@@ -2,56 +2,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { BiUser, BiStar, BiHomeCircle, BiHomeSmile } from "react-icons/bi";
 
+import { getCurrentUser } from "../_services/authentication";
+import { getReceivedReviews } from "../_services/user";
+
+// const REVIEWS = getReceivedReviews(getCurrentUser().userName);
+
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                userName: "terminator",
-                firstName: "Arnold",
-                lastName: "Schwarzenegger",
-                email: "gettothe@choppa.com",
-                phone: "999-999-9099",
-                role: "host",
-                address: "Santa Monica, California",
-                joined_on: "October 2018",
-                about:
-                    "Lorem consectetur labore id esse dolor culpa aliquip do cillum. Eu consequat aute nulla amet in ut est cupidatat commodo. Nisi aute Lorem enim veniam elit adipisicing enim culpa eiusmod exercitation fugiat amet incididunt anim. Ex voluptate esse adipisicing in commodo cillum ad id ullamco consequat aute deserunt ad. Reprehenderit ipsum irure minim elit consectetur sit do minim irure velit sit esse est ad. Aliquip aliqua quis do anim cillum. Occaecat mollit ullamco proident pariatur in cupidatat culpa sunt magna dolore esse cupidatat nisi.",
-                picture:
-                    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fbe%2FArnold_Schwarzenegger_-_2019_%252833730956438%2529_%2528cropped%2529.jpg%2F1200px-Arnold_Schwarzenegger_-_2019_%252833730956438%2529_%2528cropped%2529.jpg&f=1&nofb=1",
-                reviews: [
-                    {
-                        reviewId: "1",
-                        author: {
-                            firstName: "Lucia",
-                            picture:
-                                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic0.cbrimages.com%2Fwordpress%2Fwp-content%2Fuploads%2F2019%2F06%2Fblack-widow-civil-war3.jpg&f=1&nofb=1",
-                            address: "Houston, Texas",
-                            joined_on: "July 2010",
-                        },
-                        text:
-                            "Eiusmod enim adipisicing sunt ipsum occaecat laborum eu commodo. Deserunt occaecat qui consequat officia ipsum in veniam incididunt ut. Labore magna qui ad duis ad cillum dolore commodo deserunt pariatur enim. Officia incididunt ad nisi in proident eiusmod aliquip voluptate cupidatat fugiat voluptate excepteur adipisicing adipisicing. Est cillum cupidatat officia ex incididunt aliqua adipisicing do elit culpa irure ad eu eu. Veniam deserunt aliquip non laborum ut cillum aliqua tempor anim laboris qui deserunt qui cillum. Aute mollit id pariatur reprehenderit cillum sunt cupidatat.",
-                        posted_on: "October 2018",
-                    },
-                    {
-                        reviewId: "2",
-                        author: {
-                            firstName: "Andrew",
-                            address: "Athens, Greece",
-                            picture:
-                                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fnyppagesix.files.wordpress.com%2F2019%2F09%2Fshia.jpg%3Fquality%3D90%26strip%3Dall%26w%3D1200&f=1&nofb=1",
-                            joined_on: "July 2013",
-                        },
-                        text:
-                            "Eiusmod enim adipisicing sunt ipsum occaecat laborum eu commodo. Deserunt occaecat qui consequat officia ipsum in veniam incididunt ut. Labore magna qui ad duis ad cillum dolore commodo deserunt pariatur enim. Officia incididunt ad nisi in proident eiusmod aliquip voluptate cupidatat fugiat voluptate excepteur adipisicing adipisicing. Est cillum cupidatat officia ex incididunt aliqua adipisicing do elit culpa irure ad eu eu. Veniam deserunt aliquip non laborum ut cillum aliqua tempor anim laboris qui deserunt qui cillum. Aute mollit id pariatur reprehenderit cillum sunt cupidatat.",
-                        posted_on: "October 2020",
-                    },
-                ],
-            },
+            user: getCurrentUser(),
         };
     }
 
     render() {
+        console.log("Profile User: " + JSON.stringify(this.state.user, null, 4));
         return (
             <main role="main">
                 <div className="container pt-sm-2">
@@ -59,7 +24,7 @@ class ProfilePage extends Component {
                         <div className="col-lg-4">
                             <div className="row">
                                 <div className="col">
-                                    <Synopsis user={this.state.user} />
+                                    {/* <Synopsis user={this.state.user} /> */}
                                     <Hosting />
                                 </div>
                             </div>
@@ -67,7 +32,7 @@ class ProfilePage extends Component {
                         <div className="col-lg-8">
                             <div className="row">
                                 <div className="col">
-                                    <Profile user={this.state.user} />
+                                    {/* <Profile user={this.state.user} /> */}
                                 </div>
                             </div>
                         </div>
@@ -134,7 +99,9 @@ const Stats = (props) => {
                 </p>
                 <p className="card-text">
                     <BiStar className="align-middle" size={24} />
-                    <span className="card-text pl-2">{props.reviews} reviews</span>
+                    <span className="card-text pl-2">
+                        {props.reviews} reviews
+                    </span>
                 </p>
             </div>
         </div>
@@ -212,7 +179,11 @@ const ListReviews = (props) => {
                 <ReviewAuthor author={review.author} />
             </div>
             <div>
-                {isLast ? <hr className="my-0 d-none" /> : <hr className="my-0" />}
+                {isLast ? (
+                    <hr className="my-0 d-none" />
+                ) : (
+                    <hr className="my-0" />
+                )}
             </div>
         </div>
     );
