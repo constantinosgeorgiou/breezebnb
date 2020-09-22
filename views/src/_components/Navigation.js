@@ -16,6 +16,7 @@ class Navigation extends Component {
                             <Nav.Link href="/signin">Sign In</Nav.Link>
                             <Nav.Link href="/signup">Sign Up</Nav.Link>
                             <Nav.Link href="/profile">Profile</Nav.Link>
+                            <Nav.Link href="/host">host Dashboard</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
