@@ -38,14 +38,12 @@ export function signin(username, password) {
                 );
             }
 
-            // localStorage.setItem("x-access-token", response.data.token);
-            // localStorage.setItem(
-            //     "x-access-token-expiration",
-            //     Date.now() + 2 * 60 * 60 * 1000
-            // );
             return response.data;
         })
-        .catch((error) => Promise.reject("Authentication failed."));
+        .catch((error) => {
+            console.log("Error: ", error);
+            Promise.reject("Authentication failed.");
+        });
 }
 
 // Make a POST request to the server
@@ -56,9 +54,6 @@ export function signout(data) {
         .then((response) => {});
 }
 
-export function isAuthenticated() {
-    return (
-        localStorage.getItem("x-access-token") &&
-        localStorage.getItem("x-access-token-expiration") > Date.now()
-    );
+export function getCurrentUser() {
+    return JSON.parse(localStorage.getItem("user"));
 }
