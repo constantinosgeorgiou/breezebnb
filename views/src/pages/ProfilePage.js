@@ -8,7 +8,7 @@ import { getReceivedReviews } from "../_services/user";
 // const REVIEWS = getReceivedReviews(getCurrentUser().userName);
 
 import Modal from "react-bootstrap/Modal";
-import { updateUserByUserName } from "../../../controllers/users";
+
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
