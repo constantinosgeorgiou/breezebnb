@@ -7,7 +7,7 @@ CREATE TABLE reviews_listings
     rating numeric(1), 
     listing_id UUID NOT NULL REFERENCES listings(listing_id),
     text character varying(500), 
-    date TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
+    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     PRIMARY KEY (review_id)
 );
 
@@ -21,6 +21,6 @@ CREATE TABLE reviews_users
     rating numeric(1), 
     reviewee UUID NOT NULL REFERENCES users(user_id),
     text character varying(500), 
-    date TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
+    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     PRIMARY KEY (review_id)
 );
