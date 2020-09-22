@@ -4,24 +4,22 @@ import Checkbox from "../_components/Checkbox";
 
 const CheckboxFilter = ({
     title,
-    checkboxes,
+    labels,
+    values,
     handleChecboxChange,
     ...props
 }) => {
-    console.log("chckbx: " + Object.entries(checkboxes))
-    const values = Object.keys(checkboxes);
-    console.log("Title: " + title + " values: " + values);
     // Find middle position of values array
-    const middlePosition = Math.floor((values.length - 1) / 2) + 1; // Biased torwards firstSection
+    const middlePosition = Math.floor((labels.length - 1) / 2) + 1; // Biased torwards firstSection
 
     // Find last position of array propertyTypes
-    const lastPosition = values.length;
+    const lastPosition = labels.length;
 
     // Make split copies of values array
     // fistSection starts at the beginning of values and ends at its middle position
     // secondSection starts at the middle position of values and ends at its end position
-    const firstSection = values.slice(0, middlePosition);
-    const secondSection = values.slice(middlePosition, lastPosition);
+    const firstSection = labels.slice(0, middlePosition);
+    const secondSection = labels.slice(middlePosition, lastPosition);
 
     return (
         <div className="pb-4">
@@ -32,8 +30,38 @@ const CheckboxFilter = ({
                         // TODO: add name, value (for input) and label (for label)
                         <Checkbox
                             label={value}
-                            key={values.indexOf(value)}
                             handleChecboxChange={handleChecboxChange}
+                            key={value
+                                // Capitalize first letter of each word
+                                .replace(/\b\w/g, (c) => c.toUpperCase())
+                                // Remove whitespace
+                                .replace(/\s+/g, "")
+                                // Lowercase the first letter of the string
+                                .replace(/^\w/, (c) => c.toLowerCase())}
+                            name={value
+                                // Capitalize first letter of each word
+                                .replace(/\b\w/g, (c) => c.toUpperCase())
+                                // Remove whitespace
+                                .replace(/\s+/g, "")
+                                // Lowercase the first letter of the string
+                                .replace(/^\w/, (c) => c.toLowerCase())}
+                            isSelected={
+                                values[
+                                    values.indexOf(
+                                        value
+                                            // Capitalize first letter of each word
+                                            .replace(/\b\w/g, (c) =>
+                                                c.toUpperCase()
+                                            )
+                                            // Remove whitespace
+                                            .replace(/\s+/g, "")
+                                            // Lowercase the first letter of the string
+                                            .replace(/^\w/, (c) =>
+                                                c.toLowerCase()
+                                            )
+                                    )
+                                ]
+                            }
                         />
                     ))}
                 </div>
@@ -41,8 +69,38 @@ const CheckboxFilter = ({
                     {secondSection.map((value) => (
                         <Checkbox
                             label={value}
-                            key={values.indexOf(value)}
                             handleChecboxChange={handleChecboxChange}
+                            key={value
+                                // Capitalize first letter of each word
+                                .replace(/\b\w/g, (c) => c.toUpperCase())
+                                // Remove whitespace
+                                .replace(/\s+/g, "")
+                                // Lowercase the first letter of the string
+                                .replace(/^\w/, (c) => c.toLowerCase())}
+                            name={value
+                                // Capitalize first letter of each word
+                                .replace(/\b\w/g, (c) => c.toUpperCase())
+                                // Remove whitespace
+                                .replace(/\s+/g, "")
+                                // Lowercase the first letter of the string
+                                .replace(/^\w/, (c) => c.toLowerCase())}
+                            isSelected={
+                                values[
+                                    values.indexOf(
+                                        value
+                                            // Capitalize first letter of each word
+                                            .replace(/\b\w/g, (c) =>
+                                                c.toUpperCase()
+                                            )
+                                            // Remove whitespace
+                                            .replace(/\s+/g, "")
+                                            // Lowercase the first letter of the string
+                                            .replace(/^\w/, (c) =>
+                                                c.toLowerCase()
+                                            )
+                                    )
+                                ]
+                            }
                         />
                     ))}
                 </div>

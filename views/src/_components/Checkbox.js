@@ -1,18 +1,19 @@
 import React from "react";
 
-const Checkbox = ({ label, isSelected, handleCheckboxChange }) => {
+const Checkbox = ({ label, name, isSelected, handleCheckboxChange }) => {
     return (
         <div className=" form-check">
-            <label>
-                <input
-                    type="checkbox"
-                    name={label}
-                    checked={isSelected}
-                    onChange={handleCheckboxChange}
-                    className="form-check-input"
-                />
-                {label}
-            </label>
+            <input
+                type="checkbox"
+                id={name}
+                name={name}
+                defaultChecked={isSelected}
+                onChange={(e) => {
+                    console.log(e);
+                }}
+                className="form-check-input"
+            />
+            <label htmlFor={name}>{label}</label>
         </div>
     );
 };

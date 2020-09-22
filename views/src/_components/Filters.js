@@ -10,7 +10,9 @@ const Filters = ({
     rules,
     handleFiltersChange,
     handleNumberInputChange,
-    handleChecboxChange,
+    handleAmenitiesChange,
+    handlePropertyTypesChange,
+    handleRulesChange,
     ...props
 }) => {
     return (
@@ -67,22 +69,25 @@ const Filters = ({
                     {/* Property type */}
                     <CheckboxFilter
                         title={"Property type"}
-                        checkboxes={filters.propertyTypes}
-                        handleChecboxChange={handleChecboxChange}
+                        labels={propertyTypes}
+                        values={Object.values(filters.propertyTypes)}
+                        handleChecboxChange={handlePropertyTypesChange}
                     />
 
                     {/* Amenities */}
                     <CheckboxFilter
                         title={"Amenities"}
-                        checkboxes={filters.propertyTypes}
-                        handleChecboxChange={handleChecboxChange}
+                        labels={amenities}
+                        values={Object.values(filters.amenities)}
+                        handleChecboxChange={handleAmenitiesChange}
                     />
 
                     {/* House rules */}
                     <CheckboxFilter
                         title={"House rules"}
-                        checkboxes={filters.propertyTypes}
-                        handleChecboxChange={handleChecboxChange}
+                        labels={rules}
+                        values={Object.values(filters.rules)}
+                        handleChecboxChange={handleRulesChange}
                     />
 
                     <input type="submit" />

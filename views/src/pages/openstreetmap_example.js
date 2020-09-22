@@ -1,52 +1,50 @@
-import React, { Component } from 'react'
-import Geocoder from 'react-mapbox-gl-geocoder'
-import ReactMapGL, { Marker } from 'react-map-gl';
-import './css/index.css'
-import Pin from './pin';
+import React, { Component } from "react";
+import Geocoder from "react-mapbox-gl-geocoder";
+import ReactMapGL, { Marker } from "react-map-gl";
+import "./css/index.css";
+import Pin from "./pin";
 require("dotenv").config();
 
 const mapAccess = {
-    mapboxApiAccessToken: process.env.REACT_APP_MAPBOX_API_ACCESS_TOKEN
-}
-
-const mapStyle = {
-    width: '100%',
-    height: 600
-}
-
-const queryParams = {
-    country: 'us'
-}
-
-const navStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    padding: '10px'
+    mapboxApiAccessToken: process.env.REACT_APP_MAPBOX_API_ACCESS_TOKEN,
 };
 
+const mapStyle = {
+    width: "100%",
+    height: 600,
+};
 
+// const queryParams = {
+//     country: "us",
+// };
+
+// const navStyle = {
+//     position: "absolute",
+//     top: 0,
+//     left: 0,
+//     padding: "10px",
+// };
 
 class openstreetmap extends Component {
     constructor(props) {
         super(props);
         this.state = {
             viewport: {
-                latitude: 37.983810,
+                latitude: 37.98381,
                 longitude: 23.727539,
                 zoom: 4,
                 bearing: 0,
-                pitch: 0
+                pitch: 0,
             },
             marker: {
-                latitude: 37.983810,
-                longitude: 23.727539
+                latitude: 37.98381,
+                longitude: 23.727539,
             },
-            events: {}
+            events: {},
         };
     }
 
-    _updateViewport = viewport => {
+    _updateViewport = (viewport) => {
         this.setState({ viewport });
     };
 
@@ -54,52 +52,52 @@ class openstreetmap extends Component {
         this.setState({
             events: {
                 ...this.state.events,
-                [name]: event.lngLat
-            }
+                [name]: event.lngLat,
+            },
         });
     }
 
-    _onMarkerDragStart = event => {
-        this._logDragEvent('onDragStart', event);
+    _onMarkerDragStart = (event) => {
+        this._logDragEvent("onDragStart", event);
     };
 
-    _onMarkerDrag = event => {
-        this._logDragEvent('onDrag', event);
+    _onMarkerDrag = (event) => {
+        this._logDragEvent("onDrag", event);
     };
 
-    _onMarkerDragEnd = event => {
-        this._logDragEvent('onDragEnd', event);
+    _onMarkerDragEnd = (event) => {
+        this._logDragEvent("onDragEnd", event);
         this.setState({
             marker: {
                 longitude: event.lngLat[0],
-                latitude: event.lngLat[1]
-            }
+                latitude: event.lngLat[1],
+            },
         });
-        console.log("longitude " +event.lngLat[0]);
-        console.log("latitude " +event.lngLat[1]);
+        console.log("longitude " + event.lngLat[0]);
+        console.log("latitude " + event.lngLat[1]);
     };
 
     onSelected = (viewport, item) => {
         this.setState({ viewport });
-        console.log('Selected: ', item.center)
-    }
+        console.log("Selected: ", item.center);
+    };
 
     setUserLocation = () => {
-        navigator.geolocation.getCurrentPosition(position => {
+        navigator.geolocation.getCurrentPosition((position) => {
             let setUserLocation = {
                 lat: position.coords.latitude,
-                long: position.coords.longitude
+                long: position.coords.longitude,
             };
             let newViewport = {
                 height: "100vh",
                 width: "100vw",
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
-                zoom: 10
+                zoom: 10,
             };
             this.setState({
                 viewport: newViewport,
-                userLocation: setUserLocation
+                userLocation: setUserLocation,
             });
         });
     };
@@ -109,14 +107,23 @@ class openstreetmap extends Component {
         return (
             <div>
                 <Geocoder
-                    {...mapAccess} onSelected={this.onSelected} viewport={viewport} hideOnSelect={true}
+                    {...mapAccess}
+                    onSelected={this.onSelected}
+                    viewport={viewport}
+                    hideOnSelect={true}
                 />
 
                 <ReactMapGL
-                    {...mapAccess} {...viewport} {...mapStyle}
+                    {...mapAccess}
+                    {...viewport}
+                    {...mapStyle}
                     mapStyle="mapbox://styles/breeezebnb/ckfbdk3wq472b19npvnwm88r5"
-                    onViewportChange={(newViewport) => this.setState({ viewport: newViewport, marker: newViewport })}
-
+                    onViewportChange={(newViewport) =>
+                        this.setState({
+                            viewport: newViewport,
+                            marker: newViewport,
+                        })
+                    }
                 >
                     <Marker
                         longitude={marker.longitude}
@@ -131,9 +138,8 @@ class openstreetmap extends Component {
                         <Pin size={30} />
                     </Marker>
                 </ReactMapGL>
-
             </div>
-        )
+        );
     }
 }
 export default openstreetmap;

@@ -7,8 +7,8 @@ import axios from "axios";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 
 import { BiSearch } from "react-icons/bi";
 
@@ -89,20 +89,20 @@ class SearchBar extends Component {
 
     handleSubmit = (event) => {
         // event.preventDefault();
-        const url = "/results";
+        // const url = "/results";
 
-        const query = {
-            location: this.state.location,
-            checkIn: this.state.checkInDate,
-            checkout: this.state.checkOutDate,
-            guests: this.state.guests,
-        };
+        // const query = {
+        //     location: this.state.location,
+        //     checkIn: this.state.checkInDate,
+        //     checkout: this.state.checkOutDate,
+        //     guests: this.state.guests,
+        // };
 
-        const dummyQuery = {
-            listing_location: this.state.location.state,
-            check_in: this.state.checkInDate,
-            check_out: this.state.checkOutDate,
-        };
+        // const dummyQuery = {
+        //     listing_location: this.state.location.state,
+        //     check_in: this.state.checkInDate,
+        //     check_out: this.state.checkOutDate,
+        // };
 
         // Retrieve data with axios
         // axios

@@ -1,28 +1,23 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import Listing from "./Listing.js";
 
 const Listings = ({ listings }) => {
-    const listListings = listings.map((listing) =>
-        // Is current listing the last one? Do not display <hr /> else display <hr />
-        listing === listings[listings.length - 1] ? (
-            <>
-                <Listing key={listing.id} listing={listing} />
+    const listListings = listings.map((listing) => (
+        <Fragment key={listing.id}>
+            <Listing listing={listing} />
+            {/* Diplay <hr /> if current listing is not the last one */}
+            {listing === listings[listings.length - 1] ? (
                 <hr className="d-none" />
-            </>
-        ) : (
-            <>
-                <Listing key={listing.id} listing={listing} />
-
+            ) : (
                 <hr className="my-4" />
-            </>
-        )
-    );
+            )}
+        </Fragment>
+    ));
 
     return (
         <div className="card">
             <div className="card-body">
-                <h1 className="mb-5">Stays in {listings[0].location}</h1>
                 {listListings}
             </div>
         </div>
