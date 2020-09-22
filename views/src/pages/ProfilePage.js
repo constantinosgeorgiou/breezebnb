@@ -8,13 +8,34 @@ import { getReceivedReviews } from "../_services/user";
 // const REVIEWS = getReceivedReviews(getCurrentUser().userName);
 
 import Modal from "react-bootstrap/Modal";
+import { updateUserByUserName } from "../../../controllers/users";
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: getCurrentUser(),
         };
+
+        this.handleChange = this.handleChange.bind(this);
     }
+
+    handleChange = (event) => {
+        const { name, value } = event.target;
+
+        this.setState((prevState) => ({
+            user: {
+                ...prevState.user,
+                [name]: value,
+            },
+        }));
+    };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        alert("changed user");
+        // updateUser(user);
+    };
 
     render() {
         console.log(
@@ -35,7 +56,10 @@ class ProfilePage extends Component {
                         <div className="col-lg-8">
                             <div className="row">
                                 <div className="col">
-                                    <Profile user={this.state.user} />
+                                    <Profile
+                                        user={this.state.user}
+                                        handleChange={this.handleChange}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -111,7 +135,7 @@ const Stats = (props) => {
     );
 };
 
-const Greeting = ({user}) => {
+const Greeting = ({ user, handleChange }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const showModal = () => {
@@ -165,10 +189,21 @@ const Greeting = ({user}) => {
                                 Change password
                             </button>
                         </form>
-                        <label htmlFor="inputEmail">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Email Address
-                        </label>
-                        <form className="form-inline">
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="emailInput">Email</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="emailInput"
+                                    name="email"
+                                    value={user.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            {/* <label htmlFor="inputEmail">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Email Address
+                            </label>
                             <div className="form-group mb-2"></div>
                             <div className="form-group mx-sm-3 mb-2">
                                 <label for="inputEmail" className="sr-only">
@@ -180,7 +215,7 @@ const Greeting = ({user}) => {
                                     id="inputEmail"
                                     placeholder="new@mail.com"
                                 />
-                            </div>
+                            </div> */}
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-2"
@@ -481,12 +516,10 @@ const Synopsis = (props) => {
     );
 };
 
-const Profile = (props) => {
-    const user = props.user;
-
+const Profile = ({ user, handleChange }) => {
     return (
         <div>
-            <Greeting user={user} />
+            <Greeting user={user} handleChange={handleChange} />
             <About about={user.userName} address={user.address} />
             {/* <Reviews reviews={user.reviews} /> */}
         </div>
