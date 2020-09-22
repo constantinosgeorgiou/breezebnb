@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS Messages;
+DROP TABLE IF EXISTS messages;
 
-CREATE TABLE Messages
+CREATE TABLE messages
 (
     message_id UUID DEFAULT uuid_generate_v4 (),
     sender_id UUID REFERENCES users(user_id) NOT NULL,
