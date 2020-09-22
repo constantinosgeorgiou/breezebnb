@@ -48,7 +48,7 @@ const signup = async (request, response) => {
 
                 // Create new user
                 database.query(
-                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on",
+                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on, approved",
                     [
                         userName,
                         firstName,
@@ -76,6 +76,7 @@ const signup = async (request, response) => {
                                 // Add user id and "joined on" to user object
                                 id: results.rows[0].user_id,
                                 joined: results.rows[0].joined_on,
+                                approved: results.rows[0].approved,
                                 userName: userName,
                                 firstName: firstName,
                                 lastName: lastName,
@@ -138,7 +139,7 @@ const signin = (request, response) => {
 
     // Find user with given username
     database.query(
-        "SELECT * FROM users WHERE user_name = $1",
+        "SELECT user_id, user_name, first_name, last_name, email, password, phone, user_role, photo, approved, birthday, joined_on, country, state, city, zip_code, street_address, apartment_number FROM users, addresses WHERE users.address = addresses.address_id AND users.user_name = $1",
         [userName],
         (error, results) => {
             if (error) {
@@ -152,8 +153,30 @@ const signin = (request, response) => {
                 // User not found
                 response.status(404).send({ message: "User not found." });
             } else {
-                // Map result data to user object
-                const user = results.rows[0];
+                // Passowrd hash
+                const hash = results.rows[0].password;
+
+                // Create user object
+                let user = {
+                    id: results.rows[0].user_id,
+                    userName: results.rows[0].user_name,
+                    firstName: results.rows[0].first_name,
+                    lastName: results.rows[0].last_name,
+                    email: results.rows[0].email,
+                    phone: results.rows[0].phone,
+                    userRole: results.rows[0].user_role,
+                    photo: results.rows[0].photo,
+                    approved: results.rows[0].birthday,
+                    joined: results.rows[0].joined_on,
+                    address: {
+                        country: results.rows[0].country,
+                        state: results.rows[0].state,
+                        city: results.rows[0].city,
+                        zipCode: results.rows[0].zip_code,
+                        streetAddress: results.rows[0].street_address,
+                        apartmentNumber: results.rows[0].apartment_number,
+                    },
+                };
 
                 // Verify password is correct
                 // Compares plain text password with hash
@@ -162,76 +185,62 @@ const signin = (request, response) => {
                 //   goes FIRST, followd by hash
                 //   Example:
                 //    bcrypt.compare(PLAIN_TEXT, HASH, callback function)
-                bcrypt.compare(
-                    password,
-                    user.password,
-                    (error, passwordIsValid) => {
-                        if (error) {
-                            // Error while comparing hashes
-                            response.status(error.status || 500).json({
-                                error: {
-                                    message: error.message,
-                                },
-                            });
-                        } else if (passwordIsValid === false) {
-                            // Password is invalid
+                bcrypt.compare(password, hash, (error, passwordIsValid) => {
+                    if (error) {
+                        // Error while comparing hashes
+                        response.status(error.status || 500).json({
+                            error: {
+                                message: error.message,
+                            },
+                        });
+                    } else if (passwordIsValid === false) {
+                        // Password is invalid
 
-                            response.status(401).send({
-                                accessToken: null,
-                                message: "Password is invalid.",
-                            });
-                        } else {
-                            // Password is valid
+                        response.status(401).send({
+                            accessToken: null,
+                            message: "Password is invalid.",
+                        });
+                    } else {
+                        // Password is valid
 
-                            // Construct the payload
-                            const payload = { id: user.user_id };
+                        // Construct the payload
+                        const payload = { id: user.id };
 
-                            // Generate an authentication token
-                            const token = jwt.sign(payload, JWT_SECRET, {
-                                expiresIn: "8h",
-                            });
+                        // Generate an authentication token
+                        const token = jwt.sign(payload, JWT_SECRET, {
+                            expiresIn: "8h",
+                        });
 
-                            // Store token into database
-                            database.query(
-                                "INSERT INTO tokens VALUES ($1, $2)",
-                                [token, user.user_id],
-                                (error, results) => {
-                                    if (error) {
-                                        // Error while storing the token
-                                        response
-                                            .status(error.status || 500)
-                                            .json({
-                                                error: {
-                                                    message: error.message,
-                                                },
-                                            });
-                                    } else {
-                                        // NOTE Regarding the underscores ( _ ):
-                                        //   Data was mapped to the user object
-                                        //   from the results of the database.
-                                        //   In the database fields have underscores.
-                                        response.status(200).send({
-                                            user: {
-                                                id: user.user_id,
-                                                userName: user.user_name,
-                                                firstName: user.first_name,
-                                                lastName: user.last_name,
-                                                email: user.email,
-                                                phone: user.phone,
-                                                userRole: user.user_role,
-                                                picture: user.picture,
-                                                approved: user.birthday,
-                                                joined: user.joined_on,
-                                                created: user.create_on,
-                                                token: token,
-                                            },
-                                        }); // SUCCESS
-                                    }
+                        // Store token into database
+                        database.query(
+                            "INSERT INTO tokens VALUES ($1, $2)",
+                            [token, user.id],
+                            (error, results) => {
+                                if (error) {
+                                    // Error while storing the token
+                                    response.status(error.status || 500).json({
+                                        error: {
+                                            message: error.message,
+                                        },
+                                    });
+                                } else {
+                                    // NOTE Regarding the underscores ( _ ):
+                                    //   Data was mapped to the user object
+                                    //   from the results of the database.
+                                    //   In the database fields have underscores.
+                                    response.status(200).send({
+                                        message:
+                                            "Successfully signed in! Welcome " +
+                                            user.userName +
+                                            "!",
+                                        user,
+                                        accessToken: token,
+                                    }); // SUCCESS
                                 }
-                            );
-                        }
+                            }
+                        );
                     }
-                );
+                });
             }
         }
     );
