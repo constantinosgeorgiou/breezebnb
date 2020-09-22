@@ -36,6 +36,8 @@ const ReviewsRoutes = require("./routes/reviews.js");
 const MessagesRoutes = require("./routes/messages.js");
 const AdminRoutes = require("./routes/admin.js");
 const PhotosRoutes = require("./routes/photos.js");
+const MapsRoutes = require("./routes/maps.js");
+
 
 // Using routes
 app.use("/", IndexRoutes);
@@ -45,6 +47,8 @@ app.use("/reviews", ReviewsRoutes);
 app.use("/messages", MessagesRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/photos", PhotosRoutes);
+app.use("/maps", MapsRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}.`);
