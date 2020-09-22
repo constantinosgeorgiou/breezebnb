@@ -13,6 +13,7 @@ import SignUpPage from "./pages/SignUpPage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import openstreetmap from "./pages/openstreetmap_example";
+import HostDashboard from "./pages/HostDashboard";
 
 class App extends Component {
     render() {
@@ -30,6 +31,7 @@ class App extends Component {
                         render={(props) => <SearchResultsPage {...props} />}
                     />
                     <Route path="/maps" component={openstreetmap} />
+                    <Route path="/host" component={HostDashboard} />
                 </Switch>
 
                 <Footer />
