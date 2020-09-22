@@ -14,7 +14,8 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN;
 // ------------
 // Only allow requests from CORS_ORIGIN
 const corsOptions = { origin: CORS_ORIGIN };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 // TODO: add what helmet does: https://www.npmjs.com/package/helmet
 app.use(helmet());
