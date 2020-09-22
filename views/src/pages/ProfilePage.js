@@ -30,6 +30,20 @@ class ProfilePage extends Component {
         }));
     };
 
+    handleAddressChange = (event) => {
+        const { name, value } = event.target;
+
+        this.setState((prevState) => ({
+            user: {
+                ...prevState.user,
+                address: {
+                    ...prevState.user.address,
+                    [name]: value,
+                },
+            },
+        }));
+    };
+
     handleSubmit = (event) => {
         event.preventDefault();
 
@@ -59,6 +73,9 @@ class ProfilePage extends Component {
                                     <Profile
                                         user={this.state.user}
                                         handleChange={this.handleChange}
+                                        handleAddressChange={
+                                            this.handleAddressChange
+                                        }
                                         handleSubmit={this.handleSubmit}
                                     />
                                 </div>
@@ -136,7 +153,12 @@ const Stats = (props) => {
     );
 };
 
-const Greeting = ({ user, handleChange, handleSubmit }) => {
+const Greeting = ({
+    user,
+    handleChange,
+    handleAddressChange,
+    handleSubmit,
+}) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const showModal = () => {
@@ -270,6 +292,26 @@ const Greeting = ({ user, handleChange, handleSubmit }) => {
                                 className="btn btn-primary mb-2"
                             >
                                 Change Country
+                            </button>
+                        </form>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="countryInput">Country</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="countryInput"
+                                    name="country"
+                                    value={user.address.country}
+                                    onChange={handleAddressChange}
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn btn-primary mb-2"
+                            >
+                                Change Address
                             </button>
                         </form>
 
@@ -517,12 +559,13 @@ const Synopsis = (props) => {
     );
 };
 
-const Profile = ({ user, handleChange, handleSubmit }) => {
+const Profile = ({ user, handleChange, handleAddressChange, handleSubmit }) => {
     return (
         <div>
             <Greeting
                 user={user}
                 handleChange={handleChange}
+                handleAddressChange={handleAddressChange}
                 handleSubmit={handleSubmit}
             />
             <About about={user.userName} address={user.address} />
