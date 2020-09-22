@@ -2,7 +2,7 @@ const database = require("../database/index");
 
 // Check for duplicate usernames
 const isUsernameUnique = (request, response, next) => {
-    const { userName } = request.body;
+    const { userName } = request.body.user;
 
     database.query(
         "SELECT user_id FROM users WHERE user_name = $1",
@@ -34,7 +34,7 @@ const isUsernameUnique = (request, response, next) => {
 
 // Check for duplicate emails
 const isEmailUnique = (request, response, next) => {
-    const { email } = request.body;
+    const { email } = request.body.user;
 
     database.query(
         "SELECT user_id FROM users WHERE email = $1",
@@ -66,7 +66,7 @@ const isEmailUnique = (request, response, next) => {
 
 // Check for valid role
 const isRoleValid = (request, response, next) => {
-    const { userRole } = request.body;
+    const { userRole } = request.body.user;
 
     // Check if role exists in database
     database.query(
@@ -95,7 +95,7 @@ const isRoleValid = (request, response, next) => {
 
 // Check if given user role is not admin
 const isRoleNotAdmin = (request, response, next) => {
-    const { userRole } = request.body;
+    const { userRole } = request.body.user;
 
     if (userRole === "admin") {
         // Role is admin
@@ -112,7 +112,7 @@ const isRoleNotAdmin = (request, response, next) => {
 };
 // Check for duplicate usernames
 const isApproved = (request, response, next) => {
-    const { userName } = request.body;
+    const { userName } = request.body.user;
 
     database.query(
         "SELECT approved FROM users WHERE user_name = $1",
