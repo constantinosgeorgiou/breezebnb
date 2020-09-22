@@ -66,21 +66,16 @@ DROP TABLE IF EXISTS listings;
 CREATE TABLE listings
 (
     listing_id UUID DEFAULT uuid_generate_v4 (),
-    listing_title VARCHAR NOT NULL,
-    listing_description VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
     cost VARCHAR NOT NULL,
     property_type PROPERTY_TYPE NOT NULL,
-    listing_location VARCHAR NOT NULL,
-    listing_address UUID REFERENCES addresses(address_id),
-    listing_amenities_id UUID REFERENCES listing_amenities(listing_amenities_id),
-    listing_space_id UUID REFERENCES listing_space(listing_space_id),
-    listing_rules_id UUID REFERENCES listing_rules(listing_rules_id),
+    address UUID REFERENCES addresses(address_id),
+    amenities UUID REFERENCES listing_amenities(listing_amenities_id),
+    space UUID REFERENCES listing_space(listing_space_id),
+    rules UUID REFERENCES listing_rules(listing_rules_id),
     rating INTEGER,
     minimum_booking_days INTEGER,
     listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
-    -- can accomodate children: how many
-    -- can accomodate adults: how many
-    -- rooms: how many
-    
 );
