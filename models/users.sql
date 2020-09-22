@@ -15,7 +15,6 @@ CREATE TABLE users
     approved boolean,
     birthday VARCHAR NOT NULL,
     joined_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     address UUID REFERENCES addresses(address_id),
     UNIQUE(user_name, email, phone),
     -- user_name, email, phone must be unique
