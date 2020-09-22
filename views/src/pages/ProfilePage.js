@@ -33,7 +33,7 @@ class ProfilePage extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        alert("changed user");
+        alert("changed user: " + JSON.stringify(this.state.user, null, 4));
         // updateUser(user);
     };
 
@@ -59,6 +59,7 @@ class ProfilePage extends Component {
                                     <Profile
                                         user={this.state.user}
                                         handleChange={this.handleChange}
+                                        handleSubmit={this.handleSubmit}
                                     />
                                 </div>
                             </div>
@@ -135,7 +136,7 @@ const Stats = (props) => {
     );
 };
 
-const Greeting = ({ user, handleChange }) => {
+const Greeting = ({ user, handleChange, handleSubmit }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const showModal = () => {
@@ -189,7 +190,7 @@ const Greeting = ({ user, handleChange }) => {
                                 Change password
                             </button>
                         </form>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label htmlFor="emailInput">Email</label>
                                 <input
@@ -516,10 +517,14 @@ const Synopsis = (props) => {
     );
 };
 
-const Profile = ({ user, handleChange }) => {
+const Profile = ({ user, handleChange, handleSubmit }) => {
     return (
         <div>
-            <Greeting user={user} handleChange={handleChange} />
+            <Greeting
+                user={user}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
             <About about={user.userName} address={user.address} />
             {/* <Reviews reviews={user.reviews} /> */}
         </div>
