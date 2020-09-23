@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
-import { getCurrentUser } from "../_services/user";
+import { signout } from "../_services/authentication";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
 import UserContext from "../_helpers/UserContext";
@@ -18,8 +19,8 @@ class Navigation extends Component {
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="mr-auto"></Nav>
                                 <Nav>
-                                    {!context.user ? (
-                                        <Nav.Link href="/hosting">
+                                    {context.user.userRole !== "host" ? (
+                                        <Nav.Link href="/apply-for-hosting">
                                             Become a host
                                         </Nav.Link>
                                     ) : (
@@ -37,9 +38,14 @@ class Navigation extends Component {
                                             </Nav.Link>
                                         </Fragment>
                                     ) : (
-                                        <Nav.Link href="/profile">
-                                            Profile
-                                        </Nav.Link>
+                                        <Fragment>
+                                            <Nav.Link href="/profile">
+                                                Profile
+                                            </Nav.Link>
+                                            <Nav.Link onClick={signout}>
+                                                Sign out
+                                            </Nav.Link>
+                                        </Fragment>
                                     )}
                                 </Nav>
                             </Navbar.Collapse>

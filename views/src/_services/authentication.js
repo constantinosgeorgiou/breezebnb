@@ -1,5 +1,9 @@
 import axios from "axios";
 
+import authorizationHeader from "../_helpers/AuthorizationHeader";
+
+import { getCurrentUser } from "./user";
+
 const API_URL = "http://localhost:5000";
 
 export function signup(user) {
@@ -35,8 +39,22 @@ export function signin(username, password) {
 
 // Make a POST request to the server
 // Remove JWT from local storage
-export function signout(data) {
+export function signout() {
+    const user = getCurrentUser();
+
     return axios
-        .post(`${API_URL}/users/${data.user.userName}/signout`)
-        .then((response) => {});
+        .post(
+            `${API_URL}/auth/signout/${user.userName}`,
+            {},
+            {
+                headers: authorizationHeader(),
+            }
+        )
+        .then((response) => {
+            console.log("response: " + response);
+            localStorage.removeItem("user");
+        })
+        .catch((error) => {
+            console.log("error: ", error);
+        });
 }
