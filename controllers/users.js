@@ -23,6 +23,9 @@ const signup = async (request, response) => {
     // Retrieve and hash password
     const password = await bcrypt.hash(request.body.user.password, 10); // Salt rounds: 10
 
+    console.log("User sign up:" + JSON.stringify(request.body.user, null, 4));
+    console.log("password: " + password);
+
     // Store address of user
     database.query(
         "INSERT INTO addresses (country,state,city,zip_code,street_address,apartment_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id",
@@ -45,14 +48,16 @@ const signup = async (request, response) => {
             } else {
                 // Store address id to pass as parameter in INSET INTO USERS query
                 const addressId = addressQuery.rows[0].address_id;
+                const about = "Welcome to my profile";
 
                 // Create new user
                 database.query(
-                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on, approved, about",
+                    "INSERT INTO users (user_name, first_name, last_name, about, email, password, phone, user_role, photo, birthday, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING user_id, joined_on",
                     [
                         userName,
                         firstName,
                         lastName,
+                        about,
                         email,
                         password,
                         phone,
@@ -63,6 +68,7 @@ const signup = async (request, response) => {
                     ],
                     (error, results) => {
                         if (error) {
+                            console.log(error);
                             response.status(error.status || 400).json({
                                 error: {
                                     message: error.message,
@@ -77,7 +83,7 @@ const signup = async (request, response) => {
                                 id: results.rows[0].user_id,
                                 joined: results.rows[0].joined_on,
                                 approved: results.rows[0].approved,
-                                about: results.rows[0].about,
+                                about: about,
                                 userName: userName,
                                 firstName: firstName,
                                 lastName: lastName,
@@ -88,7 +94,7 @@ const signup = async (request, response) => {
                                 birthday: birthday,
                                 address: address,
                             };
-
+                            console.log(JSON.stringify(user, null, 4));
                             // Construct the payload
                             const payload = { id: user.id };
 
