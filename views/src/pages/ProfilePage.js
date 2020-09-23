@@ -59,10 +59,6 @@ class ProfilePage extends Component {
     };
 
     render() {
-        console.log(
-            "Profile User: " + JSON.stringify(this.state.user, null, 4)
-        );
-        console.log("review: ", this.state.reviews);
         return (
             <main role="main">
                 <div className="container pt-sm-2">
@@ -120,7 +116,10 @@ const Hosting = () => {
                     up to you.
                 </p>
                 <div className="text-center">
-                    <Link className="btn btn-lg btn-outline-info">
+                    <Link
+                        to="/apply-for-hosting"
+                        className="btn btn-lg btn-outline-info"
+                    >
                         Apply for hosting
                     </Link>
                 </div>
@@ -138,9 +137,9 @@ const ProfilePicture = (props) => {
                     src={props.picture}
                     alt=""
                 />
-                <p className="card-text pt-4">
+                {/* <p className="card-text pt-4">
                     <Link className="text-dark">Update phote</Link>
-                </p>
+                </p> */}
             </div>
         </div>
     );
@@ -464,16 +463,16 @@ const Greeting = ({
     );
 };
 
-const About = (props) => {
+const About = ({ user }) => {
     return (
         <div className="card mb-4">
             <div className="card-body">
                 <h2 className="card-title">About</h2>
-                <p className="card-text">{props.about}</p>
+                <p className="card-text">{user.about}</p>
                 <div className="card-text mt-4">
                     <BiHomeCircle className="align-middle" size={24} />
                     <span className="h5 pl-2 align-middle">
-                        Lives in {props.address.state}, {props.address.country}
+                        Lives in {user.address.state}, {user.address.country}
                     </span>
                 </div>
             </div>
@@ -578,7 +577,7 @@ const Profile = ({
                 handleAddressChange={handleAddressChange}
                 handleSubmit={handleSubmit}
             />
-            <About about={user.userName} address={user.address} />
+            <About user={user} />
             {reviews.length === 0 ? "" : <Reviews reviews={reviews} />}
         </div>
     );

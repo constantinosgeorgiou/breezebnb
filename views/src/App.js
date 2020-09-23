@@ -14,7 +14,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import openstreetmap from "./pages/openstreetmap_example";
 import HostDashboard from "./pages/HostDashboard";
-
+import ApplyForHosting from "./pages/ApplyForHosting";
 class App extends Component {
     render() {
         return (
@@ -32,6 +32,10 @@ class App extends Component {
                     />
                     <Route path="/maps" component={openstreetmap} />
                     <Route path="/host" component={HostDashboard} />
+                    <Route
+                        path="/apply-for-hosting"
+                        component={ApplyForHosting}
+                    />
                 </Switch>
 
                 <Footer />

@@ -81,7 +81,6 @@ const retrieveReviewByReviewId = (request, response) => {
 };
 
 const retrieveReceivedReviews = (request, response) => {
-    console.log("retrieve: ", request.params);
     const { userName } = request.params;
 
     // Retrieve received reviews of user

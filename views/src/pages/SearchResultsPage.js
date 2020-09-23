@@ -143,7 +143,6 @@ class SearchResultsPage extends Component {
 
     handleNumberInputChange = (change) => {
         const { name, value } = change.target;
-        console.log(name + " with value " + value);
 
         this.setState((prevState) => ({
             filters: {
@@ -154,9 +153,7 @@ class SearchResultsPage extends Component {
     };
 
     handleAmenitiesChange = (change) => {
-        console.log("here");
         const { name } = change.target;
-        console.log("received: " + name);
         // this.setState((prevState) => ({
         //     filters: {
         //         ...prevState.filters,
@@ -170,7 +167,6 @@ class SearchResultsPage extends Component {
 
     handlePropertyTypesChange = (change) => {
         const { name } = change.target;
-        console.log("received: " + name);
 
         // this.setState((prevState) => ({
         //     filters: {
@@ -185,7 +181,6 @@ class SearchResultsPage extends Component {
 
     handleRulesChange = (change) => {
         const { name, checked } = change.target;
-        console.log(name + " is " + checked);
 
         // this.setState((prevState) => ({
         //     filters: {
