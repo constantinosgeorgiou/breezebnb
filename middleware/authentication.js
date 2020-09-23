@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const database = require("../database/index");
 
 const isAuthenticated = (request, response, next) => {
-    const userName = request.params.userName;
+    const { userName } = request.params;
     const token = request.header("Authorization").replace("Bearer ", "");
 
     if (token) {
@@ -15,7 +15,15 @@ const isAuthenticated = (request, response, next) => {
             } else {
                 // Find all tokens of the user
                 database.query(
-                    "SELECT * FROM users, tokens WHERE users.user_id = tokens.bearer AND users.user_name = $1",
+                    `
+                    SELECT
+                        user_id, user_name, first_name, last_name, about, email, phone, user_role, photo, approved,
+                        birthday, joined_on, country, state, city, zip_code, street_address, apartment_number, token
+                    FROM users, tokens, addresses
+                    WHERE 
+                        users.user_id = tokens.bearer
+                        AND users.address = addresses.address_id
+                        AND users.user_name = $1`,
                     [userName],
                     (error, results) => {
                         if (error) {
@@ -38,14 +46,27 @@ const isAuthenticated = (request, response, next) => {
 
                             // Construct user object from query results
                             const user = {
-                                userId: results.rows[0].user_id,
+                                id: results.rows[0].user_id,
                                 userName: results.rows[0].user_name,
                                 firstName: results.rows[0].first_name,
                                 lastName: results.rows[0].last_name,
+                                about: results.rows[0].about,
                                 email: results.rows[0].email,
                                 phone: results.rows[0].phone,
-                                role: results.rows[0].role,
-                                picture: results.rows[0].picture,
+                                userRole: results.rows[0].user_role,
+                                photo: results.rows[0].photo,
+                                approved: results.rows[0].birthday,
+                                joined: results.rows[0].joined_on,
+                                address: {
+                                    country: results.rows[0].country,
+                                    state: results.rows[0].state,
+                                    city: results.rows[0].city,
+                                    zipCode: results.rows[0].zip_code,
+                                    streetAddress:
+                                        results.rows[0].street_address,
+                                    apartmentNumber:
+                                        results.rows[0].apartment_number,
+                                },
                                 tokens: tokens,
                             };
 
