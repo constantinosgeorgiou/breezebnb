@@ -105,7 +105,7 @@ CREATE TABLE reviews_users
     rating NUMERIC(1),
     reviewee UUID NOT NULL REFERENCES users(user_id),
     text character VARYING(500),
-    date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (review_id)
 );
 
