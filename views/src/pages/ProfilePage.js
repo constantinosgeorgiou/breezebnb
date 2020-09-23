@@ -5,18 +5,25 @@ import { BiUser, BiStar, BiHomeCircle, BiHomeSmile } from "react-icons/bi";
 import { getCurrentUser } from "../_services/authentication";
 import { getReceivedReviews } from "../_services/user";
 
-// const REVIEWS = getReceivedReviews(getCurrentUser().userName);
-
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "react-bootstrap";
 
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: getCurrentUser(),
+            reviews: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        getReceivedReviews(this.state.user.userName).then((response) => {
+            this.setState((prevState) => ({
+                reviews: response.data.reviews,
+            }));
+        });
     }
 
     handleChange = (event) => {
@@ -55,6 +62,7 @@ class ProfilePage extends Component {
         console.log(
             "Profile User: " + JSON.stringify(this.state.user, null, 4)
         );
+        console.log("review: ", this.state.reviews);
         return (
             <main role="main">
                 <div className="container pt-sm-2">
@@ -62,7 +70,10 @@ class ProfilePage extends Component {
                         <div className="col-lg-4">
                             <div className="row">
                                 <div className="col">
-                                    {/* <Synopsis user={this.state.user} /> */}
+                                    <Synopsis
+                                        user={this.state.user}
+                                        reviews={this.state.reviews}
+                                    />
                                     <Hosting />
                                 </div>
                             </div>
@@ -72,6 +83,7 @@ class ProfilePage extends Component {
                                 <div className="col">
                                     <Profile
                                         user={this.state.user}
+                                        reviews={this.state.reviews}
                                         handleChange={this.handleChange}
                                         handleAddressChange={
                                             this.handleAddressChange
@@ -469,15 +481,13 @@ const About = (props) => {
     );
 };
 
-const ReviewAuthor = (props) => {
-    const author = props.author;
-
+const ReviewAuthor = ({ author }) => {
     return (
         <div className="">
             <div className="row no-gutters">
                 <div className="col-auto mr-2">
                     <img
-                        src={author.picture}
+                        src={author.photo}
                         className="rounded-circle img-circle-60"
                         alt=""
                     />
@@ -485,11 +495,12 @@ const ReviewAuthor = (props) => {
                 <div className="col">
                     <p className="mb-0 ">
                         <strong>
-                            {author.firstName}, {author.address}
+                            {author.firstName}, {author.address.state},{" "}
+                            {author.address.country}
                         </strong>
                     </p>
                     <small className="text-muted m-0">
-                        Joined in {author.joined_on}
+                        Joined in {author.joined}
                     </small>
                 </div>
             </div>
@@ -497,14 +508,11 @@ const ReviewAuthor = (props) => {
     );
 };
 
-const ListReviews = (props) => {
-    const isLast = props.isLast;
-    const review = props.review;
-
+const ListReviews = ({ review, isLast }) => {
     return (
         <div>
             <div className="card-body">
-                <small>{review.posted_on}</small>
+                <small>{review.created}</small>
                 <p>{review.text}</p>
                 <ReviewAuthor author={review.author} />
             </div>
@@ -519,13 +527,12 @@ const ListReviews = (props) => {
     );
 };
 
-const Reviews = (props) => {
-    const reviews = props.reviews;
+const Reviews = ({ reviews }) => {
     const listReviews = reviews.map((review) =>
         review === reviews[reviews.length - 1] ? (
-            <ListReviews key={review.reviewId} review={review} isLast={true} />
+            <ListReviews key={review.id} review={review} isLast={true} />
         ) : (
-            <ListReviews key={review.reviewId} review={review} isLast={false} />
+            <ListReviews key={review.id} review={review} isLast={false} />
         )
     );
 
@@ -547,19 +554,22 @@ const Reviews = (props) => {
     );
 };
 
-const Synopsis = (props) => {
+const Synopsis = ({ user, reviews }) => {
     return (
         <div>
-            <ProfilePicture picture={props.user.picture} />
-            <Stats
-                userName={props.user.userName}
-                reviews={props.user.reviews.length}
-            />
+            <ProfilePicture picture={user.picture} />
+            <Stats userName={user.userName} reviews={reviews.length} />
         </div>
     );
 };
 
-const Profile = ({ user, handleChange, handleAddressChange, handleSubmit }) => {
+const Profile = ({
+    user,
+    reviews,
+    handleChange,
+    handleAddressChange,
+    handleSubmit,
+}) => {
     return (
         <div>
             <Greeting
@@ -569,7 +579,7 @@ const Profile = ({ user, handleChange, handleAddressChange, handleSubmit }) => {
                 handleSubmit={handleSubmit}
             />
             <About about={user.userName} address={user.address} />
-            {/* <Reviews reviews={user.reviews} /> */}
+            {reviews.length === 0 ? "" : <Reviews reviews={reviews} />}
         </div>
     );
 };
