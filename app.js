@@ -43,8 +43,8 @@ const MapsRoutes = require("./routes/maps.js");
 // Using routes
 app.use("/", IndexRoutes);
 app.use("/users", UsersRoutes);
+app.use("reviews", ReviewsRoutes);
 app.use("/listings", ListingsRoutes);
-app.use("/reviews", ReviewsRoutes);
 app.use("/messages", MessagesRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/photos", PhotosRoutes);
