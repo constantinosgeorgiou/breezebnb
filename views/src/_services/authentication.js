@@ -3,20 +3,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000";
 
 export function signup(user) {
-    return axios
-        .post(API_URL + "/auth/signup", { user })
-        .then((response) => {
-            console.log("Sign up response: ", response.data);
-            if (response.data.accessToken) {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
-            }
-
-            return response.data;
-        })
-        .catch((error) => console.log("sign up error: ", error));
+    return axios.post(API_URL + "/auth/signup", { user });
 }
 
 // Make a POST request to the server with username and password.
@@ -52,8 +39,4 @@ export function signout(data) {
     return axios
         .post(`${API_URL}/users/${data.user.userName}/signout`)
         .then((response) => {});
-}
-
-export function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
 }
