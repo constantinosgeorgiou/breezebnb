@@ -27,9 +27,9 @@ router.post(
 router.post("/auth/signin", Users.signin);
 
 // Sign out route
-router.post("/users/:userName/signout", isAuthenticated, Users.signout);
+router.post("/auth/signout/:userName", isAuthenticated, Users.signout);
 
 // Sign all out route
-router.post("/users/:userName/signoutall", isAuthenticated, Users.signoutAll);
+router.post("/auth/signoutall/:userName", isAuthenticated, Users.signoutAll);
 
 module.exports = router;
