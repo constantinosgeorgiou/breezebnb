@@ -67,16 +67,20 @@ class SignUpPage extends Component {
             userRole: this.state.userRole,
         };
 
-        signup(user).then(
-            (response) => {
+        signup(user)
+            .then((response) => {
+                console.log("Sign up response: ", response.data);
+                if (response.data.accessToken) {
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(response.data.user)
+                    );
+                }
                 // Redirect to profile page
                 this.props.history.push("/profile");
                 window.location.reload();
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+            })
+            .catch((error) => console.log("sign up error: ", error));
     };
 
     // Helper function for next step
