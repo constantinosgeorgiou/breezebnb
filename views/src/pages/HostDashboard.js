@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { BiUser, BiStar, BiHomeCircle, BiHomeSmile } from "react-icons/bi";
+import { BiStar } from "react-icons/bi";
 import Listings from "../_components/Listings";
 import { Container } from "react-bootstrap";
 
@@ -210,11 +209,9 @@ class HostDashboard extends Component {
     }
 
     render() {
-
         return (
             <main role="main">
                 <div className="container pt-sm-2">
-
                     <div className="row">
                         <h1>&nbsp;&nbsp;Dashboard Host</h1>
                     </div>
@@ -223,9 +220,10 @@ class HostDashboard extends Component {
                         <div className="col-lg-8">
                             <div className="row">
                                 <div className="col">
-
                                     <Stats />
-                                    <ListingsHost listings={this.state.listings} />
+                                    <ListingsHost
+                                        listings={this.state.listings}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -251,23 +249,27 @@ const Stats = () => {
                     <h2>Stats</h2>
                     <span className="card-text pl-2"></span>
                 </p>
-                <Container>
-
-                </Container>
+                <Container></Container>
 
                 <div class="container">
                     <div class="row">
                         <div class="col-sm">
                             <p className="card-text">
                                 <BiStar className="align-middle" size={24} />
-                                <span className="card-text pl-2">4.3 Overall Rating</span>
+                                <span className="card-text pl-2">
+                                    4.3 Overall Rating
+                                </span>
                             </p>
                         </div>
                         <div class="col-sm">
-                            <span className="card-text pl-2">10  Total reviews</span>
+                            <span className="card-text pl-2">
+                                10 Total reviews
+                            </span>
                         </div>
                         <div class="col-sm">
-                            <span className="card-text pl-2">343.31$ Total earnings</span>
+                            <span className="card-text pl-2">
+                                343.31$ Total earnings
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -288,9 +290,7 @@ const Messages = () => {
     );
 };
 
-
 const ListingsHost = (props) => {
-
     return (
         <div className="card my-4">
             <div className="card-body">
@@ -302,6 +302,5 @@ const ListingsHost = (props) => {
         </div>
     );
 };
-
 
 export default HostDashboard;
