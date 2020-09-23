@@ -23,7 +23,7 @@ CREATE TABLE users
     phone VARCHAR,
     user_role USER_ROLE NOT NULL,
     photo character VARYING(150),
-    approved BOOLEAN,
+    approved BOOLEAN DEFAULT FALSE,
     birthday VARCHAR NOT NULL,
     joined_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     address UUID REFERENCES addresses(address_id),
