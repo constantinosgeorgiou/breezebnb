@@ -7,6 +7,8 @@ const isAuthenticated = (request, response, next) => {
     const { userName } = request.params;
     const token = request.header("Authorization").replace("Bearer ", "");
 
+    console.log("username: " + userName);
+
     if (token) {
         // Verify token
         jwt.verify(token, JWT_SECRET, (error, decoded) => {
@@ -82,7 +84,7 @@ const isAuthenticated = (request, response, next) => {
 
                                 // Attach token on the request
                                 request.token = token;
-
+                                console.log("auth next");
                                 next(); // SUCCESS
                             }
                         }
