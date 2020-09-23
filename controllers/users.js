@@ -48,7 +48,7 @@ const signup = async (request, response) => {
 
                 // Create new user
                 database.query(
-                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on, approved",
+                    "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id, joined_on, approved, about",
                     [
                         userName,
                         firstName,
@@ -77,6 +77,7 @@ const signup = async (request, response) => {
                                 id: results.rows[0].user_id,
                                 joined: results.rows[0].joined_on,
                                 approved: results.rows[0].approved,
+                                about: results.rows[0].about,
                                 userName: userName,
                                 firstName: firstName,
                                 lastName: lastName,
@@ -112,7 +113,7 @@ const signup = async (request, response) => {
                                             });
                                     } else {
                                         // Add token to user object
-                                        user.token = token;
+                                        user.accessToken = token;
 
                                         response.status(201).send({
                                             message:
@@ -139,7 +140,7 @@ const signin = (request, response) => {
 
     // Find user with given username
     database.query(
-        "SELECT user_id, user_name, first_name, last_name, email, password, phone, user_role, photo, approved, birthday, joined_on, country, state, city, zip_code, street_address, apartment_number FROM users, addresses WHERE users.address = addresses.address_id AND users.user_name = $1",
+        "SELECT user_id, user_name, first_name, last_name, about, email, password, phone, user_role, photo, approved, birthday, joined_on, country, state, city, zip_code, street_address, apartment_number FROM users, addresses WHERE users.address = addresses.address_id AND users.user_name = $1",
         [userName],
         (error, results) => {
             if (error) {
@@ -162,6 +163,7 @@ const signin = (request, response) => {
                     userName: results.rows[0].user_name,
                     firstName: results.rows[0].first_name,
                     lastName: results.rows[0].last_name,
+                    about: results.rows[0].about,
                     email: results.rows[0].email,
                     phone: results.rows[0].phone,
                     userRole: results.rows[0].user_role,
@@ -224,6 +226,9 @@ const signin = (request, response) => {
                                         },
                                     });
                                 } else {
+                                    // Add token to user object
+                                    user.accessToken = token;
+
                                     // NOTE Regarding the underscores ( _ ):
                                     //   Data was mapped to the user object
                                     //   from the results of the database.
