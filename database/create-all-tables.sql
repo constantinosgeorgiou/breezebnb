@@ -16,6 +16,7 @@ CREATE TABLE users
     user_name VARCHAR NOT NULL,
     first_name VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
+    about VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     -- password hashed using bcrypt
     password VARCHAR NOT NULL,
