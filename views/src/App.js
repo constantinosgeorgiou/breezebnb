@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./_components/ProtectedRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -14,9 +15,9 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
-import openstreetmap from "./pages/openstreetmap_example";
 import HostDashboard from "./pages/HostDashboard";
 import ApplyForHosting from "./pages/ApplyForHosting";
+// import openstreetmap from "./pages/openstreetmap_example";
 
 class App extends Component {
     render() {
@@ -26,20 +27,31 @@ class App extends Component {
                     <Navigation />
 
                     <Switch>
+                        <Route exact path="/" component={HomePage} />
+
                         <Route path="/signin" component={SignInPage} />
                         <Route path="/signup" component={SignUpPage} />
-                        <Route exact path="/" component={HomePage} />
-                        <Route path="/profile" component={ProfilePage} />
-                        <Route
-                            path="/results"
-                            render={(props) => <SearchResultsPage {...props} />}
-                        />
-                        <Route path="/maps" component={openstreetmap} />
-                        <Route path="/host" component={HostDashboard} />
+
                         <Route
                             path="/apply-for-hosting"
                             component={ApplyForHosting}
                         />
+
+                        <Route
+                            path="/results"
+                            render={(props) => <SearchResultsPage {...props} />}
+                        />
+
+                        <ProtectedRoute
+                            path="/profile"
+                            component={ProfilePage}
+                        />
+
+                        <ProtectedRoute
+                            path="/host"
+                            component={HostDashboard}
+                        />
+                        {/* <Route path="/maps" component={openstreetmap} /> */}
                     </Switch>
 
                     <Footer />
