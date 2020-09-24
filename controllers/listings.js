@@ -33,8 +33,11 @@ const retrieveListingById = (request, response) => {
                     },
                 });
             }
-
-            response.status(200).json(results.rows);
+            let listing = {
+                id: results.rows[0].listing_id,
+                };
+            
+            response.status(200).json(results.listing);
         }
     );
 };
