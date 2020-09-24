@@ -3,6 +3,8 @@ import { BiStar } from "react-icons/bi";
 import Listings from "../_components/Listings";
 import { Container } from "react-bootstrap";
 
+import { BiPlusCircle } from "react-icons/bi";
+
 class HostDashboard extends Component {
     constructor(props) {
         super(props);
@@ -295,7 +297,27 @@ const ListingsHost = (props) => {
         <div className="card my-4">
             <div className="card-body">
                 <p className="card-text">
-                    <h2>Listings</h2>
+                    <div className="row mb-4 justify-content-between">
+                        <div className="col-auto ">
+                            <h2>Listings</h2>
+                        </div>
+                        <div className="col-auto ">
+                            <button
+                                type="button"
+                                class="btn btn-lg  btn-outline-success"
+                            >
+                                <span>
+                                    <BiPlusCircle
+                                        className="align-middle"
+                                        size={36}
+                                    />
+                                    <span className="align-middle ml-2">
+                                        Add new listing
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                     <Listings listings={props.listings} />
                 </p>
             </div>
