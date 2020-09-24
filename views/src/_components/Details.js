@@ -62,7 +62,7 @@ const Details = ({ listing, handleChange }) => {
                             className="form-control"
                             id="inputGuests"
                             type="number"
-                            min={0}
+                            min={1}
                             // required
                             name="guests"
                             value={listing.guests}

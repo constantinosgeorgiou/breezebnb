@@ -18,56 +18,56 @@ class AddNewListing extends Component {
                 guests: 0,
                 minimumBookingDays: 0,
                 owner: 23458,
-            },
-            photos: {},
-            coordinates: {
-                latitude: 34,
-                longtitude: 123,
-            },
-            address: {
-                country: "",
-                state: "",
-                city: "",
-                zipCode: "",
-                streetAddress: "",
-                apartmentNumber: "",
-            },
-            amenities: {
-                wifi: false,
-                shampoo: false,
-                heating: false,
-                airConditioning: false,
-                washer: false,
-                dryer: false,
-                breakfast: false,
-                indoorFireplace: false,
-                hangers: false,
-                iron: false,
-                hairDryer: false,
-                laptopFriendlyWorkspace: false,
-                tv: false,
-                crib: false,
-                highChair: false,
-                selfCheckIn: false,
-                smokeAlarm: false,
-                carbonMonoxideAlarm: false,
-                privateBathroom: false,
-                beachfront: false,
-                waterfront: false,
-            },
-            space: {
-                beds: false,
-                bathrooms: false,
-                rooms: false,
-                squareMeters: false,
-                bedrooms: false,
-                livingRooms: false,
-                kitchen: false,
-            },
-            rules: {
-                petsAllowed: false,
-                smokingAllowed: false,
-                eventsAllowed: false,
+                photos: {},
+                coordinates: {
+                    latitude: 34,
+                    longtitude: 123,
+                },
+                address: {
+                    country: "",
+                    state: "",
+                    city: "",
+                    zipCode: "",
+                    streetAddress: "",
+                    apartmentNumber: "",
+                },
+                amenities: {
+                    wifi: false,
+                    shampoo: false,
+                    heating: false,
+                    airConditioning: false,
+                    washer: false,
+                    dryer: false,
+                    breakfast: false,
+                    indoorFireplace: false,
+                    hangers: false,
+                    iron: false,
+                    hairDryer: false,
+                    laptopFriendlyWorkspace: false,
+                    tv: false,
+                    crib: false,
+                    highChair: false,
+                    selfCheckIn: false,
+                    smokeAlarm: false,
+                    carbonMonoxideAlarm: false,
+                    privateBathroom: false,
+                    beachfront: false,
+                    waterfront: false,
+                },
+                space: {
+                    beds: 0,
+                    bathrooms: 0,
+                    rooms: 0,
+                    squareMeters: 0,
+                    bedrooms: 0,
+                    livingRooms: 0,
+                    kitchen: 0,
+                },
+                rules: {
+                    petsAllowed: false,
+                    smokingAllowed: false,
+                    eventsAllowed: false,
+                },
             },
         };
     }
@@ -75,34 +75,62 @@ class AddNewListing extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        let listing = this.state.listing;
-        listing.amenities = this.state.amenities;
-
         alert("New listing: " + JSON.stringify(this.state.listing, null, 4));
     };
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
+    handleChange = ({ target }) => {
+        const { name, value, type } = target;
 
-        console.log(name + " with " + value);
-        this.setState((prevState) => ({
-            ...prevState,
-            listing: {
-                ...prevState.listing,
-                [name]: value,
-            },
-        }));
+        if (type === "checkbox") {
+            // Checked contains the value
+            // Value contains the object to change
+            const { checked } = target;
 
-        console.log("state: " + JSON.stringify(this.state.listing, null, 4));
+            this.setState((prevState) => ({
+                ...prevState,
+                listing: {
+                    ...prevState.listing,
+                    [value]: {
+                        ...prevState.listing[value],
+                        [name]: checked,
+                    },
+                },
+            }));
+        } else {
+            this.setState((prevState) => ({
+                ...prevState,
+                listing: {
+                    ...prevState.listing,
+                    [name]: value,
+                },
+            }));
+        }
     };
 
-    handleAmenitiesChange = (event) => {
-        const { name } = event.target;
+    handleAddressChange = ({ target }) => {
+        const { name, value } = target;
 
         this.setState((prevState) => ({
-            amenities: {
-                ...prevState.amenities,
-                [name]: !prevState.amenities[name],
+            listing: {
+                ...prevState.listing,
+                address: {
+                    ...prevState.listing.address,
+                    [name]: value,
+                },
+            },
+        }));
+    };
+
+    handleSpaceChange = ({ target }) => {
+        const { name, value } = target;
+
+        this.setState((prevState) => ({
+            listing: {
+                ...prevState.listing,
+                space: {
+                    ...prevState.listing.space,
+                    [name]: value,
+                },
             },
         }));
     };
@@ -110,8 +138,7 @@ class AddNewListing extends Component {
     render() {
         return (
             <Modal
-                // show={this.props.show}
-                show={true}
+                show={this.props.show}
                 onHide={this.props.onHide}
                 size="lg"
                 centered
@@ -130,24 +157,33 @@ class AddNewListing extends Component {
 
                         {/* Address */}
                         <h5 className="mt-4 mb-3">Address</h5>
-                        <Address />
+                        <Address
+                            address={this.state.listing.address}
+                            handleChange={this.handleAddressChange}
+                        />
                         {/* Coordinates */}
                         {/* TO DO */}
 
                         {/* Amenities */}
                         <h5 className="mt-4 mb-3">Amenities</h5>
                         <Amenities
-                            amenities={this.state.amenities}
-                            handleChange={this.handleAmenitiesChange}
+                            amenities={this.state.listing.amenities}
+                            handleChange={this.handleChange}
                         />
 
                         {/* Space */}
                         <h5 className="mt-4 mb-3">Space</h5>
-                        <Space />
+                        <Space
+                            space={this.state.listing.space}
+                            handleChange={this.handleSpaceChange}
+                        />
 
                         {/* Rules */}
                         <h5 className="mt-4 mb-3">Rules</h5>
-                        <Rules />
+                        <Rules
+                            rules={this.state.listing.rules}
+                            handleChange={this.handleChange}
+                        />
                         {/* Owner */}
 
                         {/* Photos */}

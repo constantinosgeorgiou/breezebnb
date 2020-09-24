@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Address = () => {
+const Address = ({ address, handleChange }) => {
     return (
         <Fragment>
             {/* Country */}
@@ -12,8 +12,8 @@ const Address = () => {
                     id="inputCountry"
                     placeholder="Greece"
                     name="country"
-                    // value={props.country}
-                    // onChange={props.handleChange}
+                    value={address.country}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -26,8 +26,8 @@ const Address = () => {
                     id="inputState"
                     placeholder="Attiki"
                     name="state"
-                    // value={props.state}
-                    // onChange={props.handleChange}
+                    value={address.state}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -40,8 +40,8 @@ const Address = () => {
                     id="inputCity"
                     placeholder="Athens"
                     name="city"
-                    // value={props.city}
-                    // onChange={props.handleChange}
+                    value={address.city}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -54,8 +54,8 @@ const Address = () => {
                     id="inputZipCode"
                     placeholder="12345"
                     name="zipCode"
-                    // value={props.zipCode}
-                    // onChange={props.handleChange}
+                    value={address.zipCode}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -68,8 +68,8 @@ const Address = () => {
                     id="inputAddress"
                     placeholder="1234 Main St"
                     name="streetAddress"
-                    // value={props.streetAddress}
-                    // onChange={props.handleChange}
+                    value={address.streetAddress}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -82,8 +82,8 @@ const Address = () => {
                     id="inputApartmentNumber"
                     placeholder="1234 Main St"
                     name="apartmentNumber"
-                    // value={props.apartmentNumber}
-                    // onChange={props.handleChange}
+                    value={address.apartmentNumber}
+                    onChange={handleChange}
                 />
             </div>
         </Fragment>

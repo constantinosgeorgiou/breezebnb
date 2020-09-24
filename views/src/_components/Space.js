@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Space = () => {
+const Space = ({ space, handleChange }) => {
     return (
         <Fragment>
             {/* Beds */}
@@ -19,8 +19,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="beds"
-                            // value={}
-                            // onChange={}
+                            value={space.beds}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -42,8 +42,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="bathrooms"
-                            // value={}
-                            // onChange={}
+                            value={space.bathrooms}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -65,8 +65,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="rooms"
-                            // value={}
-                            // onChange={}
+                            value={space.rooms}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -88,8 +88,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="squareMeters"
-                            // value={}
-                            // onChange={}
+                            value={space.squareMeters}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -111,8 +111,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="bedrooms"
-                            // value={}
-                            // onChange={}
+                            value={space.bedrooms}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -134,8 +134,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="livingRooms"
-                            // value={}
-                            // onChange={}
+                            value={space.livingRooms}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -157,8 +157,8 @@ const Space = () => {
                             min={0}
                             // required
                             name="kitchen"
-                            // value={}
-                            // onChange={}
+                            value={space.kitchen}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>

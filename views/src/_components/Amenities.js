@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 
-import CheckboxGroup from "react-checkbox-group";
-
-const Amenities = ({ amenities, handleAmenitiesChange }) => {
+const Amenities = ({ amenities, handleChange }) => {
     return (
         <Fragment>
             <div className="form-group">
@@ -11,11 +9,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputWifi"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="wifi"
-                        value={amenities.wifi}
-                        defaultChecked={amenities.wifi ? true : false}
-                        onChange={handleAmenitiesChange}
+                        value="amenities"
+                        checked={amenities.wifi ? true : false}
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -31,9 +28,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputShampoo"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="shampoo"
-                        // onChange={props.handleChange}
+                        checked={amenities.shampoo ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -49,9 +47,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputHeating"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="heating"
-                        // onChange={props.handleChange}
+                        checked={amenities.heating ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -67,9 +66,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputAirConditioning"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="airConditioning"
-                        // onChange={props.handleChange}
+                        checked={amenities.airConditioning ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -85,9 +85,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputWasher"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="washer"
-                        // onChange={props.handleChange}
+                        checked={amenities.washer ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -103,9 +104,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputDryer"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="dryer"
-                        // onChange={props.handleChange}
+                        checked={amenities.dryer ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -121,9 +123,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputBreakfast"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="breakfast"
-                        // onChange={props.handleChange}
+                        checked={amenities.breakfast ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -139,9 +142,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputIndoorFireplace"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="indoorFireplace"
-                        // onChange={props.handleChange}
+                        checked={amenities.indoorFireplace ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -157,9 +161,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputHangers"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="hangers"
-                        // onChange={props.handleChange}
+                        checked={amenities.hangers ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -175,9 +180,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputIron"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="iron"
-                        // onChange={props.handleChange}
+                        checked={amenities.iron ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -193,9 +199,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputHairDryer"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="hairDryer"
-                        // onChange={props.handleChange}
+                        checked={amenities.hairDryer ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -211,9 +218,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputLaptopFriendlyWorkspace"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="laptopFriendlyWorkspace"
-                        // onChange={props.handleChange}
+                        checked={amenities.laptopFriendlyWorkspace ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -229,9 +237,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputTV"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="tv"
-                        // onChange={props.handleChange}
+                        checked={amenities.tv ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -247,9 +256,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputCrib"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="crib"
-                        // onChange={props.handleChange}
+                        checked={amenities.crib ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -265,9 +275,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputHighChair"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="highChair"
-                        // onChange={props.handleChange}
+                        checked={amenities.highChair ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -283,9 +294,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputSelfCheckIn"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="selfCheckIn"
-                        // onChange={props.handleChange}
+                        checked={amenities.selfCheckIn ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -301,9 +313,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputSmokeAlarm"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="smokeAlarm"
-                        // onChange={props.handleChange}
+                        checked={amenities.smokeAlarm ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -319,9 +332,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputCarbonMonoxideAlarm"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="carbonMonoxideAlarm"
-                        // onChange={props.handleChange}
+                        checked={amenities.carbonMonoxideAlarm ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -337,9 +351,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputPrivateBathroom"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="privateBathroom"
-                        // onChange={props.handleChange}
+                        checked={amenities.privateBathroom ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -355,9 +370,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputBeachfront"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="beachfront"
-                        // onChange={props.handleChange}
+                        checked={amenities.beachfront ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -373,9 +389,10 @@ const Amenities = ({ amenities, handleAmenitiesChange }) => {
                         className="custom-control-input"
                         id="checkboxInputWaterfront"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="waterfront"
-                        // onChange={props.handleChange}
+                        checked={amenities.waterfront ? true : false}
+                        value="amenities"
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"

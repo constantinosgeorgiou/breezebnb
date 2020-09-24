@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Rules = () => {
+const Rules = ({ rules, handleChange }) => {
     return (
         <Fragment>
             {/* Pets allowed */}
@@ -10,9 +10,10 @@ const Rules = () => {
                         className="custom-control-input"
                         id="checkboxInputPetsAllowed"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="petsAllowed"
-                        // onChange={props.handleChange}
+                        value="rules"
+                        checked={rules.petsAllowed ? true : false}
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -29,9 +30,10 @@ const Rules = () => {
                         className="custom-control-input"
                         id="checkboxInputSmokingAllowed"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="smokingAllowed"
-                        // onChange={props.handleChange}
+                        value="rules"
+                        checked={rules.smokingAllowed ? true : false}
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
@@ -49,9 +51,10 @@ const Rules = () => {
                         className="custom-control-input"
                         id="checkboxInputEventsAllowed"
                         type="checkbox"
-                        // defaultChecked={props.userRole}
                         name="eventsAllowed"
-                        // onChange={props.handleChange}
+                        value="rules"
+                        checked={rules.eventsAllowed ? true : false}
+                        onChange={handleChange}
                     />
                     <label
                         className="custom-control-label"
