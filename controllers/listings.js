@@ -41,15 +41,7 @@ const retrieveListingById = (request, response) => {
 
 const createListing = (request, response) => {
     console.log(request.body);
-    const {
-        listingTitle,
-        listingDescription,
-        cost,
-        propertyType,
-        listingLocation,
-        rating,
-        isAvailable,
-        picture,
+    const {listing
     } = request.body;
 
     // database.query(
@@ -79,27 +71,27 @@ const createListing = (request, response) => {
     // );
     database.query(
         "INSERT INTO listing_amenities (wifi,shampoo ,heating,air_conditioning ,washer ,dryer ,breakfast ,indoor_fireplace ,hangers ,iron ,hair_dryer ,laptop_friendly_workspace ,tv ,crib ,high_chair,self_check_in ,smoke_alarm,carbon_monoxide_alarm, private_bathroom ,beachfront ,waterfront ) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) RETURNING listing_amenities_id", [
-            amenities.wifi,
-            amenities.shampoo,
-            amenities.heating,
-            amenities.airConditioning,
-            amenities.washer,
-            amenities.dryer,
-            amenities.breakfast,
-            amenities.indoorFireplace,
-            amenities.hangers,
-            amenities.iron,
-            amenities.hairDryer,
-            amenities.laptopFriendlyWorkspace,
-            amenities.tv,
-            amenities.crib,
-            amenities.highChair,
-            amenities.selfCheckIn,
-            amenities.smokeAlarm,
-            amenities.carbonMonoxideAlarm,
-            amenities.privateBathroom,
-            amenities.beachfront,
-            amenities.waterfront,
+            listing.amenities.wifi,
+            listing.amenities.shampoo,
+            listing.amenities.heating,
+            listing.amenities.airConditioning,
+            listing.amenities.washer,
+            listing.amenities.dryer,
+            listing.amenities.breakfast,
+            listing.amenities.indoorFireplace,
+            listing.amenities.hangers,
+            listing.amenities.iron,
+            listing.amenities.hairDryer,
+            listing.amenities.laptopFriendlyWorkspace,
+            listing.amenities.tv,
+            listing.amenities.crib,
+            listing.amenities.highChair,
+            listing.amenities.selfCheckIn,
+            listing.amenities.smokeAlarm,
+            listing.amenities.carbonMonoxideAlarm,
+            listing.amenities.privateBathroom,
+            listing.amenities.beachfront,
+            listing.amenities.waterfront,
 
         ],
         (error, amenitiesQuery) => {
@@ -117,13 +109,13 @@ const createListing = (request, response) => {
                 // Create new user
                 database.query(
                     "INSERT INTO listing_space (beds,bathrooms,rooms,square_meters,bedrooms,living_rooms,kitchen) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING listing_space_id", [
-                        space.beds,
-                        space.bathrooms,
-                        space.rooms,
-                        space.squareMeters,
-                        space.bedrooms,
-                        space.livingRooms,
-                        space.kitchen,
+                        listing.space.beds,
+                        listing.space.bathrooms,
+                        listing.space.rooms,
+                        listing.space.squareMeters,
+                        listing.space.bedrooms,
+                        listing.space.livingRooms,
+                        listing.space.kitchen,
                     ],
                     (error, spaceQuery) => {
                         if (error) {
@@ -140,9 +132,9 @@ const createListing = (request, response) => {
                             // Create new user
                             database.query(
                                 "INSERT INTO listing_rules ( pets_allowed,smoking_allowed,events_allowed ) VALUES ($1, $2, $3) RETURNING listing_rules_id", [
-                                    rules.petsAllowed,
-                                    rules.smokingAllowed,
-                                    rules.eventsAllowed,
+                                    listing.rules.petsAllowed,
+                                    listing.rules.smokingAllowed,
+                                    listing.rules.eventsAllowed,
                                 ], (error, rulesQuery) => {
                                     if (error) {
                                         // Error while retrieving user id
@@ -154,19 +146,21 @@ const createListing = (request, response) => {
                                     } else {
                                         // Store address id to pass as parameter in INSET INTO USERS query
                                         const listingrulesid = rulesQuery.rows[0].listing_rules_id;
+                                    
 
 
                                         // Create new user
                                         database.query(
                                             "INSERT INTO addresses (country,state,city,zip_code,street_address,apartment_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id", [
-                                                address.country,
-                                                address.state,
-                                                address.city,
-                                                address.zipCode,
-                                                address.streetAddress,
-                                                address.apartmentNumber,
+                                                listing.address.country,
+                                                listing.address.state,
+                                                listing.address.city,
+                                                listing.address.zipCode,
+                                                listing.address.streetAddress,
+                                                listing.address.apartmentNumber,
                                             ], (error, addressQuery) => {
                                                 if (error) {
+                                                    console.log(listingAmenitiesId);
                                                     // Error while retrieving user id
                                                     response.status(error.status || 500).json({
                                                         error: {
@@ -176,21 +170,20 @@ const createListing = (request, response) => {
                                                 } else {
                                                     // Store address id to pass as parameter in INSET INTO USERS query
                                                     const addressId = addressQuery.rows[0].address_id;
-
                                                     // Create new user
                                                     database.query(
-                                                        "INSERT INTO listings (title,description,cost,property_type,guests,minimum_booking_days,address ,amenities,space,rules,listing_owner) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12) ", [
-                                                            title,
-                                                            description,
-                                                            cost,
-                                                            propertyType,
-                                                            guests,
-                                                            minimumBookingDays,
+                                                        "INSERT INTO listings (title,description,cost,property_type,guests,minimum_booking_days,address ,amenities,space,rules,listing_owner) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11) ", [
+                                                            listing.title,
+                                                            listing.description,
+                                                            listing.cost,
+                                                            listing.propertyType,
+                                                            listing.guests,
+                                                            listing.minimumBookingDays,
                                                             addressId,
                                                             listingAmenitiesId,
                                                             listingspaceid,
                                                             listingrulesid,
-                                                            owner,
+                                                            listing.owner,
                                                         ],
                                                     );
 
@@ -200,8 +193,6 @@ const createListing = (request, response) => {
 
                                     }
                                 }
-
-
                             );
 
                         }
