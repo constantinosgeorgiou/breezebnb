@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
 
+import { addListing } from "../_services/listings";
+
 import Details from "./Details";
 import Amenities from "./Amenities";
 import Space from "./Space";
@@ -75,7 +77,7 @@ class AddNewListing extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        alert("New listing: " + JSON.stringify(this.state.listing, null, 4));
+        addListing(this.state.listing);
     };
 
     handleChange = ({ target }) => {
