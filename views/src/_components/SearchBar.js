@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 
 import axios from "axios";
 
+import { searchListings } from "../_services/listings";
+
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
@@ -53,8 +55,13 @@ class SearchBar extends Component {
     }
 
     componentDidMount() {
+        // Create parameters object
+        // const parameters = {
+        //     this.state.
+        // }
+
         // Retrieve available listings locations
-        // this.retrieveLocations();
+        // this.searchLocations(parameters);
 
         // Update view
         this.updateViewForDesktop();
