@@ -8,111 +8,12 @@ import { BiStar, BiBed, BiBath } from "react-icons/bi";
 
 import { Carousel } from "react-bootstrap";
 
-import faker from "faker";
-
 class ListingPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             listingId: props.match.params.listingId,
-            listing: {
-                id: faker.random.uuid(),
-                title: "Cozy apartment",
-                description: faker.lorem.paragraphs(3),
-                propertyType: "Bed and Breakfast",
-                guests: 3,
-                minimumBookingDays: 2,
-                rating: 5,
-                cost: 15,
-                owner: {
-                    id: faker.random.uuid(),
-                    firstName: faker.name.firstName(),
-                    lastName: faker.name.lastName(),
-                    photo: faker.internet.avatar(),
-                    joined: faker.date.future(),
-                },
-                photos: [
-                    faker.image.image(),
-                    faker.image.image(),
-                    faker.image.image(),
-                    faker.image.image(),
-                ],
-                coordinates: {
-                    latitude: 34,
-                    longtitude: 123,
-                },
-                address: {
-                    country: "Greece",
-                    state: "Athens",
-                    city: "Panormou",
-                    zipCode: "54321",
-                    streetAddress: "Blah 12",
-                    apartmentNumber: "",
-                },
-                amenities: {
-                    wifi: true,
-                    shampoo: true,
-                    heating: true,
-                    airConditioning: true,
-                    washer: true,
-                    dryer: true,
-                    breakfast: true,
-                    indoorFireplace: true,
-                    hangers: true,
-                    iron: true,
-                    hairDryer: true,
-                    laptopFriendlyWorkspace: true,
-                    tv: true,
-                    crib: true,
-                    highChair: true,
-                    selfCheckIn: true,
-                    smokeAlarm: true,
-                    carbonMonoxideAlarm: true,
-                    privateBathroom: true,
-                    beachfront: true,
-                    waterfront: true,
-                },
-                space: {
-                    beds: 2,
-                    bathrooms: 2,
-                    rooms: 8,
-                    squareMeters: 200,
-                    bedrooms: 2,
-                    livingRooms: 2,
-                    kitchens: 2,
-                },
-                rules: {
-                    petsAllowed: true,
-                    smokingAllowed: true,
-                    eventsAllowed: true,
-                },
-                reviews: [
-                    {
-                        author: {
-                            id: faker.random.uuid(),
-                            photo: faker.image.avatar(),
-                        },
-                        text: faker.lorem.paragraph(),
-                        created: faker.date.recent(),
-                    },
-                    {
-                        author: {
-                            id: faker.random.uuid(),
-                            photo: faker.image.avatar(),
-                        },
-                        text: faker.lorem.paragraph(),
-                        created: faker.date.recent(),
-                    },
-                    {
-                        author: {
-                            id: faker.random.uuid(),
-                            photo: faker.image.avatar(),
-                        },
-                        text: faker.lorem.paragraph(),
-                        created: faker.date.recent(),
-                    },
-                ],
-            },
+            listing: {},
         };
     }
 
