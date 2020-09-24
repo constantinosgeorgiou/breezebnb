@@ -52,7 +52,6 @@ class SearchBar extends Component {
             test: getLocations(),
         };
 
-        this.retrieveLocations = this.retrieveLocations.bind(this);
         this.updateViewForDesktop = this.updateViewForDesktop.bind(this);
     }
 
@@ -91,7 +90,7 @@ class SearchBar extends Component {
             state: this.state.location.state,
             city: this.state.location.city,
         };
-    
+
         //Retrieve available listings locations
         searchListings(parameters)
             .then((response) => {
