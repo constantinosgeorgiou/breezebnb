@@ -38,18 +38,18 @@ const MessagesRoutes = require("./routes/messages.js");
 const AdminRoutes = require("./routes/admin.js");
 const PhotosRoutes = require("./routes/photos.js");
 const MapsRoutes = require("./routes/maps.js");
-
+const HostingRoutes = require("./routes/hosting.js");
 
 // Using routes
 app.use("/", IndexRoutes);
 app.use("/users", UsersRoutes);
-app.use("reviews", ReviewsRoutes);
+app.use("/reviews", ReviewsRoutes);
 app.use("/listings", ListingsRoutes);
 app.use("/messages", MessagesRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/photos", PhotosRoutes);
 app.use("/maps", MapsRoutes);
-
+app.use("/hosting", HostingRoutes);
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}.`);
