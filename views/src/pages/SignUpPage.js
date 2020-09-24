@@ -32,14 +32,27 @@ class SignUpPage extends Component {
             email: "",
             password: "",
             // Hosting
-            userRole: "guest",
+            userRole: false, // false: guest | true: host
         };
     }
 
     handleChange = (event) => {
         // If checkbox and checkbox is true then userRole === host
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
+        if (event.target.type === "checkbox") {
+            if (event.target.checked) {
+                event.target.setAttribute("checked", true);
+            } else {
+                event.target.removeAttribute("checked");
+            }
+            this.setState((prevState) => ({
+                userRole: !prevState.userRole,
+            }));
+        } else {
+            const { name, value } = event.target;
+            this.setState((prevState) => ({
+                [name]: value,
+            }));
+        }
     };
 
     handleSubmit = (event) => {
@@ -64,7 +77,7 @@ class SignUpPage extends Component {
             userName: this.state.userName,
             email: this.state.email,
             password: this.state.password,
-            userRole: this.state.userRole,
+            userRole: this.state.userRole ? "host" : "guest",
         };
 
         signup(user)
@@ -244,9 +257,7 @@ class SignUpPage extends Component {
                                                     this.state.currentStep
                                                 }
                                                 handleChange={this.handleChange}
-                                                applyForHost={
-                                                    this.state.applyForHost
-                                                }
+                                                userRole={this.state.userRole}
                                             />
                                             {this.previousButton()}
                                             {this.nextButton()}
@@ -549,11 +560,11 @@ const Step4 = (props) => {
 
                 <div className="custom-control custom-checkbox">
                     <input
-                        type="checkbox"
                         className="custom-control-input"
                         id="checkboxInput"
-                        name="applyForHost"
-                        value={props.applyForHost}
+                        type="checkbox"
+                        defaultChecked={props.userRole}
+                        name="userRole"
                         onChange={props.handleChange}
                     />
                     <label
