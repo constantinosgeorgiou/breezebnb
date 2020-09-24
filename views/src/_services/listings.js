@@ -8,10 +8,10 @@ export function searchListings(parameters) {
         `${API_URL}/listings/search`,
         {
             check_in: parameters.checkIn,
-            check_out:parameters.checkout,
+            check_out: parameters.checkout,
             country: parameters.country,
             state: parameters.state,
-            city:parameters.city,
+            city: parameters.city,
         },
         {
             headers: authorizationHeader(),
@@ -20,13 +20,19 @@ export function searchListings(parameters) {
 }
 
 export function getListingInformation(id) {
-    return axios.get(`${API_URL}/listings/${id}`, {
-        headers: authorizationHeader(),
-    });
+    return axios.get(
+        `${API_URL}/listings/${id}`,
+        {},
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }
 
 export function getLocations() {
-    return axios.get(`${API_URL}/listings/all/locations`);
+    axios.get(`${API_URL}/listings/all/locations`).then((response) => {
+        return response.data.locations;
+    });
 }
 
 export function addListing(listing) {

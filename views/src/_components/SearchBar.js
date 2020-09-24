@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import axios from "axios";
 
-import { searchListings ,getLocations} from "../_services/listings";
+import { searchListings, getLocations } from "../_services/listings";
 
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
@@ -49,7 +49,7 @@ class SearchBar extends Component {
                 { id: 5, country: "Cyprus", state: "Limassol", city: "Azgata" },
             ],
             //use this function to get opioions dynamicaly
-          //  test:getLocations(),
+            test: getLocations(),
         };
 
         this.retrieveLocations = this.retrieveLocations.bind(this);
@@ -63,7 +63,7 @@ class SearchBar extends Component {
         // }
         // Retrieve available listings locations
         // this.searchLocations(parameters);
-        
+
         // Update view
         this.updateViewForDesktop();
         window.addEventListener("resize", this.updateViewForDesktop);
@@ -71,18 +71,6 @@ class SearchBar extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateViewForDesktop);
-    }
-
-    // Retrieve Locations
-    retrieveLocations() {
-        axios
-            .get(`/listings-locations`)
-            .then((response) => {
-                this.setState({ options: response });
-            })
-            .catch((error) => {
-                this.setState({ error: error });
-            });
     }
 
     updateViewForDesktop() {
@@ -96,53 +84,30 @@ class SearchBar extends Component {
     };
 
     handleSubmit = (event) => {
-
         const parameters = {
             checkIn: this.state.checkInDate,
             checkout: this.state.checkOutDate,
-            country:this.state.location.country,
+            country: this.state.location.country,
             state: this.state.location.state,
             city: this.state.location.city,
-        }
-
-        // check_in, check_out, country, state, city
-           // check_in: parameters.<Insert here>
-            // check_out: <insert here>
-            // country: <insert here>
-            // state: <insert here>
-            // city: <insert here>
+        };
+    
         //Retrieve available listings locations
-        searchListings(parameters);
+        searchListings(parameters)
+            .then((response) => {
+                console.log(
+                    "response: " +
+                        JSON.stringify(response.data.listings, null, 4)
+                );
 
+                this.setState((prevState) => ({
+                    listings: response.data.listings,
+                }));
+            })
+            .catch((error) => {
+                console.log("Error while searching: " + error);
+            });
 
-
-        // event.preventDefault();
-        // const url = "/results";
-
-        // const query = {
-        //     location: this.state.location,
-        //     checkIn: this.state.checkInDate,
-        //     checkout: this.state.checkOutDate,
-        //     guests: this.state.guests,
-        // };
-
-        // const dummyQuery = {
-        //     listing_location: this.state.location.state,
-        //     check_in: this.state.checkInDate,
-        //     check_out: this.state.checkOutDate,
-        // };
-
-        // Retrieve data with axios
-        // axios
-        //     .post(url, dummyQuery)
-        //     .then((response) => {
-        //         this.setState({ isLoaded: true, listings: response.data });
-        //     })
-        //     .catch((error) => {
-        //         this.setState({ isLoaded: true, error: error });
-        //     });
-
-        // alert("Received listings: " + this.state.listings);
         this.setState({
             listings: [
                 {
@@ -347,7 +312,7 @@ class SearchBar extends Component {
 
     render() {
         const isDesktop = this.state.isDesktop;
-
+        console.log("test: ", this.state.test);
         return (
             <div className="container-sm">
                 {isDesktop ? (
