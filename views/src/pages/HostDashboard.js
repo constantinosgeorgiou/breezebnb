@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BiStar } from "react-icons/bi";
 import Listings from "../_components/Listings";
-import { Container } from "react-bootstrap";
+import AddNewListing from "../_components/AddNewListing";
 
 import { BiPlusCircle } from "react-icons/bi";
 
@@ -249,30 +249,24 @@ const Stats = () => {
             <div className="card-body">
                 <p className="card-text">
                     <h2>Stats</h2>
-                    <span className="card-text pl-2"></span>
                 </p>
-                <Container></Container>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <p className="card-text">
-                                <BiStar className="align-middle" size={24} />
-                                <span className="card-text pl-2">
-                                    4.3 Overall Rating
-                                </span>
-                            </p>
-                        </div>
-                        <div class="col-sm">
-                            <span className="card-text pl-2">
-                                10 Total reviews
+                <div class="row">
+                    <div class="col-sm">
+                        <p className="card-text">
+                            <BiStar className="align-middle" size={24} />
+                            <span className="card-text">
+                                4.3 Overall Rating
                             </span>
-                        </div>
-                        <div class="col-sm">
-                            <span className="card-text pl-2">
-                                343.31$ Total earnings
-                            </span>
-                        </div>
+                        </p>
+                    </div>
+                    <div class="col-sm">
+                        <span className="card-text">10 Total reviews</span>
+                    </div>
+                    <div class="col-sm">
+                        <span className="card-text">
+                            343.31$ Total earnings
+                        </span>
                     </div>
                 </div>
             </div>
@@ -292,37 +286,57 @@ const Messages = () => {
     );
 };
 
-const ListingsHost = (props) => {
-    return (
-        <div className="card my-4">
-            <div className="card-body">
-                <p className="card-text">
-                    <div className="row mb-4 justify-content-between">
-                        <div className="col-auto ">
-                            <h2>Listings</h2>
-                        </div>
-                        <div className="col-auto ">
-                            <button
-                                type="button"
-                                class="btn btn-lg  btn-outline-success"
-                            >
-                                <span>
-                                    <BiPlusCircle
-                                        className="align-middle"
-                                        size={36}
-                                    />
-                                    <span className="align-middle ml-2">
-                                        Add new listing
+class ListingsHost extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false,
+        };
+    }
+
+    setIsOpen = () => {
+        this.setState((prevState) => ({
+            isOpen: !prevState.isOpen,
+        }));
+    };
+
+    render() {
+        return (
+            <div className="card my-4">
+                <div className="card-body">
+                    <p className="card-text">
+                        <div className="row mb-4 justify-content-between">
+                            <div className="col-auto ">
+                                <h2>Listings</h2>
+                            </div>
+                            <div className="col-auto ">
+                                <button
+                                    type="button"
+                                    class="btn btn-lg  btn-outline-success"
+                                    onClick={this.setIsOpen}
+                                >
+                                    <span>
+                                        <BiPlusCircle
+                                            className="align-middle"
+                                            size={36}
+                                        />
+                                        <span className="align-middle ml-2">
+                                            Add new listing
+                                        </span>
                                     </span>
-                                </span>
-                            </button>
+                                </button>
+                                <AddNewListing
+                                    show={this.state.isOpen}
+                                    onHide={this.setIsOpen}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <Listings listings={props.listings} />
-                </p>
+                        <Listings listings={this.props.listings} />
+                    </p>
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 export default HostDashboard;
