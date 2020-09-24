@@ -3,6 +3,8 @@ import { Modal } from "react-bootstrap";
 
 import { addListing } from "../_services/listings";
 
+import UserContext from "../_helpers/UserContext";
+
 import Details from "./Details";
 import Amenities from "./Amenities";
 import Space from "./Space";
@@ -19,7 +21,7 @@ class AddNewListing extends Component {
                 propertyType: "",
                 guests: 0,
                 minimumBookingDays: 0,
-                owner: 23458,
+                owner: 0,
                 photos: {},
                 coordinates: {
                     latitude: 34,
@@ -74,8 +76,13 @@ class AddNewListing extends Component {
         };
     }
 
+    static contextType = UserContext;
+
     handleSubmit = (event) => {
         event.preventDefault();
+
+        let listing = this.state.listing;
+        listing.owner = this.context.user.id;
 
         addListing(this.state.listing);
 
