@@ -323,13 +323,14 @@ const SearchForAvailableListings = (request, response) => {
     database.query(
         `
         SELECT *
-        FROM listings, addresses
+        FROM users u,listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la
         WHERE
-            listings.address = addresses.address_id
+            l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id and l.listing_owner=u.user_id and
+            l.address = a.address_id 
             AND (
-                addresses.country = $3
-                AND (addresses.state = $4)
-                AND (addresses.city = $5)
+                a.country = $3
+                AND (a.state = $4)
+                AND (a.city = $5)
             )
             AND LISTING_ID::text NOT IN
             (
@@ -349,8 +350,81 @@ const SearchForAvailableListings = (request, response) => {
                     },
                 });
             }
-            console.log("results: ", results);
-            response.status(200).json(results.rows);
+            let listings = [];
+            results.rows.forEach((row) => {
+                let listing = {
+
+                    id: row.listing_id,
+                    title: row.title,
+                    description: row.description,
+                    propertyType: row.property_type,
+                    guests: row.guests,
+                    cost:row.cost,
+                    minimumBookingDays: row.minimum_booking_days,
+                    owner: row.listing_owner,
+                    rating: row.rating,
+                    address: {
+                        country:row.country,
+                        state:row.state,
+                        city: row.city,
+                        zipCode: row.zip_code,
+                        streetAddress: row.street_address,
+                        apartmentNumber: row.apartment_number,
+                    },
+                    amenities: {
+                        wifi: row.wifi,
+                        shampoo: row.shampoo,
+                        heating: row.heating,
+                        airConditioning: row.air_conditioning,
+                        washer: row.washer,
+                        dryer: row.dryer,
+                        breakfast:row.breakfast,
+                        indoorFireplace: row.indoor_fireplace,
+                        hangers: row.hangers,
+                        iron: row.iron,
+                        hairDryer: row.hair_dryer,
+                        laptopFriendlyWorkspace: row.laptop_friendly_workspace,
+                        tv: row.tv,
+                        crib: row.crib,
+                        highChair: row.high_chair,
+                        selfCheckIn: row.self_check_in,
+                        smokeAlarm: row.smoke_alarm,
+                        carbonMonoxideAlarm: row.carbon_monoxide_alarm,
+                        privateBathroom: row.private_bathroom,
+                        beachfront: row.beachfront,
+                        waterfront: row.waterfront,
+                    },
+                    space: {
+                        beds: row.beds,
+                        bathrooms: row.bathrooms,
+                        rooms: row.rooms,
+                        squareMeters:row.square_meters,
+                        bedrooms: row.bedrooms,
+                        livingRooms: row.living_rooms,
+                        kitchen: row.kitchens,
+                    },
+                    rules: {
+                        petsAllowed: row.pets_allowed,
+                        smokingAllowed: row.smoking_allowed,
+                        eventsAllowed: row.events_allowed,
+                    },
+                    owner: {
+                        id: row.user_id,
+                        firstName: row.first_name,
+                        lastName: row.last_name,
+                        photo: row.photo,
+                        joined: row.joined_on,
+                    },
+                };
+    
+                listings.push(listing);
+            });
+
+
+            
+            response.status(200).send({
+                listings
+            }); // SUCCESS
         }
     );
 };
@@ -387,7 +461,24 @@ const retrieveLocations = (request, response) => {
                 });
             }
 
-            response.status(200).json(results.rows);
+            let locations = [];
+            results.rows.forEach((row) => {
+                let location = {
+
+                    id: row.listing_id,
+                    country: row.country, 
+                    state:row.state, 
+                    city:row.city,
+                };
+    
+                locations.push(location);
+            });
+
+
+            
+            response.status(200).send({
+                locations
+            }); // SUCCESS
         }
     );
 };
