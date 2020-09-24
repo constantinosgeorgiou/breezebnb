@@ -143,13 +143,15 @@ const signup = async (request, response) => {
 // Sign in user
 const signin = (request, response) => {
     const { userName, password } = request.body;
-
+    console.log(userName + " with " + password);
     // Find user with given username
     database.query(
         "SELECT user_id, user_name, first_name, last_name, about, email, password, phone, user_role, photo, approved, birthday, joined_on, country, state, city, zip_code, street_address, apartment_number FROM users, addresses WHERE users.address = addresses.address_id AND users.user_name = $1",
         [userName],
         (error, results) => {
+            console.log("results: ", results);
             if (error) {
+                console.log("Error: ", error);
                 // Internal server error
                 response.status(error.status || 500).json({
                     error: {
@@ -185,6 +187,8 @@ const signin = (request, response) => {
                         apartmentNumber: results.rows[0].apartment_number,
                     },
                 };
+
+                console.log("user: ", JSON.stringify(user, null, 4));
 
                 // Verify password is correct
                 // Compares plain text password with hash
@@ -435,11 +439,11 @@ const retrieveUserNameByUserId = (request, response) => {
 // Updates account information of user with given username
 const updateUserInfoByUserName = (request, response) => {
     const userName = request.params.userName;
-    const { firstName, email,lastName,phone } = request.body;
+    const { firstName, email, lastName, phone } = request.body;
 
     database.query(
         "UPDATE users SET first_name = $1, email = $2, last_name = $3, phone= $4 WHERE user_name = $5",
-        [firstName, email, lastName,phone,userName],
+        [firstName, email, lastName, phone, userName],
         (error, results) => {
             if (error) {
                 response.status(error.status || 400).json({
@@ -455,11 +459,26 @@ const updateUserInfoByUserName = (request, response) => {
 // Updates address of user with given username
 const updateUserAddByUserName = (request, response) => {
     const userName = request.params.userName;
-    const { country,state,city,zipCode,streetAddress,apartmentNumber } = request.body;
+    const {
+        country,
+        state,
+        city,
+        zipCode,
+        streetAddress,
+        apartmentNumber,
+    } = request.body;
 
     database.query(
         "UPDATE addresses SET country = $1, state = $2, city = $3, zip_code= $4, street_address=$5, apartment_Number=$6 WHERE address_id IN (SELECT address FROM users where user_id=$7)",
-        [country,state,city,zipCode,streetAddress,apartmentNumber,userName],
+        [
+            country,
+            state,
+            city,
+            zipCode,
+            streetAddress,
+            apartmentNumber,
+            userName,
+        ],
         (error, results) => {
             if (error) {
                 response.status(error.status || 400).json({
@@ -472,7 +491,6 @@ const updateUserAddByUserName = (request, response) => {
         }
     );
 };
-
 
 module.exports = {
     signup,

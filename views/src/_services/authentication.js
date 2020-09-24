@@ -14,8 +14,11 @@ export function signup(user) {
 // Store user information to local storage
 // Store JWT to local storage
 export function signin(username, password) {
+    const normalURL = API_URL + "/auth/signin";
+    const adminURL = API_URL + "/admin" + "/auth/signin";
+
     return axios
-        .post(API_URL + "/auth/signin", {
+        .post(normalURL, {
             userName: username,
             password: password,
         })
@@ -43,21 +46,11 @@ export function signout() {
     const user = getCurrentUser();
 
     // Remove token from backend
-    return axios
-        .post(
-            `${API_URL}/auth/signout/${user.userName}`,
-            {},
-            {
-                headers: authorizationHeader(),
-            }
-        )
-        .then((response) => {
-            console.log("response: " + response);
-
-            // Remove from local storage
-            localStorage.removeItem("user");
-        })
-        .catch((error) => {
-            console.log("error: ", error);
-        });
+    return axios.post(
+        `${API_URL}/auth/signout/${user.userName}`,
+        {},
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }

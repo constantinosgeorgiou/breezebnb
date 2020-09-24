@@ -1,10 +1,11 @@
 const database = require("../database/index");
 
 const isAdmin = (request, response, next) => {
-    const { userId } = request.user; // user.userId was placed here by isAuthenticated middleware
+    const { id } = request.user; // user.userId was placed here by isAuthenticated middleware
 
+    console.log("isAdmin: got " + id);
     // User not authenticated
-    if (!userId) {
+    if (!id) {
         // Anauthorised request
         response
             .status(401)
@@ -14,7 +15,9 @@ const isAdmin = (request, response, next) => {
             "SELECT user_role FROM users WHERE user_id = $1",
             [userId],
             (error, results) => {
+                console.log("isAdmin Results: ", results);
                 if (error) {
+                    console.log("isAdmin Error: ", error);
                     // Error while retrieving role from user with given id
                     response.status(error.status || 500).json({
                         error: {

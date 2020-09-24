@@ -6,7 +6,7 @@ import Filters from "../_components/Filters";
 // TODO: Receive arrays from API
 const retrieveArray = (name) => {
     if (name === "amenities") {
-        return ["Kitchen", "Heating", "Shampoo", "Air conditioning"];
+        return ["Kitchens", "Heating", "Shampoo", "Air conditioning"];
     }
 
     if (name === "rules") {
@@ -98,7 +98,9 @@ class SearchResultsPage extends Component {
         };
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        
+    }
 
     render() {
         const listings = this.state.listings;

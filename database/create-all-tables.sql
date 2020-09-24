@@ -69,7 +69,7 @@ CREATE TABLE listing_space
     square_meters INTEGER,
     bedrooms INTEGER,
     living_rooms INTEGER,
-    kitchen BOOLEAN,
+    kitchens INTEGER,
     PRIMARY KEY(listing_space_id)
 );
 

@@ -141,23 +141,23 @@ const Space = ({ space, handleChange }) => {
                 </div>
             </div>
 
-            {/* Kitchen */}
+            {/* Kitchens */}
             <div className="form-group">
                 <div className="row align-items-center">
                     <div className="col">
-                        <label htmlFor="inputKitchen" className="m-0">
-                            Kitchen:
+                        <label htmlFor="inputKitchens" className="m-0">
+                            Kitchens:
                         </label>
                     </div>
                     <div className="col-3">
                         <input
                             className="form-control"
-                            id="inputKitchen"
+                            id="inputKitchens"
                             type="number"
                             min={0}
                             // required
-                            name="kitchen"
-                            value={space.kitchen}
+                            name="kitchens"
+                            value={space.kitchens}
                             onChange={handleChange}
                         />
                     </div>

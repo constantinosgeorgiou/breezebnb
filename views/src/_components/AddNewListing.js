@@ -65,7 +65,7 @@ class AddNewListing extends Component {
                     squareMeters: 0,
                     bedrooms: 0,
                     livingRooms: 0,
-                    kitchen: 0,
+                    kitchens: 0,
                 },
                 rules: {
                     petsAllowed: false,

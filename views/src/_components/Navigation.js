@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { Redirect } from "react-router-dom";
 import { signout } from "../_services/authentication";
 
 import { Navbar, Nav, Container } from "react-bootstrap";

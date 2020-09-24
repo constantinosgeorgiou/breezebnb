@@ -8,16 +8,21 @@ export function getCurrentUser() {
 }
 
 export function getReceivedReviews(userName) {
-    return axios.get(`${API_URL}/users/${userName}/reviews-received`, {
-        headers: authorizationHeader(),
-    });
+    return axios.get(
+        `${API_URL}/users/${userName}/reviews-received`,
+        {},
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }
 
 export function updateUserInfo(user) {
     console.log("update user information!!!");
     return axios
         .put(API_URL + "/users/uptAccountInfo/" + user.id, {
-            headers: authorizationHeader(),user
+            headers: authorizationHeader(),
+            user,
         })
         .then((response) => {
             console.log("response: ", response.data);
@@ -31,7 +36,8 @@ export function updateUserAdd(user) {
     console.log("update user Address!!!");
     return axios
         .put(API_URL + "/users/uptAddress/" + user.id, {
-            headers: authorizationHeader(),user
+            headers: authorizationHeader(),
+            user,
         })
         .then((response) => {
             console.log("response: ", response.data);

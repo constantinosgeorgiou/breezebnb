@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { Link } from "react-router-dom";
+import UserContext from "../_helpers/UserContext";
 
 import { signin } from "../_services/authentication";
 
@@ -20,6 +21,8 @@ class SignInPage extends Component {
         // this.handleSignIn = this.handleSignIn.bind(this);
     }
 
+    static contextType = UserContext;
+
     handleChange = (event) => {
         const { name, value } = event.target;
 
@@ -34,7 +37,7 @@ class SignInPage extends Component {
         signin(this.state.userName, this.state.password).then(
             () => {
                 this.props.history.push("/profile");
-                window.location.reload();
+                window.location.reload(false);
             },
             (error) => {
                 console.log("Error!!!! ", error);
