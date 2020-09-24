@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Details = () => {
+const Details = ({ listing, handleChange }) => {
     return (
         <Fragment>
             {/* Title */}
@@ -10,10 +10,10 @@ const Details = () => {
                     id="inputTitle"
                     type="text"
                     className="form-control"
-                    required
+                    // required
                     name="title"
-                    // value={}
-                    // onChange={}
+                    value={listing.title}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -21,23 +21,31 @@ const Details = () => {
             <div className="form-group">
                 <label htmlFor="inputDescription">Description</label>
                 <textarea
-                    class="form-control"
+                    className="form-control"
                     id="inputDescription"
-                    name="description"
                     rows="3"
+                    name="description"
+                    value={listing.description}
+                    onChange={handleChange}
                 ></textarea>
             </div>
 
             {/* Property Type */}
             <div className="form-group">
                 <label htmlFor="inputPropertyType">Property type</label>
-                <select id="inputPropertyType" class="form-control">
-                    <option>House</option>
-                    <option>Apartment</option>
-                    <option>Bed and Breakfast</option>
-                    <option>Hostel</option>
-                    <option>Hotel</option>
-                    <option>Vill</option>
+                <select
+                    id="inputPropertyType"
+                    className="form-control"
+                    name="propertyType"
+                    value={listing.propertyType}
+                    onChange={handleChange}
+                >
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="bedAndBreakfast">Bed and Breakfast</option>
+                    <option value="hostel">Hostel</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="villa">Villa</option>
                 </select>
             </div>
 
@@ -55,10 +63,10 @@ const Details = () => {
                             id="inputGuests"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="guests"
-                            // value={}
-                            // onChange={}
+                            value={listing.guests}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -81,10 +89,10 @@ const Details = () => {
                             id="inputMinimumBookingDays"
                             type="number"
                             min={1}
-                            required
+                            // required
                             name="minimumBookingDays"
-                            // value={}
-                            // onChange={}
+                            value={listing.minimumBookingDays}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -104,10 +112,10 @@ const Details = () => {
                             id="inputCost"
                             type="number"
                             min={1}
-                            required
+                            // required
                             name="cost"
-                            // value={}
-                            // onChange={}
+                            value={listing.cost}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -120,10 +128,10 @@ const Details = () => {
                     id="inputPhotos"
                     type="text"
                     className="form-control"
-                    required
+                    // required
                     name="photos"
-                    // value={}
-                    // onChange={}
+                    value={listing.photos}
+                    onChange={handleChange}
                 />
             </div>
         </Fragment>

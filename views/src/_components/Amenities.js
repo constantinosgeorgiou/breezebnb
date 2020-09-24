@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 
-const Amenities = () => {
+import CheckboxGroup from "react-checkbox-group";
+
+const Amenities = ({ amenities, handleAmenitiesChange }) => {
     return (
         <Fragment>
             <div className="form-group">
@@ -11,7 +13,9 @@ const Amenities = () => {
                         type="checkbox"
                         // defaultChecked={props.userRole}
                         name="wifi"
-                        // onChange={props.handleChange}
+                        value={amenities.wifi}
+                        defaultChecked={amenities.wifi ? true : false}
+                        onChange={handleAmenitiesChange}
                     />
                     <label
                         className="custom-control-label"

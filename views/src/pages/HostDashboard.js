@@ -214,10 +214,7 @@ class HostDashboard extends Component {
         return (
             <main role="main">
                 <div className="container pt-sm-2">
-                    <div className="row">
-                        <h1>&nbsp;&nbsp;Dashboard Host</h1>
-                    </div>
-
+                    <h1>Dashboard Host</h1>
                     <div className="row">
                         <div className="col-lg-8">
                             <div className="row">
@@ -247,23 +244,20 @@ const Stats = () => {
     return (
         <div className="card my-4">
             <div className="card-body">
-                <p className="card-text">
-                    <h2>Stats</h2>
-                </p>
-
-                <div class="row">
-                    <div class="col-sm">
+                <h2 className="card-text">Stats</h2>
+                <div className="row">
+                    <div className="col-sm">
                         <p className="card-text">
-                            <BiStar className="align-middle" size={24} />
+                            <BiStar className="align-middle mr-1" size={24} />
                             <span className="card-text">
                                 4.3 Overall Rating
                             </span>
                         </p>
                     </div>
-                    <div class="col-sm">
+                    <div className="col-sm">
                         <span className="card-text">10 Total reviews</span>
                     </div>
-                    <div class="col-sm">
+                    <div className="col-sm">
                         <span className="card-text">
                             343.31$ Total earnings
                         </span>
@@ -278,9 +272,7 @@ const Messages = () => {
     return (
         <div className="card my-4">
             <div className="card-body">
-                <p className="card-text">
-                    <h2>Messages</h2>
-                </p>
+                <h2 className="card-text">Messages</h2>
             </div>
         </div>
     );
@@ -304,7 +296,7 @@ class ListingsHost extends Component {
         return (
             <div className="card my-4">
                 <div className="card-body">
-                    <p className="card-text">
+                    <div className="card-text">
                         <div className="row mb-4 justify-content-between">
                             <div className="col-auto ">
                                 <h2>Listings</h2>
@@ -312,7 +304,7 @@ class ListingsHost extends Component {
                             <div className="col-auto ">
                                 <button
                                     type="button"
-                                    class="btn btn-lg  btn-outline-success"
+                                    className="btn btn-lg  btn-outline-success"
                                     onClick={this.setIsOpen}
                                 >
                                     <span>
@@ -332,7 +324,7 @@ class ListingsHost extends Component {
                             </div>
                         </div>
                         <Listings listings={this.props.listings} />
-                    </p>
+                    </div>
                 </div>
             </div>
         );

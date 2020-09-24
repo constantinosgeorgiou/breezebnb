@@ -17,7 +17,7 @@ const Space = () => {
                             id="inputBeds"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="beds"
                             // value={}
                             // onChange={}
@@ -40,7 +40,7 @@ const Space = () => {
                             id="inputBathrooms"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="bathrooms"
                             // value={}
                             // onChange={}
@@ -63,7 +63,7 @@ const Space = () => {
                             id="inputRooms"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="rooms"
                             // value={}
                             // onChange={}
@@ -86,7 +86,7 @@ const Space = () => {
                             id="inputSquareMeters"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="squareMeters"
                             // value={}
                             // onChange={}
@@ -109,7 +109,7 @@ const Space = () => {
                             id="inputBedrooms"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="bedrooms"
                             // value={}
                             // onChange={}
@@ -132,7 +132,7 @@ const Space = () => {
                             id="inputLivingRooms"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="livingRooms"
                             // value={}
                             // onChange={}
@@ -155,7 +155,7 @@ const Space = () => {
                             id="inputKitchen"
                             type="number"
                             min={0}
-                            required
+                            // required
                             name="kitchen"
                             // value={}
                             // onChange={}
