@@ -39,13 +39,19 @@ const Details = ({ listing, handleChange }) => {
                     name="propertyType"
                     value={listing.propertyType}
                     onChange={handleChange}
-                >
-                    <option value="house">House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="bedAndBreakfast">Bed and Breakfast</option>
-                    <option value="hostel">Hostel</option>
-                    <option value="hotel">Hotel</option>
-                    <option value="villa">Villa</option>
+                >    
+    
+    
+    
+    
+    
+    
+                    <option value="House">House</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Bed and Breakfast">Bed and Breakfast</option>
+                    <option value="Hostel">Hostel</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Villa">Villa</option>
                 </select>
             </div>
 
@@ -124,6 +130,7 @@ const Details = ({ listing, handleChange }) => {
             {/* Photos */}
             <div className="form-group">
                 <label htmlFor="inputPhotos">Photos</label>
+
                 <input
                     id="inputPhotos"
                     type="text"
