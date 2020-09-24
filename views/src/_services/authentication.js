@@ -2,7 +2,7 @@ import axios from "axios";
 
 import authorizationHeader from "../_helpers/AuthorizationHeader";
 
-import { getCurrentUser } from "./user";
+import { getCurrentUser } from "./users";
 
 const API_URL = "http://localhost:5000";
 
@@ -42,6 +42,7 @@ export function signin(username, password) {
 export function signout() {
     const user = getCurrentUser();
 
+    // Remove token from backend
     return axios
         .post(
             `${API_URL}/auth/signout/${user.userName}`,
@@ -52,6 +53,8 @@ export function signout() {
         )
         .then((response) => {
             console.log("response: " + response);
+
+            // Remove from local storage
             localStorage.removeItem("user");
         })
         .catch((error) => {
