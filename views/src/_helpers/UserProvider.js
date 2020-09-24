@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { getCurrentUser } from "../_services/user";
+import { getCurrentUser } from "../_services/users";
 import UserContext from "./UserContext";
 
 class UserProvider extends Component {
@@ -13,6 +13,12 @@ class UserProvider extends Component {
             <UserContext.Provider
                 value={{
                     user: this.state.user,
+                    removeUser: () => {
+                        this.setState((prevState) => {
+                            user: {
+                            }
+                        });
+                    },
                 }}
             >
                 {this.props.children}
