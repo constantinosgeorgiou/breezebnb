@@ -432,6 +432,48 @@ const retrieveUserNameByUserId = (request, response) => {
     );
 };
 
+// Updates account information of user with given username
+const updateUserInfoByUserName = (request, response) => {
+    const userName = request.params.userName;
+    const { firstName, email,lastName,phone } = request.body;
+
+    database.query(
+        "UPDATE users SET first_name = $1, email = $2, last_name = $3, phone= $4 WHERE user_name = $5",
+        [firstName, email, lastName,phone,userName],
+        (error, results) => {
+            if (error) {
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            response.status(204).send(`User modified with ID: ${userName}`);
+        }
+    );
+};
+// Updates address of user with given username
+const updateUserAddByUserName = (request, response) => {
+    const userName = request.params.userName;
+    const { country,state,city,zipCode,streetAddress,apartmentNumber } = request.body;
+
+    database.query(
+        "UPDATE addresses SET country = $1, state = $2, city = $3, zip_code= $4, street_address=$5, apartment_Number=$6 WHERE address_id IN (SELECT address FROM users where user_id=$7)",
+        [country,state,city,zipCode,streetAddress,apartmentNumber,userName],
+        (error, results) => {
+            if (error) {
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            response.status(204).send(`User modified with ID: ${userName}`);
+        }
+    );
+};
+
+
 module.exports = {
     signup,
     signin,
@@ -442,6 +484,7 @@ module.exports = {
     retrieveUserByUserName,
     retrieveUserNameByUserId,
 
-    updateUserByUserName,
+    updateUserInfoByUserName,
+    updateUserAddByUserName,
     deleteUserByUserName,
 };

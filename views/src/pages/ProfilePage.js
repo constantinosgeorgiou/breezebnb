@@ -57,10 +57,23 @@ class ProfilePage extends Component {
         }));
     };
 
-    handleSubmit = (event) => {
+
+    handleSubmitPassword = (event) => {
         event.preventDefault();
 
-        alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+       // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+        // updateUser(user);
+    };
+    handleSubmitAccInfo = (event) => {
+        event.preventDefault();
+
+       // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+    //   updateUserInfo(this.state.user);
+    };
+    handleSubmitAddress = (event) => {
+        event.preventDefault();
+
+      //  alert("changed user: " + JSON.stringify(this.state.user, null, 4));
         // updateUser(user);
     };
 
@@ -92,7 +105,10 @@ class ProfilePage extends Component {
                                         handleAddressChange={
                                             this.handleAddressChange
                                         }
-                                        handleSubmit={this.handleSubmit}
+                                        handleSubmitAccInfo={this.handleSubmitAccInfo}
+                                        handleSubmitAddress={this.handleSubmitAddress}
+                                        handleSubmitPassword={this.handleSubmitPassword}
+
                                     />
                                 </div>
                             </div>

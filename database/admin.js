@@ -1,5 +1,5 @@
 require("dotenv").config();
-const bcrypt = require("bcryptjs"); // Used to hash and compare passwords of users
+const bcrypt = require("bcrypt"); // Used to hash and compare passwords of users
 
 const { Pool } = require('pg');
 const database = new Pool({
@@ -17,10 +17,11 @@ function CreateAdmin() {
     user.password = bcrypt.hashSync("admin", 10);
     user.phone = "123456789"
     user.user_role = "admin"
-    user.picture = "picture";
+    user.photo = "photo";
     user.birthday = "30/7/1947";
+    user.about="Hello i am administrator"
     database.query(
-        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, picture, birthday) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [
+        "INSERT INTO users (user_name, first_name, last_name, email, password, phone, user_role, photo, birthday,about) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)", [
             user.user_name,
             user.first_name,
             user.last_name,
@@ -28,8 +29,9 @@ function CreateAdmin() {
             user.password,
             user.phone,
             user.user_role,
-            user.picture,
+            user.photo,
             user.birthday,
+            user.about,
         ]
     );
     console.log("Admin user created succesfuly");

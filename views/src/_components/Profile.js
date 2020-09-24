@@ -9,7 +9,9 @@ const Profile = ({
     reviews,
     handleChange,
     handleAddressChange,
-    handleSubmit,
+    handleSubmitAccInfo,
+    handleSubmitPassword,
+    handleSubmitAddress,
 }) => {
     return (
         <div>
@@ -17,7 +19,10 @@ const Profile = ({
                 user={user}
                 handleChange={handleChange}
                 handleAddressChange={handleAddressChange}
-                handleSubmit={handleSubmit}
+                handleSubmitAccInfo={handleSubmitAccInfo}
+                handleSubmitPassword={handleSubmitPassword}
+                handleSubmitAddress={handleSubmitAddress}
+
             />
             <About
                 about={user.about}

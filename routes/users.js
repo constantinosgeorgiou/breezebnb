@@ -16,9 +16,6 @@ router.get("/:userName", isAuthenticated, Users.retrieveUserByUserName);
 // Find first name and last name by ID
 router.get("/name/:user_id", Users.retrieveUserNameByUserId);
 
-// Update user
-router.put("/:userName", isAuthenticated, Users.updateUserByUserName);
-
 // Delete user
 router.delete("/:userName", Users.deleteUserByUserName);
 
@@ -28,5 +25,11 @@ router.get(
     isAuthenticated,
     Reviews.retrieveReceivedReviews
 );
+// Update user account inforamtions
+router.put("/uptAccountInfo/:userName", isAuthenticated, Users.updateUserInfoByUserName);
+
+// Update user address
+router.put("/uptAddress/:userName",isAuthenticated, Users.updateUserAddByUserName);
+
 
 module.exports = router;
