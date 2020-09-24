@@ -4,14 +4,14 @@ import authorizationHeader from "../_helpers/AuthorizationHeader";
 const API_URL = "http://localhost:5000";
 
 export function searchListings(parameters) {
-    return axios.get(
+    return axios.post(
         `${API_URL}/listings/search`,
         {
-            // check_in: parameters.<Insert here>
-            // check_out: <insert here>
-            // country: <insert here>
-            // state: <insert here>
-            // city: <insert here>
+            check_in: parameters.checkIn,
+            check_out:parameters.checkout,
+            country: parameters.country,
+            state: parameters.state,
+            city:parameters.city,
         },
         {
             headers: authorizationHeader(),
@@ -23,6 +23,10 @@ export function getListingInformation(id) {
     return axios.get(`${API_URL}/listings/${id}`, {
         headers: authorizationHeader(),
     });
+}
+
+export function getLocations() {
+    return axios.get(`${API_URL}/listings/all/locations`);
 }
 
 export function addListing(listing) {
