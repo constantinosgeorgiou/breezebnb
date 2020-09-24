@@ -23,7 +23,7 @@ const retrieveListingById = (request, response) => {
     const { listingId } = request.params;
 
     database.query(
-        "SELECT * FROM listings WHERE listing_id = $1", [listingId],
+        "SELECT * FROM listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id", [listingId],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -44,31 +44,6 @@ const createListing = (request, response) => {
     const {listing
     } = request.body;
 
-    // database.query(
-    //     "INSERT INTO listings (listing_title, listing_description, cost, property_type, listing_location, rating, is_available, picture) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-    //     [
-    //         listingTitle,
-    //         listingDescription,
-    //         cost,
-    //         propertyType,
-    //         listingLocation,
-    //         rating,
-    //         isAvailable,
-    //         picture,
-    //     ],
-    //     (error, results) => {
-    //         if (error) {
-    //             console.log(error);
-    //             response.status(error.status || 400).json({
-    //                 error: {
-    //                     message: error.message,
-    //                 },
-    //             });
-    //         }
-    //         console.log(results.rows);
-    //         response.status(201).json(results.rows);
-    //     }
-    // );
     database.query(
         "INSERT INTO listing_amenities (wifi,shampoo ,heating,air_conditioning ,washer ,dryer ,breakfast ,indoor_fireplace ,hangers ,iron ,hair_dryer ,laptop_friendly_workspace ,tv ,crib ,high_chair,self_check_in ,smoke_alarm,carbon_monoxide_alarm, private_bathroom ,beachfront ,waterfront ) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) RETURNING listing_amenities_id", [
             listing.amenities.wifi,
