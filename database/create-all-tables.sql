@@ -95,7 +95,7 @@ CREATE TABLE listings
     amenities UUID REFERENCES listing_amenities(listing_amenities_id),
     space UUID REFERENCES listing_space(listing_space_id),
     rules UUID REFERENCES listing_rules(listing_rules_id),
-    rating INTEGER,
+    rating INTEGER DEFAULT 0 NOT NULL,
     listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
 );
