@@ -78,6 +78,8 @@ class AddNewListing extends Component {
         event.preventDefault();
 
         addListing(this.state.listing);
+
+        this.props.onHide();
     };
 
     handleChange = ({ target }) => {
