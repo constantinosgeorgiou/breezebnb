@@ -282,9 +282,9 @@ const deleteListing = (request, response) => {
 
 const SearchForAvailableListings = (request, response) => {
     const { check_in, check_out, country, state, city } = request.body;
-
+    console.log(request.body);
     // Find all reservations and select listings that are not reserved
-    // Country is required, State and City optional
+    // Country is required, State and City optional 
     database.query(
         `
         SELECT *
@@ -293,8 +293,8 @@ const SearchForAvailableListings = (request, response) => {
             listings.address = addresses.address_id
             AND (
                 addresses.country = $3
-                AND ($4 IS NULL OR addresses.state = $4)
-                AND ($5 IS NULL OR addresses.city = $5)
+                AND (addresses.state = $4)
+                AND (addresses.city = $5)
             )
             AND LISTING_ID::text NOT IN
             (
@@ -314,7 +314,7 @@ const SearchForAvailableListings = (request, response) => {
                     },
                 });
             }
-            console.log("results: ", results.rows);
+            console.log("results: ", results);
             response.status(200).json(results.rows);
         }
     );

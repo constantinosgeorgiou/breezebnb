@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import axios from "axios";
 
-import { searchListings } from "../_services/listings";
+import { searchListings ,getLocations} from "../_services/listings";
 
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
@@ -48,6 +48,8 @@ class SearchBar extends Component {
                 { id: 4, country: "Cyprus", state: "Nicosia", city: "Dali" },
                 { id: 5, country: "Cyprus", state: "Limassol", city: "Azgata" },
             ],
+            //use this function to get opioions dynamicaly
+          //  test:getLocations(),
         };
 
         this.retrieveLocations = this.retrieveLocations.bind(this);
@@ -59,10 +61,9 @@ class SearchBar extends Component {
         // const parameters = {
         //     this.state.
         // }
-
         // Retrieve available listings locations
         // this.searchLocations(parameters);
-
+        
         // Update view
         this.updateViewForDesktop();
         window.addEventListener("resize", this.updateViewForDesktop);
@@ -95,6 +96,26 @@ class SearchBar extends Component {
     };
 
     handleSubmit = (event) => {
+
+        const parameters = {
+            checkIn: this.state.checkInDate,
+            checkout: this.state.checkOutDate,
+            country:this.state.location.country,
+            state: this.state.location.state,
+            city: this.state.location.city,
+        }
+
+        // check_in, check_out, country, state, city
+           // check_in: parameters.<Insert here>
+            // check_out: <insert here>
+            // country: <insert here>
+            // state: <insert here>
+            // city: <insert here>
+        //Retrieve available listings locations
+        searchListings(parameters);
+
+
+
         // event.preventDefault();
         // const url = "/results";
 
