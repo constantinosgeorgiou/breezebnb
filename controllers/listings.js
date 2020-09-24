@@ -38,7 +38,9 @@ const retrieveListingById = (request, response) => {
                 id: results.rows[0].listing_id,
             };
 
-            response.status(200).json(results.listing);
+            response.status(200).send({
+                listing
+            }); // SUCCESS
         }
     );
 };
