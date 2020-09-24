@@ -12,3 +12,31 @@ export function getReceivedReviews(userName) {
         headers: authorizationHeader(),
     });
 }
+
+export function updateUserInfo(user) {
+    console.log("update user information!!!");
+    return axios
+        .put(API_URL + "/users/uptAccountInfo/" + user.id, {
+            headers: authorizationHeader(),user
+        })
+        .then((response) => {
+            console.log("response: ", response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export function updateUserAdd(user) {
+    console.log("update user Address!!!");
+    return axios
+        .put(API_URL + "/users/uptAddress/" + user.id, {
+            headers: authorizationHeader(),user
+        })
+        .then((response) => {
+            console.log("response: ", response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

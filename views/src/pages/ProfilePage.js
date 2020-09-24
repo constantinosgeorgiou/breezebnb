@@ -4,7 +4,7 @@ import Synopsis from "../_components/Synopsis";
 import HostingInformation from "../_components/HostingInformation";
 import Profile from "../_components/Profile";
 
-import { getCurrentUser, getReceivedReviews } from "../_services/users";
+import { getCurrentUser, getReceivedReviews,updateUserAdd,updateUserInfo } from "../_services/users";
 
 class ProfilePage extends Component {
     constructor(props) {
