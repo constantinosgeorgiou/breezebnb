@@ -5,7 +5,8 @@ import UserContext from "./UserContext";
 
 class UserProvider extends Component {
     state = {
-        user: getCurrentUser() || {},
+        user: getCurrentUser() || null,
+        host: false,
     };
 
     render() {
@@ -14,10 +15,14 @@ class UserProvider extends Component {
                 value={{
                     user: this.state.user,
                     removeUser: () => {
-                        this.setState((prevState) => {
-                            user: {
-                            }
-                        });
+                        this.setState((prevState) => ({
+                            user: null,
+                        }));
+                    },
+                    setHost: () => {
+                        this.setState((prevState) => ({
+                            host: !prevState.host,
+                        }));
                     },
                 }}
             >
