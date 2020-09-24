@@ -41,5 +41,7 @@
     "react-map-gl": "^5.2.8",
     "react-mapbox-gl-geocoder": "^1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "faker": "^5.1.0"
+  }
 }
