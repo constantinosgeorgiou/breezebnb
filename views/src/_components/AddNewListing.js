@@ -18,7 +18,7 @@ class AddNewListing extends Component {
             listing: {
                 title: "",
                 description: "",
-                propertyType: "",
+                propertyType: "house",
                 guests: 0,
                 minimumBookingDays: 0,
                 owner: 0,
