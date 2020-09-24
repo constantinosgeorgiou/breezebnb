@@ -11,15 +11,13 @@ const retrieveListings = (request, response) => {
                         message: error.message,
                     },
                 });
-            }
-            else{
-                console.log('query succed');
+            } else {
+                console.log("query succed");
             }
             response.status(200).json(results.rows);
         }
     );
 };
-
 
 const retrieveListingById = (request, response) => {
     const { listingId } = request.params;
@@ -146,21 +144,31 @@ const deleteListing = (request, response) => {
 };
 
 const SearchForAvailableListings = (request, response) => {
-    const { listingId } = request.params;
-    console.log(request.body);
-    const {
-        listing_location,
-        check_in,
-        check_out,
-    } = request.body;
+    const { check_in, check_out, country, state, city } = request.body;
 
+    // Find all reservations and select listings that are not reserved
+    // Country is required, State and City optional
     database.query(
-        "SELECT * FROM listings where listing_location = $1 and listing_id::text NOT IN (SELECT listing_id FROM rentals_reserved where (check_in>=$2 AND check_in<=$3) Or (check_out>=$2 and check_out<=$3 ))",
-        [
-            listing_location,
-            check_in,
-            check_out,
-        ],
+        `
+        SELECT *
+        FROM listings, addresses
+        WHERE
+            listings.address = addresses.address_id
+            AND (
+                addresses.country = $3
+                AND ($4 IS NULL OR addresses.state = $4)
+                AND ($5 IS NULL OR addresses.city = $5)
+            )
+            AND LISTING_ID::text NOT IN
+            (
+            SELECT listing_id
+            FROM rentals_reserved
+            WHERE 
+                (check_in>=$1 AND check_in<=$2)
+                OR (check_out>=$1 AND check_out<=$2 )
+            )
+        `,
+        [check_in, check_out, country, state, city],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -170,12 +178,11 @@ const SearchForAvailableListings = (request, response) => {
                     },
                 });
             }
-            console.log(results.rows);
+            console.log("results: ", results.rows);
             response.status(200).json(results.rows);
         }
     );
 };
-
 
 const retrieveListingOfCertainType = (request, response) => {
     const { property_type } = request.params;
@@ -198,7 +205,6 @@ const retrieveListingOfCertainType = (request, response) => {
     );
 };
 const retrieveLocations = (request, response) => {
-
     database.query(
         "SELECT DISTINCT country,city, state FROM addresses",
         (error, results) => {
@@ -215,7 +221,6 @@ const retrieveLocations = (request, response) => {
         }
     );
 };
-
 
 module.exports = {
     retrieveListings,
