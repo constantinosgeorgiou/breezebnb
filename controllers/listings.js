@@ -23,8 +23,7 @@ const retrieveListingById = (request, response) => {
     const { listingId } = request.params;
 
     database.query(
-        "SELECT * FROM listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id",
-        [listingId],
+        "SELECT * FROM users u,listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id and l.listing_owner=u.user_id", [listingId],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -35,7 +34,68 @@ const retrieveListingById = (request, response) => {
                 });
             }
             let listing = {
+
                 id: results.rows[0].listing_id,
+                title: results.rows[0].title,
+                description: results.rows[0].description,
+                propertyType: results.rows[0].property_type,
+                guests: results.rows[0].guests,
+                cost:results.rows[0].cost,
+                minimumBookingDays: results.rows[0].minimum_booking_days,
+                owner: results.rows[0].listing_owner,
+                rating: results.rows[0].rating,
+                address: {
+                    country:results.rows[0].country,
+                    state:results.rows[0].state,
+                    city: results.rows[0].city,
+                    zipCode: results.rows[0].zip_code,
+                    streetAddress: results.rows[0].street_address,
+                    apartmentNumber: results.rows[0].apartment_number,
+                },
+                amenities: {
+                    wifi: results.rows[0].wifi,
+                    shampoo: results.rows[0].shampoo,
+                    heating: results.rows[0].heating,
+                    airConditioning: results.rows[0].air_conditioning,
+                    washer: results.rows[0].washer,
+                    dryer: results.rows[0].dryer,
+                    breakfast:results.rows[0].breakfast,
+                    indoorFireplace: results.rows[0].indoor_fireplace,
+                    hangers: results.rows[0].hangers,
+                    iron: results.rows[0].iron,
+                    hairDryer: results.rows[0].hair_dryer,
+                    laptopFriendlyWorkspace: results.rows[0].laptop_friendly_workspace,
+                    tv: results.rows[0].tv,
+                    crib: results.rows[0].crib,
+                    highChair: results.rows[0].high_chair,
+                    selfCheckIn: results.rows[0].self_check_in,
+                    smokeAlarm: results.rows[0].smoke_alarm,
+                    carbonMonoxideAlarm: results.rows[0].carbon_monoxide_alarm,
+                    privateBathroom: results.rows[0].private_bathroom,
+                    beachfront: results.rows[0].beachfront,
+                    waterfront: results.rows[0].waterfront,
+                },
+                space: {
+                    beds: results.rows[0].beds,
+                    bathrooms: results.rows[0].bathrooms,
+                    rooms: results.rows[0].rooms,
+                    squareMeters:results.rows[0].square_meters,
+                    bedrooms: results.rows[0].bedrooms,
+                    livingRooms: results.rows[0].living_rooms,
+                    kitchen: results.rows[0].kitchens,
+                },
+                rules: {
+                    petsAllowed: results.rows[0].pets_allowed,
+                    smokingAllowed: results.rows[0].smoking_allowed,
+                    eventsAllowed: results.rows[0].events_allowed,
+                },
+                owner: {
+                    id: results.rows[0].user_id,
+                    firstName: results.rows[0].first_name,
+                    lastName: results.rows[0].last_name,
+                    photo: results.rows[0].photo,
+                    joined: results.rows[0].joined_on,
+                },
             };
 
             response.status(200).send({
@@ -50,8 +110,7 @@ const createListing = (request, response) => {
     const { listing } = request.body;
 
     database.query(
-        "INSERT INTO listing_amenities (wifi,shampoo ,heating,air_conditioning ,washer ,dryer ,breakfast ,indoor_fireplace ,hangers ,iron ,hair_dryer ,laptop_friendly_workspace ,tv ,crib ,high_chair,self_check_in ,smoke_alarm,carbon_monoxide_alarm, private_bathroom ,beachfront ,waterfront ) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) RETURNING listing_amenities_id",
-        [
+        "INSERT INTO listing_amenities (wifi,shampoo ,heating,air_conditioning ,washer ,dryer ,breakfast ,indoor_fireplace ,hangers ,iron ,hair_dryer ,laptop_friendly_workspace ,tv ,crib ,high_chair,self_check_in ,smoke_alarm,carbon_monoxide_alarm, private_bathroom ,beachfront ,waterfront ) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) RETURNING listing_amenities_id", [
             listing.amenities.wifi,
             listing.amenities.shampoo,
             listing.amenities.heating,
@@ -90,8 +149,7 @@ const createListing = (request, response) => {
 
                 // Create new user
                 database.query(
-                    "INSERT INTO listing_space (beds,bathrooms,rooms,square_meters,bedrooms,living_rooms,kitchens) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING listing_space_id",
-                    [
+                    "INSERT INTO listing_space (beds,bathrooms,rooms,square_meters,bedrooms,living_rooms,kitchens) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING listing_space_id", [
                         listing.space.beds,
                         listing.space.bathrooms,
                         listing.space.rooms,
@@ -116,8 +174,7 @@ const createListing = (request, response) => {
 
                             // Create new user
                             database.query(
-                                "INSERT INTO listing_rules ( pets_allowed,smoking_allowed,events_allowed ) VALUES ($1, $2, $3) RETURNING listing_rules_id",
-                                [
+                                "INSERT INTO listing_rules ( pets_allowed,smoking_allowed,events_allowed ) VALUES ($1, $2, $3) RETURNING listing_rules_id", [
                                     listing.rules.petsAllowed,
                                     listing.rules.smokingAllowed,
                                     listing.rules.eventsAllowed,
@@ -139,8 +196,7 @@ const createListing = (request, response) => {
 
                                         // Create new user
                                         database.query(
-                                            "INSERT INTO addresses (country,state,city,zip_code,street_address,apartment_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id",
-                                            [
+                                            "INSERT INTO addresses (country,state,city,zip_code,street_address,apartment_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id", [
                                                 listing.address.country,
                                                 listing.address.state,
                                                 listing.address.city,
@@ -160,19 +216,17 @@ const createListing = (request, response) => {
                                                         )
                                                         .json({
                                                             error: {
-                                                                message:
-                                                                    error.message,
+                                                                message: error.message,
                                                             },
                                                         });
                                                 } else {
                                                     // Store address id to pass as parameter in INSET INTO USERS query
                                                     const addressId =
                                                         addressQuery.rows[0]
-                                                            .address_id;
+                                                        .address_id;
                                                     // Create new user
                                                     database.query(
-                                                        "INSERT INTO listings (title,description,cost,property_type,guests,minimum_booking_days,address ,amenities,space,rules,listing_owner) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11) ",
-                                                        [
+                                                        "INSERT INTO listings (title,description,cost,property_type,guests,minimum_booking_days,address ,amenities,space,rules,listing_owner) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11) ", [
                                                             listing.title,
                                                             listing.description,
                                                             listing.cost,
@@ -215,8 +269,7 @@ const updateListing = (request, response) => {
     } = request.body;
 
     database.query(
-        "UPDATE listings SET listing_title = $1, listing_description = $2, cost = $3, property_type = $4, listing_location = $5, rating = $6, is_available = $7, picture = $8 WHERE listing_id = $9",
-        [
+        "UPDATE listings SET listing_title = $1, listing_description = $2, cost = $3, property_type = $4, listing_location = $5, rating = $6, is_available = $7, picture = $8 WHERE listing_id = $9", [
             listingTitle,
             listingDescription,
             cost,
@@ -246,8 +299,7 @@ const deleteListing = (request, response) => {
     const { listingId } = request.params;
 
     database.query(
-        "DELETE FROM listings WHERE listing_id = $1",
-        [listingId],
+        "DELETE FROM listings WHERE listing_id = $1", [listingId],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -287,8 +339,7 @@ const SearchForAvailableListings = (request, response) => {
                 (check_in>=$1 AND check_in<=$2)
                 OR (check_out>=$1 AND check_out<=$2 )
             )
-        `,
-        [check_in, check_out, country, state, city],
+        `, [check_in, check_out, country, state, city],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -308,8 +359,7 @@ const retrieveListingOfCertainType = (request, response) => {
     const { property_type } = request.params;
 
     database.query(
-        "SELECT * FROM listings WHERE property_type = $1",
-        [property_type],
+        "SELECT * FROM listings WHERE property_type = $1", [property_type],
         (error, results) => {
             if (error) {
                 console.log(error);
