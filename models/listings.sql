@@ -73,7 +73,7 @@ CREATE TABLE listings
     description VARCHAR NOT NULL,
     cost VARCHAR NOT NULL,
     property_type PROPERTY_TYPE NOT NULL,
-    rating INTEGER,
+    rating INTEGER DEFAULT 0 NOT NULL,
     guests INTEGER,
     minimum_booking_days INTEGER,
     address UUID REFERENCES addresses(address_id),
