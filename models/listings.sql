@@ -73,12 +73,13 @@ CREATE TABLE listings
     description VARCHAR NOT NULL,
     cost VARCHAR NOT NULL,
     property_type PROPERTY_TYPE NOT NULL,
+    rating INTEGER,
+    guests INTEGER,
+    minimum_booking_days INTEGER,
     address UUID REFERENCES addresses(address_id),
     amenities UUID REFERENCES listing_amenities(listing_amenities_id),
     space UUID REFERENCES listing_space(listing_space_id),
     rules UUID REFERENCES listing_rules(listing_rules_id),
-    rating INTEGER,
-    minimum_booking_days INTEGER,
     listing_owner UUID REFERENCES users(user_id),
     PRIMARY KEY (listing_id)
 );
