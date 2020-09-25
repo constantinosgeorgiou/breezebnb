@@ -4,7 +4,9 @@ import authorizationHeader from "../_helpers/AuthorizationHeader";
 const API_URL = "http://localhost:5000";
 
 export function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(
+        localStorage.getItem("user")
+    );
 }
 
 export function getReceivedReviews(userName) {
@@ -18,40 +20,46 @@ export function getReceivedReviews(userName) {
 }
 
 export function updateUserInfo(user) {
-    console.log("update user information!!!");
-    return axios
-        .put(API_URL + "/users/uptAccountInfo/" + user.id, {
-            headers: authorizationHeader(),
+    console.log(
+        "update user information!!!" +
+            JSON.stringify(user, null, 4)
+    );
+    return axios.put(
+        API_URL +
+            "/users/update/account-info/" +
+            user.userName,
+        {
             user,
-        })
-        .then((response) => {
-            console.log("response: ", response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        },
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }
 
 export function updateUserAdd(user) {
-    console.log("update user Address!!!");
-    return axios
-        .put(API_URL + "/users/uptAddress/" + user.id, {
-            headers: authorizationHeader(),
+    console.log("update user Address!!!" + user);
+    return axios.put(
+        API_URL +
+            "/users/update/address/" +
+            user.userName,
+        {
             user,
-        })
-        .then((response) => {
-            console.log("response: ", response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        },
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }
 
-
 export function getListingsOfUser(id) {
-    console.log("host id:", id)
+    console.log("host id:", id);
 
-    return axios.get(API_URL + "/hosting/" + id, {}, {
-        headers: authorizationHeader(),
-    })
+    return axios.get(
+        API_URL + "/hosting/" + id,
+        {},
+        {
+            headers: authorizationHeader(),
+        }
+    );
 }

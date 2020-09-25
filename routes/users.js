@@ -26,10 +26,10 @@ router.get(
     Reviews.retrieveReceivedReviews
 );
 // Update user account inforamtions
-router.put("/uptAccountInfo/:userid", isAuthenticated, Users.updateUserInfoByUserName);
+router.put("/update/account-info/:userName", isAuthenticated, Users.updateUserInfoByUserName);
 
 // Update user address
-router.put("/uptAddress/:userid",isAuthenticated, Users.updateUserAddByUserName);
+router.put("/update/address/:useName",isAuthenticated, Users.updateUserAddByUserName);
 
 // Update user password
 router.put("/changePassword/:userid",isAuthenticated, Users.changePasswordByUserId);

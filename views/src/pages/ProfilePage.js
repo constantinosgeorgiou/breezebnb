@@ -31,20 +31,20 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
-        getReceivedReviews(
-            this.state.user.userName
-        )
-            .then((response) => {
-                this.setState((prevState) => ({
-                    reviews:
-                        response.data.reviews,
-                }));
-            })
-            .catch((error) => {
-                this.setState((prevState) => ({
-                    message: error.message,
-                }));
-            });
+        // getReceivedReviews(
+        //     this.state.user.userName
+        // )
+        //     .then((response) => {
+        //         this.setState((prevState) => ({
+        //             reviews:
+        //                 response.data.reviews,
+        //         }));
+        //     })
+        //     .catch((error) => {
+        //         this.setState((prevState) => ({
+        //             message: error.message,
+        //         }));
+        //     });
     }
 
     handleChange = (event) => {
@@ -117,7 +117,13 @@ class ProfilePage extends Component {
         );
 
         // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
-        //   updateUserInfo(this.state.user);
+        updateUserInfo(this.state.user)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     handleSubmitAddress = (event) => {
         event.preventDefault();
@@ -133,6 +139,17 @@ class ProfilePage extends Component {
 
         //  alert("changed user: " + JSON.stringify(this.state.user, null, 4));
         // updateUser(user);
+
+        updateUserAdd(this.state.user)
+            .then((response) => {
+                console.log(
+                    "response: ",
+                    response.data
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     render() {
