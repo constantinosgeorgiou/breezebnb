@@ -4,7 +4,12 @@ import Synopsis from "../_components/Synopsis";
 import HostingInformation from "../_components/HostingInformation";
 import Profile from "../_components/Profile";
 
-import { getCurrentUser, getReceivedReviews,updateUserAdd,updateUserInfo } from "../_services/users";
+import {
+    getCurrentUser,
+    getReceivedReviews,
+    updateUserAdd,
+    updateUserInfo,
+} from "../_services/users";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -13,16 +18,26 @@ class ProfilePage extends Component {
             message: "",
             user: getCurrentUser(),
             reviews: [],
+
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+            passwordError: false,
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(
+            this
+        );
     }
 
     componentDidMount() {
-        getReceivedReviews(this.state.user.userName)
+        getReceivedReviews(
+            this.state.user.userName
+        )
             .then((response) => {
                 this.setState((prevState) => ({
-                    reviews: response.data.reviews,
+                    reviews:
+                        response.data.reviews,
                 }));
             })
             .catch((error) => {
@@ -57,23 +72,66 @@ class ProfilePage extends Component {
         }));
     };
 
+    handlePasswordChange = (event) => {
+        const { name, value } = event.target;
+        console.log(name + " " + value);
+        this.setState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     handleSubmitPassword = (event) => {
+        const {
+            currentPassword,
+            newPassword,
+            confirmPassword,
+        } = this.state;
+
+        if (newPassword !== confirmPassword) {
+            this.setState((prevState) => ({
+                ...prevState,
+                passwordError: true,
+            }));
+        } else {
+            this.setState((prevState) => ({
+                ...prevState,
+                passwordError: false,
+            }));
+        }
         event.preventDefault();
 
-       // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+        // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
         // updateUser(user);
     };
     handleSubmitAccInfo = (event) => {
         event.preventDefault();
 
-       // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
-    //   updateUserInfo(this.state.user);
+        console.log(
+            "state: " +
+                JSON.stringify(
+                    this.state,
+                    null,
+                    4
+                )
+        );
+
+        // alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+        //   updateUserInfo(this.state.user);
     };
     handleSubmitAddress = (event) => {
         event.preventDefault();
 
-      //  alert("changed user: " + JSON.stringify(this.state.user, null, 4));
+        console.log(
+            "state: " +
+                JSON.stringify(
+                    this.state,
+                    null,
+                    4
+                )
+        );
+
+        //  alert("changed user: " + JSON.stringify(this.state.user, null, 4));
         // updateUser(user);
     };
 
@@ -87,9 +145,24 @@ class ProfilePage extends Component {
                             <div className="row">
                                 <div className="col">
                                     <Synopsis
-                                        userName={this.state.user.userName}
-                                        picture={this.state.user.photo}
-                                        reviews={this.state.reviews.length}
+                                        userName={
+                                            this
+                                                .state
+                                                .user
+                                                .userName
+                                        }
+                                        picture={
+                                            this
+                                                .state
+                                                .user
+                                                .photo
+                                        }
+                                        reviews={
+                                            this
+                                                .state
+                                                .reviews
+                                                .length
+                                        }
                                     />
                                     <HostingInformation />
                                 </div>
@@ -99,16 +172,54 @@ class ProfilePage extends Component {
                             <div className="row">
                                 <div className="col">
                                     <Profile
-                                        user={this.state.user}
-                                        reviews={this.state.reviews}
-                                        handleChange={this.handleChange}
-                                        handleAddressChange={
-                                            this.handleAddressChange
+                                        password={{
+                                            currentPassword: this
+                                                .state
+                                                .currentPassword,
+                                            newPassword: this
+                                                .state
+                                                .newPassword,
+                                            confirmPassword: this
+                                                .state
+                                                .confirmPassword,
+                                            passwordError: this
+                                                .state
+                                                .passwordError,
+                                        }}
+                                        user={
+                                            this
+                                                .state
+                                                .user
                                         }
-                                        handleSubmitAccInfo={this.handleSubmitAccInfo}
-                                        handleSubmitAddress={this.handleSubmitAddress}
-                                        handleSubmitPassword={this.handleSubmitPassword}
-
+                                        reviews={
+                                            this
+                                                .state
+                                                .reviews
+                                        }
+                                        handleChange={
+                                            this
+                                                .handleChange
+                                        }
+                                        handlePasswordChange={
+                                            this
+                                                .handlePasswordChange
+                                        }
+                                        handleAddressChange={
+                                            this
+                                                .handleAddressChange
+                                        }
+                                        handleSubmitAccInfo={
+                                            this
+                                                .handleSubmitAccInfo
+                                        }
+                                        handleSubmitAddress={
+                                            this
+                                                .handleSubmitAddress
+                                        }
+                                        handleSubmitPassword={
+                                            this
+                                                .handleSubmitPassword
+                                        }
                                     />
                                 </div>
                             </div>

@@ -4,13 +4,17 @@ import { Modal } from "react-bootstrap";
 
 const Greeting = ({
     user,
+    password,
     handleChange,
+    handlePasswordChange,
     handleAddressChange,
     handleSubmitAccInfo,
     handleSubmitPassword,
     handleSubmitAddress,
 }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(
+        false
+    );
 
     const showModal = () => {
         setIsOpen(true);
@@ -19,55 +23,100 @@ const Greeting = ({
     const hideModal = () => {
         setIsOpen(false);
     };
-
+    console.log(
+        "error: " + password.passwordError
+    );
     return (
         <div className="card mb-4">
             <div className="card-body">
-                <h1 className="card-title">Hi, I'm {user.firstName}</h1>
-                <p className="card-text">{user.joined}</p>
+                <h1 className="card-title">
+                    Hi, I'm {user.firstName}
+                </h1>
+                <p className="card-text">
+                    {user.joined}
+                </p>
                 <button
                     className="card-text btn btn-outline-dark"
                     onClick={showModal}
                 >
                     Edit Profile
                 </button>
-                <Modal show={isOpen} onHide={hideModal} size="lg">
+                <Modal
+                    show={isOpen}
+                    onHide={hideModal}
+                    size="lg"
+                >
                     <Modal.Header>
-                        <Modal.Title>Edit Profile</Modal.Title>
+                        <Modal.Title>
+                            Edit Profile
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <h4>Change Password</h4>
-                        <form onSubmit={handleSubmitPassword}>
+                        <form
+                            onSubmit={
+                                handleSubmitPassword
+                            }
+                        >
                             <div className="form-group">
-                                <label htmlFor="CurrentPasswordInput">Current Password</label>
+                                <label htmlFor="CurrentPasswordInput">
+                                    Current
+                                    Password
+                                </label>
                                 <input
                                     type="password"
                                     className="form-control"
                                     id="CurrentPasswordInput"
-                                    name="password"
-                                    onChange={handleChange}
+                                    name="currentPassword"
+                                    value={
+                                        password.currentPassword
+                                    }
+                                    onChange={
+                                        handlePasswordChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="NewPasswordInput">New Password</label>
+                                <label htmlFor="NewPasswordInput">
+                                    New Password
+                                </label>
                                 <input
                                     type="password"
                                     className="form-control"
                                     id="NewPasswordInput"
-                                    name="newpassword"
-                                    onChange={handleChange}
+                                    name="newPassword"
+                                    value={
+                                        password.newPassword
+                                    }
+                                    onChange={
+                                        handlePasswordChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="ConfirmNewPasswordInput">Confirm New Password</label>
+                                <label htmlFor="ConfirmNewPasswordInput">
+                                    Confirm New
+                                    Password
+                                </label>
                                 <input
                                     type="password"
                                     className="form-control"
                                     id="CurrentPasswordInput"
-                                    name="confirmnewpassword"
-                                    onChange={handleChange}
+                                    name="confirmPassword"
+                                    value={
+                                        password.confirmPassword
+                                    }
+                                    onChange={
+                                        handlePasswordChange
+                                    }
                                 />
                             </div>
+                            {password.passwordError && (
+                                <p className=" text-danger">
+                                    "Passwords do
+                                    not match"
+                                </p>
+                            )}
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-2"
@@ -75,133 +124,218 @@ const Greeting = ({
                                 Change Password
                             </button>
                         </form>
-                        <h4>Account Inforamtions</h4>
-                        <form onSubmit={handleSubmitAccInfo}>
+                        <h4>
+                            Account Inforamtions
+                        </h4>
+                        <form
+                            onSubmit={
+                                handleSubmitAccInfo
+                            }
+                        >
                             <div className="form-group">
-                                <label htmlFor="emailInput">Email</label>
+                                <label htmlFor="emailInput">
+                                    Email
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="emailInput"
                                     name="email"
-                                    value={user.email}
-                                    onChange={handleChange}
+                                    value={
+                                        user.email
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="phoneInput">Phone</label>
+                                <label htmlFor="phoneInput">
+                                    Phone
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="phoneInput"
                                     name="phone"
-                                    value={user.phone}
-                                    onChange={handleChange}
+                                    value={
+                                        user.phone
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="firstNameInput">First Name</label>
+                                <label htmlFor="firstNameInput">
+                                    First Name
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="firstNameInput"
                                     name="firstName"
-                                    value={user.firstName}
-                                    onChange={handleChange}
+                                    value={
+                                        user.firstName
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="lastNameInput">Last Name</label>
+                                <label htmlFor="lastNameInput">
+                                    Last Name
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="lastName"
                                     name="lastName"
-                                    value={user.lastName}
-                                    onChange={handleChange}
+                                    value={
+                                        user.lastName
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                 />
                             </div>
-                            
+
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-2"
                             >
-                                Change Account Inforamtions
+                                Change Account
+                                Inforamtions
                             </button>
                         </form>
                         <h4>Address</h4>
-                        <form onSubmit={handleSubmitAddress}>
+                        <form
+                            onSubmit={
+                                handleSubmitAddress
+                            }
+                        >
                             <div className="form-group">
-                                <label htmlFor="countryInput">Country</label>
+                                <label htmlFor="countryInput">
+                                    Country
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="countryInput"
                                     name="country"
-                                    value={user.address.country}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .country
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="stateInput">State</label>
+                                <label htmlFor="stateInput">
+                                    State
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="stateInput"
                                     name="state"
-                                    value={user.address.state}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .state
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="cityInput">City</label>
+                                <label htmlFor="cityInput">
+                                    City
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="cityInput"
                                     name="city"
-                                    value={user.address.city}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .city
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="zipCodeInput">Zip Code</label>
+                                <label htmlFor="zipCodeInput">
+                                    Zip Code
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="zipCodeInput"
                                     name="zipCode"
-                                    value={user.address.zipCode}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .zipCode
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="streetAddressInput">Street Address</label>
+                                <label htmlFor="streetAddressInput">
+                                    Street Address
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="streetAddressInput"
                                     name="streetAddress"
-                                    value={user.address.streetAddress}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .streetAddress
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="zipCodeInput">Apartment Number</label>
+                                <label htmlFor="zipCodeInput">
+                                    Apartment
+                                    Number
+                                </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="apartmentNumberInput"
                                     name="apartmentNumber"
-                                    value={user.address.apartmentNumber}
-                                    onChange={handleAddressChange}
+                                    value={
+                                        user
+                                            .address
+                                            .apartmentNumber
+                                    }
+                                    onChange={
+                                        handleAddressChange
+                                    }
                                 />
                             </div>
                             <button
                                 type="submit"
                                 className="btn btn-primary mb-2"
                             >
-                                Change Address Inforamtions
+                                Change Address
+                                Inforamtions
                             </button>
                         </form>
                     </Modal.Body>

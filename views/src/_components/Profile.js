@@ -6,7 +6,9 @@ import Reviews from "./Reviews";
 
 const Profile = ({
     user,
+    password,
     reviews,
+    handlePasswordChange,
     handleChange,
     handleAddressChange,
     handleSubmitAccInfo,
@@ -17,19 +19,34 @@ const Profile = ({
         <div>
             <Greeting
                 user={user}
+                password={password}
+                handlePasswordChange={
+                    handlePasswordChange
+                }
                 handleChange={handleChange}
-                handleAddressChange={handleAddressChange}
-                handleSubmitAccInfo={handleSubmitAccInfo}
-                handleSubmitPassword={handleSubmitPassword}
-                handleSubmitAddress={handleSubmitAddress}
-
+                handleAddressChange={
+                    handleAddressChange
+                }
+                handleSubmitAccInfo={
+                    handleSubmitAccInfo
+                }
+                handleSubmitPassword={
+                    handleSubmitPassword
+                }
+                handleSubmitAddress={
+                    handleSubmitAddress
+                }
             />
             <About
                 about={user.about}
                 state={user.address.state}
                 country={user.address.country}
             />
-            {reviews.length === 0 ? "" : <Reviews reviews={reviews} />}
+            {reviews.length === 0 ? (
+                ""
+            ) : (
+                <Reviews reviews={reviews} />
+            )}
         </div>
     );
 };
