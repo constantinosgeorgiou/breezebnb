@@ -46,3 +46,12 @@ export function updateUserAdd(user) {
             console.log(error);
         });
 }
+
+
+export function getListingsOfUser(id) {
+    console.log("host id:", id)
+
+    return axios.get(API_URL + "/hosting/" + id, {}, {
+        headers: authorizationHeader(),
+    })
+}
