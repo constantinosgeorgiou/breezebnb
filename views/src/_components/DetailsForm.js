@@ -4,11 +4,6 @@ const DetailsForm = ({
     listing,
     handleChange,
 }) => {
-    console.log(
-        "details" +
-            handleChange +
-            JSON.stringify(listing, null, 4)
-    );
     return (
         <Fragment>
             {/* Title */}
@@ -162,7 +157,7 @@ const DetailsForm = ({
             </div>
 
             {/* Photos */}
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label htmlFor="inputPhotos">
                     Photos
                 </label>
@@ -176,7 +171,7 @@ const DetailsForm = ({
                     value={listing.photos}
                     onChange={handleChange}
                 />
-            </div>
+            </div> */}
         </Fragment>
     );
 };

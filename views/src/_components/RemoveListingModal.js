@@ -2,11 +2,7 @@ import React, { Component } from "react";
 
 import { Modal } from "react-bootstrap";
 
-import DetailsForm from "./DetailsForm";
-import AmenitiesForm from "./AmenitiesForm";
-import SpaceForm from "./SpaceForm";
-import RulesForm from "./RulesForm";
-import AddressForm from "./AddressForm";
+import { BiErrorCircle } from "react-icons/bi";
 
 class RemoveListingModal extends Component {
     constructor(props) {
@@ -18,7 +14,7 @@ class RemoveListingModal extends Component {
             listing,
             showRemove,
             handleHideRemove,
-            // handleRemove,
+            submitRemove,
         } = this.props;
 
         return (
@@ -28,13 +24,29 @@ class RemoveListingModal extends Component {
                 size="lg"
                 centered
             >
-                <form>
+                <form onSubmit={submitRemove}>
                     <Modal.Header>
                         <Modal.Title className="text-danger font-weight-bold">
                             Remove {listing.title}
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body></Modal.Body>
+                    <Modal.Body>
+                        <div className="">
+                            <div className="text-center">
+                                <BiErrorCircle
+                                    size={48}
+                                />
+                            </div>
+                            <p className="h5 text-center">
+                                This will remove
+                                the listing
+                                forever
+                            </p>
+                            <p className="text-center">
+                                Are you sure?
+                            </p>
+                        </div>
+                    </Modal.Body>
                     <Modal.Footer>
                         <button
                             type="button"

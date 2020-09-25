@@ -24,7 +24,7 @@ router.post("/new", Listings.createListing);
 router.put("/edit/:listingId", Listings.updateListing);
 
 // Delete listing
-router.delete("/:listingId/delete", Listings.deleteListing);
+router.delete("/delete/:listingId", Listings.deleteListing);
 
 // Retrieve all listings of certain type
 router.get("/type/:property_type", Listings.retrieveListingOfCertainType);

@@ -85,9 +85,15 @@ class AddNewListing extends Component {
         let listing = this.state.listing;
         listing.owner = this.context.user.id;
 
-        addListing(this.state.listing);
-
+        addListing(this.state.listing)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         this.props.onHide();
+        window.location.reload();
     };
 
     // On file select (from the pop up)

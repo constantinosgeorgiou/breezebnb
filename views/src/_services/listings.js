@@ -48,3 +48,13 @@ export function updateListing(listing) {
         }
     );
 }
+
+export function removeListing(id) {
+    return axios.delete(
+        API_URL + "/listings/delete/" + id,
+        {},
+        {
+            headers: authorizationHeader(),
+        }
+    );
+}

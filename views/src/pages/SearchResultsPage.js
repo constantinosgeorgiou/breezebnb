@@ -144,18 +144,18 @@ class SearchResultsPage extends Component {
     }
 
     handleNumberInputChange = (change) => {
-        const { name, value } = change.target;
+        // const { name, value } = change.target;
 
-        this.setState((prevState) => ({
-            filters: {
-                ...prevState.filters,
-                [name]: value,
-            },
-        }));
+        // this.setState((prevState) => ({
+        //     filters: {
+        //         ...prevState.filters,
+        //         [name]: value,
+        //     },
+        // }));
     };
 
     handleAmenitiesChange = (change) => {
-        const { name } = change.target;
+        // const { name } = change.target;
         // this.setState((prevState) => ({
         //     filters: {
         //         ...prevState.filters,
@@ -168,7 +168,7 @@ class SearchResultsPage extends Component {
     };
 
     handlePropertyTypesChange = (change) => {
-        const { name } = change.target;
+        // const { name } = change.target;
 
         // this.setState((prevState) => ({
         //     filters: {
