@@ -22,17 +22,12 @@ export function searchListings(parameters) {
 export function getListingInformation(id) {
     return axios.get(
         `${API_URL}/listings/${id}`,
-        {},
-        {
-            headers: authorizationHeader(),
-        }
+
     );
 }
 
 export function getLocations() {
-    axios.get(`${API_URL}/listings/all/locations`).then((response) => {
-        return response.data.locations;
-    });
+    return axios.get(API_URL + "/listings/all/locations");
 }
 
 export function addListing(listing) {
