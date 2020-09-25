@@ -13,11 +13,11 @@ const Listing = ({ listing }) => {
                         to={`/listings/${listing.id}`}
                         className="stretched-link text-reset"
                     >
-                        <img
-                            src={listing.pictures[0].url}
-                            alt=""
+                        {/* <img
+                            src={listing.photos[0].url}
+                            alt="listing photo"
                             className=" card-img"
-                        />
+                        /> */}
                     </Link>
                 </div>
                 <div className="col-md-8">
