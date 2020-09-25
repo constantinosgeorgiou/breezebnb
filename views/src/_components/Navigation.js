@@ -8,6 +8,7 @@ class Navigation extends Component {
     static contextType = UserContext;
 
     handleSignOut = () => {
+        console.log("con users:", this.context.user, this.context.user !== null)
         if (this.context.user !== null) {
             signout()
                 .then((response) => {
@@ -38,7 +39,6 @@ class Navigation extends Component {
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="mr-auto"></Nav>
-                                {console.log("context user:", context.user)}
                                 <Nav>
                                     {context.user !== null ? (
                                         context.user.userRole === "host" ? (
@@ -46,15 +46,15 @@ class Navigation extends Component {
                                                 Hostiting
                                             </Nav.Link>
                                         ) : (
+                                                <Nav.Link href="/apply-for-hosting">
+                                                    Become a host
+                                                </Nav.Link>
+                                            )
+                                    ) : (
                                             <Nav.Link href="/apply-for-hosting">
                                                 Become a host
                                             </Nav.Link>
-                                        )
-                                    ) : (
-                                        <Nav.Link href="/apply-for-hosting">
-                                            Become a host
-                                        </Nav.Link>
-                                    )}
+                                        )}
 
                                     {context.user === null ? (
                                         <Fragment>
@@ -66,17 +66,17 @@ class Navigation extends Component {
                                             </Nav.Link>
                                         </Fragment>
                                     ) : (
-                                        <Fragment>
-                                            <Nav.Link href="/profile">
-                                                Profile
+                                            <Fragment>
+                                                <Nav.Link href="/profile">
+                                                    Profile
                                             </Nav.Link>
-                                            <Nav.Link
-                                                onClick={this.handleSignOut}
-                                            >
-                                                Sign out
+                                                <Nav.Link
+                                                    onClick={this.handleSignOut}
+                                                >
+                                                    Sign out
                                             </Nav.Link>
-                                        </Fragment>
-                                    )}
+                                            </Fragment>
+                                        )}
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>
