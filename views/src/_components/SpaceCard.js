@@ -2,7 +2,7 @@ import React from "react";
 
 const SpaceCard = ({ name, quantity, icon }) => {
     return (
-        <div className="card mb-4">
+        <div className="card mb-4 rounded-pill">
             <div className="card-body">
                 <div className="row justify-content-center">
                     {icon}

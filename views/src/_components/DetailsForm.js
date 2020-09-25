@@ -4,6 +4,11 @@ const DetailsForm = ({
     listing,
     handleChange,
 }) => {
+    console.log(
+        "details" +
+            handleChange +
+            JSON.stringify(listing, null, 4)
+    );
     return (
         <Fragment>
             {/* Title */}

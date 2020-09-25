@@ -14,7 +14,9 @@ import BedsAndRooms from "../_components/BedsAndRooms";
 import AmenitiesPreviewCard from "../_components/AmenitiesPreviewCard";
 import Address from "../_components/Address";
 import Owner from "../_components/Owner";
-import BookListing from '../_components/BookListing'
+import BookListing from "../_components/BookListing";
+import HostActions from "../_components/HostActions";
+
 class ListingPage extends Component {
     constructor(props) {
         super(props);
@@ -25,6 +27,7 @@ class ListingPage extends Component {
 
             listingId:
                 props.match.params.listingId,
+            initialListingState: {},
             listing: {},
         };
     }
@@ -40,6 +43,8 @@ class ListingPage extends Component {
                 this.setState((prevState) => ({
                     ...prevState,
                     isLoading: false,
+                    initialListingState:
+                        data.listing,
                     listing: data.listing,
                 }));
             },
@@ -57,12 +62,77 @@ class ListingPage extends Component {
         change.preventDefault();
     };
 
+    handleEditChange = ({ target }) => {
+        const { name, value, type } = target;
+
+        if (type === "checkbox") {
+            // Checked contains the value
+            // Value contains the object to change
+            const { checked } = target;
+
+            this.setState((prevState) => ({
+                ...prevState,
+                listing: {
+                    ...prevState.listing,
+                    [value]: {
+                        ...prevState.listing[
+                            value
+                        ],
+                        [name]: checked,
+                    },
+                },
+            }));
+        } else {
+            this.setState((prevState) => ({
+                ...prevState,
+                listing: {
+                    ...prevState.listing,
+                    [name]: value,
+                },
+            }));
+        }
+    };
+
+    handleEditAddressChange = ({ target }) => {
+        const { name, value } = target;
+
+        this.setState((prevState) => ({
+            listing: {
+                ...prevState.listing,
+                address: {
+                    ...prevState.listing.address,
+                    [name]: value,
+                },
+            },
+        }));
+    };
+
+    handleEditSpaceChange = ({ target }) => {
+        const { name, value } = target;
+
+        this.setState((prevState) => ({
+            listing: {
+                ...prevState.listing,
+                space: {
+                    ...prevState.listing.space,
+                    [name]: value,
+                },
+            },
+        }));
+    };
+
     render() {
         const {
-            isLoading,
-            error,
-            listing,
-        } = this.state;
+            state: {
+                isLoading,
+                error,
+                initialListingState,
+                listing,
+            },
+            handleEditChange,
+            handleEditAddressChange,
+            handleEditSpaceChange,
+        } = this;
 
         if (error) {
             return (
@@ -71,6 +141,7 @@ class ListingPage extends Component {
         } else if (isLoading) {
             return <div>Loading...</div>;
         } else {
+            const { listing } = this.state;
             console.log(
                 "lsting: " +
                     JSON.stringify(
@@ -135,7 +206,23 @@ class ListingPage extends Component {
                                             listing.owner
                                         }
                                     />
-
+                                    <HostActions
+                                        initialListingState={
+                                            initialListingState
+                                        }
+                                        listing={
+                                            listing
+                                        }
+                                        handleEditAddressChange={
+                                            handleEditAddressChange
+                                        }
+                                        handleEditChange={
+                                            handleEditChange
+                                        }
+                                        handleEditSpaceChange={
+                                            handleEditSpaceChange
+                                        }
+                                    />
                                     <Description
                                         description={
                                             listing.description

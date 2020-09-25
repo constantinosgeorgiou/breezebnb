@@ -21,7 +21,7 @@ router.get("/:listingId", Listings.retrieveListingById);
 router.post("/new", Listings.createListing);
 
 // Update listing
-router.put("/:listingId/edit", Listings.updateListing);
+router.put("/edit/:listingId", Listings.updateListing);
 
 // Delete listing
 router.delete("/:listingId/delete", Listings.deleteListing);

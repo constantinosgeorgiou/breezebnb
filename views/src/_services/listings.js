@@ -20,19 +20,28 @@ export function searchListings(parameters) {
 }
 
 export function getListingInformation(id) {
-    return axios.get(
-        `${API_URL}/listings/${id}`,
-
-    );
+    return axios.get(`${API_URL}/listings/${id}`);
 }
 
 export function getLocations() {
-    return axios.get(API_URL + "/listings/all/locations");
+    return axios.get(
+        API_URL + "/listings/all/locations"
+    );
 }
 
 export function addListing(listing) {
     return axios.post(
         API_URL + "/listings/new",
+        { listing },
+        {
+            headers: authorizationHeader(),
+        }
+    );
+}
+
+export function updateListing(listing) {
+    return axios.put(
+        API_URL + "/listings/edit/" + listing.id,
         { listing },
         {
             headers: authorizationHeader(),

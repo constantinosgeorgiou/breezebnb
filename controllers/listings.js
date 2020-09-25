@@ -384,6 +384,8 @@ const updateListing = (request, response) => {
 
     const { listing } = request.body;
 
+    console.log("update: " + listing);
+
     database.query(
         "SELECT * FROM listings WHERE listing_id = $1",
         [listingId],
