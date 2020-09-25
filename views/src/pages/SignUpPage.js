@@ -2,10 +2,14 @@ import React, { Component } from "react";
 
 import { Link } from "react-router-dom";
 
-import { BiDoorOpen, BiHomeSmile } from "react-icons/bi";
+import {
+    BiDoorOpen,
+    BiHomeSmile,
+} from "react-icons/bi";
 import sign_up from "../assets/imgs/sign_up.jpg";
 
 import { signup } from "../_services/authentication.js";
+import { Fragment } from "react";
 
 class SignUpPage extends Component {
     constructor(props) {
@@ -26,11 +30,12 @@ class SignUpPage extends Component {
             streetAddress: "",
             apartmentNumber: "",
             // Account Information
-            photo:
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.L31LdL2f4L0Z9C_MpZlAnwHaEK%26pid%3DApi&f=1",
+            photo: "",
             userName: "",
             email: "",
             password: "",
+            confirmPassword: "",
+            passwordError: false,
             // Hosting
             userRole: false, // false: guest | true: host
         };
@@ -40,69 +45,129 @@ class SignUpPage extends Component {
         // If checkbox and checkbox is true then userRole === host
         if (event.target.type === "checkbox") {
             if (event.target.checked) {
-                event.target.setAttribute("checked", true);
+                event.target.setAttribute(
+                    "checked",
+                    true
+                );
             } else {
-                event.target.removeAttribute("checked");
+                event.target.removeAttribute(
+                    "checked"
+                );
             }
             this.setState((prevState) => ({
                 userRole: !prevState.userRole,
             }));
         } else {
             const { name, value } = event.target;
-            this.setState((prevState) => ({
-                [name]: value,
-            }));
+            const {
+                password,
+                confirmPassword,
+            } = this.state;
+
+            if (password !== confirmPassword) {
+                this.setState({
+                    [name]: value,
+                    passwordError: true,
+                });
+            } else {
+                this.setState({
+                    [name]: value,
+                    passwordError: false,
+                });
+            }
         }
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const user = {
-            // Personal Information
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            birthday: this.state.birthday,
-            phone: this.state.phone,
-            // Address
-            address: {
-                country: this.state.country,
-                state: this.state.state,
-                city: this.state.city,
-                zipCode: this.state.zipCode,
-                streetAddress: this.state.streetAddress,
-                apartmentNumber: this.state.apartmentNumber,
-            },
-            // Account Information
-            userName: this.state.userName,
-            email: this.state.email,
-            password: this.state.password,
-            userRole: this.state.userRole ? "host" : "guest",
-        };
+        const {
+            password,
+            confirmPassword,
+        } = this.state;
 
-        signup(user)
-            .then((response) => {
-                console.log("Sign up response: ", response.data);
-                if (response.data.accessToken) {
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(response.data.user)
+        if (password !== confirmPassword) {
+            this.setState((prevState) => ({
+                ...prevState,
+                passwordError: true,
+            }));
+        } else {
+            this.setState((prevState) => ({
+                ...prevState,
+                passwordError: false,
+            }));
+
+            const user = {
+                // Personal Information
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                birthday: this.state.birthday,
+                phone: this.state.phone,
+                // Address
+                address: {
+                    country: this.state.country,
+                    state: this.state.state,
+                    city: this.state.city,
+                    zipCode: this.state.zipCode,
+                    streetAddress: this.state
+                        .streetAddress,
+                    apartmentNumber: this.state
+                        .apartmentNumber,
+                },
+                // Account Information
+                userName: this.state.userName,
+                email: this.state.email,
+                password: this.state.password,
+                userRole: this.state.userRole
+                    ? "host"
+                    : "guest",
+            };
+
+            signup(user)
+                .then((response) => {
+                    console.log(
+                        "Sign up response: ",
+                        response.data
                     );
-                }
-                // Redirect to profile page
-                this.props.history.push("/profile");
-                window.location.reload();
-            })
-            .catch((error) => console.log("sign up error: ", error));
+                    if (
+                        response.data.accessToken
+                    ) {
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(
+                                response.data.user
+                            )
+                        );
+                    }
+                    // Redirect to profile page
+                    this.props.history.push(
+                        "/profile"
+                    );
+                    window.location.reload();
+                })
+                .catch((error) =>
+                    console.log(
+                        "sign up error: ",
+                        error
+                    )
+                );
+        }
     };
 
     // Helper function for next step
     _next = () => {
         let currentStep = this.state.currentStep;
-        let progressPersent = this.state.progressPersent;
+        let progressPersent = this.state
+            .progressPersent;
 
-        currentStep = currentStep >= 3 ? 4 : currentStep + 1;
-        progressPersent = progressPersent >= 68 ? 100 : progressPersent + 34;
+        currentStep =
+            currentStep >= 3
+                ? 4
+                : currentStep + 1;
+        progressPersent =
+            progressPersent >= 68
+                ? 100
+                : progressPersent + 34;
 
         this.setState({
             currentStep: currentStep,
@@ -113,10 +178,17 @@ class SignUpPage extends Component {
     // Helper function for previous step
     _previous = () => {
         let currentStep = this.state.currentStep;
-        let progressPersent = this.state.progressPersent;
+        let progressPersent = this.state
+            .progressPersent;
 
-        currentStep = currentStep <= 1 ? 1 : currentStep - 1;
-        progressPersent = progressPersent <= 34 ? 0 : progressPersent - 34;
+        currentStep =
+            currentStep <= 1
+                ? 1
+                : currentStep - 1;
+        progressPersent =
+            progressPersent <= 34
+                ? 0
+                : progressPersent - 34;
 
         this.setState({
             currentStep: currentStep,
@@ -163,13 +235,21 @@ class SignUpPage extends Component {
 
     // Helper function that renders submit button
     submitButton() {
-        let currentStep = this.state.currentStep;
+        let {
+            currentStep,
+            passwordError,
+        } = this.state;
 
         if (currentStep === 4) {
             return (
-                <button className="btn btn-primary float-right" type="submit">
-                    Finish signing up
-                </button>
+                <Fragment>
+                    <button
+                        className="btn btn-primary float-right"
+                        type="submit"
+                    >
+                        Finish signing up
+                    </button>
+                </Fragment>
             );
         }
 
@@ -195,11 +275,14 @@ class SignUpPage extends Component {
                                         <div className="text-center my-2">
                                             <BiDoorOpen
                                                 className="text-primary"
-                                                size={60}
+                                                size={
+                                                    60
+                                                }
                                             />
                                         </div>
                                         <h3 className="card-title mb-4 font-weight-normal text-center">
-                                            Sign Up
+                                            Sign
+                                            Up
                                         </h3>
                                         <div className="progress mt-5 mb-4">
                                             <div
@@ -210,59 +293,148 @@ class SignUpPage extends Component {
                                                 aria-valuemax="100"
                                                 style={{
                                                     width:
-                                                        this.state
+                                                        this
+                                                            .state
                                                             .progressPersent +
                                                         "%",
                                                 }}
                                             />
                                         </div>
-                                        <form onSubmit={this.handleSubmit}>
+                                        <form
+                                            onSubmit={
+                                                this
+                                                    .handleSubmit
+                                            }
+                                        >
                                             <Step1
                                                 currentStep={
-                                                    this.state.currentStep
+                                                    this
+                                                        .state
+                                                        .currentStep
                                                 }
-                                                handleChange={this.handleChange}
-                                                firstName={this.state.firstName}
-                                                lastName={this.state.lastName}
-                                                birthday={this.state.birthday}
-                                                phone={this.state.phone}
+                                                handleChange={
+                                                    this
+                                                        .handleChange
+                                                }
+                                                firstName={
+                                                    this
+                                                        .state
+                                                        .firstName
+                                                }
+                                                lastName={
+                                                    this
+                                                        .state
+                                                        .lastName
+                                                }
+                                                birthday={
+                                                    this
+                                                        .state
+                                                        .birthday
+                                                }
+                                                phone={
+                                                    this
+                                                        .state
+                                                        .phone
+                                                }
                                             />
                                             <Step2
                                                 currentStep={
-                                                    this.state.currentStep
+                                                    this
+                                                        .state
+                                                        .currentStep
                                                 }
-                                                handleChange={this.handleChange}
-                                                country={this.state.country}
-                                                state={this.state.state}
-                                                city={this.state.city}
-                                                zipCode={this.state.zipCode}
+                                                handleChange={
+                                                    this
+                                                        .handleChange
+                                                }
+                                                country={
+                                                    this
+                                                        .state
+                                                        .country
+                                                }
+                                                state={
+                                                    this
+                                                        .state
+                                                        .state
+                                                }
+                                                city={
+                                                    this
+                                                        .state
+                                                        .city
+                                                }
+                                                zipCode={
+                                                    this
+                                                        .state
+                                                        .zipCode
+                                                }
                                                 streetAddress={
-                                                    this.state.streetAddress
+                                                    this
+                                                        .state
+                                                        .streetAddress
                                                 }
                                                 apartmentNumber={
-                                                    this.state.apartmentNumber
+                                                    this
+                                                        .state
+                                                        .apartmentNumber
                                                 }
                                             />
                                             <Step3
                                                 currentStep={
-                                                    this.state.currentStep
+                                                    this
+                                                        .state
+                                                        .currentStep
                                                 }
-                                                handleChange={this.handleChange}
-                                                userName={this.state.userName}
-                                                email={this.state.email}
-                                                password={this.state.password}
+                                                handleChange={
+                                                    this
+                                                        .handleChange
+                                                }
+                                                userName={
+                                                    this
+                                                        .state
+                                                        .userName
+                                                }
+                                                email={
+                                                    this
+                                                        .state
+                                                        .email
+                                                }
+                                                password={
+                                                    this
+                                                        .state
+                                                        .password
+                                                }
                                             />
                                             <Step4
                                                 currentStep={
-                                                    this.state.currentStep
+                                                    this
+                                                        .state
+                                                        .currentStep
                                                 }
-                                                handleChange={this.handleChange}
-                                                userRole={this.state.userRole}
+                                                handleChange={
+                                                    this
+                                                        .handleChange
+                                                }
+                                                userRole={
+                                                    this
+                                                        .state
+                                                        .userRole
+                                                }
                                             />
+
                                             {this.previousButton()}
                                             {this.nextButton()}
                                             {this.submitButton()}
                                         </form>
+                                        {this
+                                            .state
+                                            .passwordError && (
+                                            <p className="text-danger float-right d-block">
+                                                Passwords
+                                                do
+                                                not
+                                                match
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -283,14 +455,22 @@ const Step1 = (props) => {
     return (
         <div className="mb-5">
             <small className="form-text mb-2">
-                <Link to="/signin">Already have an account? Sign in</Link>
+                <Link to="/signin">
+                    Already have an account? Sign
+                    in
+                </Link>
             </small>
             <h4 className="mb-4">
-                Step 1: <span className="text-muted">Personal Information</span>
+                Step 1:{" "}
+                <span className="text-muted">
+                    Personal Information
+                </span>
             </h4>
             {/* First name */}
             <div className="form-group">
-                <label htmlFor="firstNameInput">First name</label>
+                <label htmlFor="firstNameInput">
+                    First name
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -301,14 +481,20 @@ const Step1 = (props) => {
                     value={props.firstName}
                     onChange={props.handleChange}
                 />
-                <small id="firstNameNote" className="form-text text-muted">
-                    Make sure it matches the name on your goverment ID.
+                <small
+                    id="firstNameNote"
+                    className="form-text text-muted"
+                >
+                    Make sure it matches the name
+                    on your goverment ID.
                 </small>
             </div>
 
             {/* Last name */}
             <div className="form-group">
-                <label htmlFor="lastNameInput">Last name</label>
+                <label htmlFor="lastNameInput">
+                    Last name
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -319,14 +505,20 @@ const Step1 = (props) => {
                     value={props.lastName}
                     onChange={props.handleChange}
                 />
-                <small id="lastNameNote" className="form-text text-muted">
-                    Make sure it matches the name on your goverment ID.
+                <small
+                    id="lastNameNote"
+                    className="form-text text-muted"
+                >
+                    Make sure it matches the name
+                    on your goverment ID.
                 </small>
             </div>
 
             {/* Birthday */}
             <div className="form-group">
-                <label htmlFor="birthdayInput">Birthday</label>
+                <label htmlFor="birthdayInput">
+                    Birthday
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -340,7 +532,9 @@ const Step1 = (props) => {
 
             {/* Phone */}
             <div className="form-group">
-                <label htmlFor="phoneInput">Phone</label>
+                <label htmlFor="phoneInput">
+                    Phone
+                </label>
                 <input
                     type="phone"
                     className="form-control"
@@ -364,15 +558,23 @@ const Step2 = (props) => {
     return (
         <div className="mb-5">
             <small className="form-text mb-2">
-                <Link to="/signin">Already have an account? Sign in</Link>
+                <Link to="/signin">
+                    Already have an account? Sign
+                    in
+                </Link>
             </small>
             <h4 className="mb-4">
-                Step 2: <span className="text-muted">Address</span>
+                Step 2:{" "}
+                <span className="text-muted">
+                    Address
+                </span>
             </h4>
 
             {/* Country */}
             <div className="form-group">
-                <label htmlFor="inputCountry">Country</label>
+                <label htmlFor="inputCountry">
+                    Country
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -386,7 +588,9 @@ const Step2 = (props) => {
 
             {/* State */}
             <div className="form-group">
-                <label htmlFor="inputState">State</label>
+                <label htmlFor="inputState">
+                    State
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -400,7 +604,9 @@ const Step2 = (props) => {
 
             {/* City */}
             <div className="form-group">
-                <label htmlFor="inputCity">City</label>
+                <label htmlFor="inputCity">
+                    City
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -414,7 +620,9 @@ const Step2 = (props) => {
 
             {/* Zipcode */}
             <div className="form-group">
-                <label htmlFor="inputZipCode">Zip code</label>
+                <label htmlFor="inputZipCode">
+                    Zip code
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -428,7 +636,9 @@ const Step2 = (props) => {
 
             {/* Street Address */}
             <div className="form-group">
-                <label htmlFor="inputAddress">Street Address</label>
+                <label htmlFor="inputAddress">
+                    Street Address
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -442,7 +652,9 @@ const Step2 = (props) => {
 
             {/* Apartment Number */}
             <div className="form-group">
-                <label htmlFor="inputApartmentNumber">Apartment number</label>
+                <label htmlFor="inputApartmentNumber">
+                    Apartment number
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -466,15 +678,23 @@ const Step3 = (props) => {
     return (
         <div className="mb-5">
             <small className="form-text mb-2">
-                <Link to="/signin">Already have an account? Sign in</Link>
+                <Link to="/signin">
+                    Already have an account? Sign
+                    in
+                </Link>
             </small>
             <h4 className="mb-4">
-                Step 3: <span className="text-muted">Account Information</span>
+                Step 3:{" "}
+                <span className="text-muted">
+                    Account Information
+                </span>
             </h4>
 
             {/* Username */}
             <div className="form-group">
-                <label htmlFor="usernameInput">Username</label>
+                <label htmlFor="usernameInput">
+                    Username
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -488,7 +708,9 @@ const Step3 = (props) => {
 
             {/* Email */}
             <div className="form-group">
-                <label htmlFor="emailInput">Email</label>
+                <label htmlFor="emailInput">
+                    Email
+                </label>
                 <input
                     type="text"
                     className="form-control"
@@ -499,14 +721,20 @@ const Step3 = (props) => {
                     value={props.email}
                     onChange={props.handleChange}
                 />
-                <small id="emailNote" className="form-text text-muted">
-                    We'll email you trip confirmations and receipts.
+                <small
+                    id="emailNote"
+                    className="form-text text-muted"
+                >
+                    We'll email you trip
+                    confirmations and receipts.
                 </small>
             </div>
 
             {/* Password */}
             <div className="form-group">
-                <label htmlFor="passwordInput">Password</label>
+                <label htmlFor="passwordInput">
+                    Password
+                </label>
                 <input
                     type="password"
                     className="form-control"
@@ -520,7 +748,9 @@ const Step3 = (props) => {
 
             {/* Confirm password */}
             <div className="form-group">
-                <label htmlFor="confirmPasswordInput">Confirm password</label>
+                <label htmlFor="confirmPasswordInput">
+                    Confirm password
+                </label>
                 <input
                     type="password"
                     className="form-control"
@@ -542,19 +772,32 @@ const Step4 = (props) => {
         <div className="mb-5">
             <div className="mb-4 align-middle">
                 <small className="form-text mb-2">
-                    <Link to="/signin">Already have an account? Sign in</Link>
+                    <Link to="/signin">
+                        Already have an account?
+                        Sign in
+                    </Link>
                 </small>
-                <span className="h4 align-middle">Step 4: </span>
-                <span className="h4 text-muted align-middle">Hosting </span>
-                <BiHomeSmile className="text-muted align-middle" size={36} />
+                <span className="h4 align-middle">
+                    Step 4:{" "}
+                </span>
+                <span className="h4 text-muted align-middle">
+                    Hosting{" "}
+                </span>
+                <BiHomeSmile
+                    className="text-muted align-middle"
+                    size={36}
+                />
             </div>
 
             {/* Hosting */}
             <div className="form-group">
                 <p className="form-text">
-                    If you have an extra room, entire home, or expertise, you
-                    can earn money by sharing it with anyone in the world. You
-                    can host your home, activity, or do both. When you host is
+                    If you have an extra room,
+                    entire home, or expertise, you
+                    can earn money by sharing it
+                    with anyone in the world. You
+                    can host your home, activity,
+                    or do both. When you host is
                     up to you.
                 </p>
 
@@ -563,9 +806,13 @@ const Step4 = (props) => {
                         className="custom-control-input"
                         id="checkboxInput"
                         type="checkbox"
-                        defaultChecked={props.userRole}
+                        defaultChecked={
+                            props.userRole
+                        }
                         name="userRole"
-                        onChange={props.handleChange}
+                        onChange={
+                            props.handleChange
+                        }
                     />
                     <label
                         className="custom-control-label"
