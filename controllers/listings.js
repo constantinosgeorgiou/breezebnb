@@ -40,13 +40,13 @@ const retrieveListingById = (request, response) => {
                 description: results.rows[0].description,
                 propertyType: results.rows[0].property_type,
                 guests: results.rows[0].guests,
-                cost:results.rows[0].cost,
+                cost: results.rows[0].cost,
                 minimumBookingDays: results.rows[0].minimum_booking_days,
                 owner: results.rows[0].listing_owner,
                 rating: results.rows[0].rating,
                 address: {
-                    country:results.rows[0].country,
-                    state:results.rows[0].state,
+                    country: results.rows[0].country,
+                    state: results.rows[0].state,
                     city: results.rows[0].city,
                     zipCode: results.rows[0].zip_code,
                     streetAddress: results.rows[0].street_address,
@@ -59,7 +59,7 @@ const retrieveListingById = (request, response) => {
                     airConditioning: results.rows[0].air_conditioning,
                     washer: results.rows[0].washer,
                     dryer: results.rows[0].dryer,
-                    breakfast:results.rows[0].breakfast,
+                    breakfast: results.rows[0].breakfast,
                     indoorFireplace: results.rows[0].indoor_fireplace,
                     hangers: results.rows[0].hangers,
                     iron: results.rows[0].iron,
@@ -79,7 +79,7 @@ const retrieveListingById = (request, response) => {
                     beds: results.rows[0].beds,
                     bathrooms: results.rows[0].bathrooms,
                     rooms: results.rows[0].rooms,
-                    squareMeters:results.rows[0].square_meters,
+                    squareMeters: results.rows[0].square_meters,
                     bedrooms: results.rows[0].bedrooms,
                     livingRooms: results.rows[0].living_rooms,
                     kitchen: results.rows[0].kitchens,
@@ -299,20 +299,50 @@ const deleteListing = (request, response) => {
     const { listingId } = request.params;
 
     database.query(
-        "DELETE FROM listings WHERE listing_id = $1", [listingId],
-        (error, results) => {
+        "SELECT * FROM listings WHERE listing_id = $1", [listingId],
+        (error, listingQuery) => {
             if (error) {
-                console.log(error);
-                response.status(error.status || 400).json({
-                    error: {
-                        message: error.message,
-                    },
-                });
+                console.log(
+                    listingAmenitiesId
+                );
+                // Error while retrieving user id
+                response
+                    .status(
+                        error.status || 500
+                    )
+                    .json({
+                        error: {
+                            message: error.message,
+                        },
+                    });
+            } else {
+                // Store address id to pass as parameter in INSET INTO USERS query
+                const addressId =listingQuery.rows[0].address;
+                const amenitiesId =listingQuery.rows[0].amenities;
+                const spaeceId =listingQuery.rows[0].space;
+                const rulesId =listingQuery.rows[0].rules;
+                // Create new user
+                database.query(
+                    "DELETE FROM listing_rules WHERE listing_rules_id = $1", [rulesId]
+                );
+                database.query(
+                    "DELETE FROM addresses WHERE address_id = $1", [addressId]
+                );
+                database.query(
+                    "DELETE FROM listing_amenities WHERE listing_amenities_id = $1", [amenitiesId]
+                );
+                database.query(
+                    "DELETE FROM listing_space WHERE listing_space_id = $1", [spaeceId]
+                );
+                database.query(
+                    "DELETE FROM listings WHERE listing_id = $1", [listingId]
+                );
+                response.status(200).send();
             }
-            console.log(results.rows);
-            response.status(204).json(results.rows);
         }
     );
+
+
 };
 
 const SearchForAvailableListings = (request, response) => {
@@ -359,13 +389,13 @@ const SearchForAvailableListings = (request, response) => {
                     description: row.description,
                     propertyType: row.property_type,
                     guests: row.guests,
-                    cost:row.cost,
+                    cost: row.cost,
                     minimumBookingDays: row.minimum_booking_days,
                     owner: row.listing_owner,
                     rating: row.rating,
                     address: {
-                        country:row.country,
-                        state:row.state,
+                        country: row.country,
+                        state: row.state,
                         city: row.city,
                         zipCode: row.zip_code,
                         streetAddress: row.street_address,
@@ -378,7 +408,7 @@ const SearchForAvailableListings = (request, response) => {
                         airConditioning: row.air_conditioning,
                         washer: row.washer,
                         dryer: row.dryer,
-                        breakfast:row.breakfast,
+                        breakfast: row.breakfast,
                         indoorFireplace: row.indoor_fireplace,
                         hangers: row.hangers,
                         iron: row.iron,
@@ -398,7 +428,7 @@ const SearchForAvailableListings = (request, response) => {
                         beds: row.beds,
                         bathrooms: row.bathrooms,
                         rooms: row.rooms,
-                        squareMeters:row.square_meters,
+                        squareMeters: row.square_meters,
                         bedrooms: row.bedrooms,
                         livingRooms: row.living_rooms,
                         kitchen: row.kitchens,
@@ -416,12 +446,12 @@ const SearchForAvailableListings = (request, response) => {
                         joined: row.joined_on,
                     },
                 };
-    
+
                 listings.push(listing);
             });
 
 
-            
+
             response.status(200).send({
                 listings
             }); // SUCCESS
@@ -466,16 +496,16 @@ const retrieveLocations = (request, response) => {
                 let location = {
 
                     id: row.listing_id,
-                    country: row.country, 
-                    state:row.state, 
-                    city:row.city,
+                    country: row.country,
+                    state: row.state,
+                    city: row.city,
                 };
-    
+
                 locations.push(location);
             });
 
 
-            
+
             response.status(200).send({
                 locations
             }); // SUCCESS
