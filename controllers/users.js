@@ -397,25 +397,37 @@ const updateUserByUserName = (request, response) => {
 };
 
 // Deletes a user with given username
-const deleteUserByUserName = (request, response) => {
-    const userName = request.params.userName;
+const deleteUserByUserId = (request, response) => {
+    const userid = request.params.userid;
 
     database.query(
-        "DELETE FROM users WHERE user_name = $1",
-        [userName],
-        (error, results) => {
+        "SELECT * FROM users WHERE user_id = $1", [userid],
+        (error, usersQuery) => {
             if (error) {
-                response.status(error.status || 400).json({
-                    error: {
-                        message: error.message,
-                    },
-                });
+                // Error while retrieving user id
+                response
+                    .status(
+                        error.status || 500
+                    )
+                    .json({
+                        error: {
+                            message: error.message,
+                        },
+                    });
+            } else {
+                const addressId = usersQuery.rows[0].address;
+
+                database.query(
+                    "DELETE FROM addresses WHERE address_id = $1", [addressId]
+                );
+                database.query(
+                    "DELETE FROM users WHERE user_id = $1", [userid]
+                );
+                response.status(200).send();
             }
-            response
-                .status(204)
-                .send(`User deleted with username: ${userName}`);
         }
     );
+
 };
 
 const retrieveUserNameByUserId = (request, response) => {
@@ -438,12 +450,12 @@ const retrieveUserNameByUserId = (request, response) => {
 
 // Updates account information of user with given username
 const updateUserInfoByUserName = (request, response) => {
-    const userName = request.params.userName;
+    const userid = request.params.userid;
     const { firstName, email, lastName, phone } = request.body;
 
     database.query(
-        "UPDATE users SET first_name = $1, email = $2, last_name = $3, phone= $4 WHERE user_name = $5",
-        [firstName, email, lastName, phone, userName],
+        "UPDATE users SET first_name = $1, email = $2, last_name = $3, phone= $4 WHERE user_id = $5",
+        [firstName, email, lastName, phone, userid],
         (error, results) => {
             if (error) {
                 response.status(error.status || 400).json({
@@ -458,7 +470,7 @@ const updateUserInfoByUserName = (request, response) => {
 };
 // Updates address of user with given username
 const updateUserAddByUserName = (request, response) => {
-    const userName = request.params.userName;
+    const userid = request.params.userid;
     const {
         country,
         state,
@@ -477,8 +489,29 @@ const updateUserAddByUserName = (request, response) => {
             zipCode,
             streetAddress,
             apartmentNumber,
-            userName,
+            userid,
         ],
+        (error, results) => {
+            if (error) {
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
+            }
+            response.status(204).send(`User modified with ID: ${userName}`);
+        }
+    );
+};
+
+// Updates account information of user with given username
+const changePasswordByUserId = (request, response) => {
+    const userid = request.params.userid;
+    const { newpass } = request.body;
+    const password = await bcrypt.hash(newpass, 10); // Salt rounds: 10
+    database.query(
+        "UPDATE users SET password = $2 WHERE user_id = $1",
+        [userid,password],
         (error, results) => {
             if (error) {
                 response.status(error.status || 400).json({
@@ -502,7 +535,8 @@ module.exports = {
     retrieveUserByUserName,
     retrieveUserNameByUserId,
 
+    changePasswordByUserId,
     updateUserInfoByUserName,
     updateUserAddByUserName,
-    deleteUserByUserName,
+    deleteUserByUserId,
 };

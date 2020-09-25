@@ -263,9 +263,6 @@ const updateListing = (request, response) => {
         "SELECT * FROM listings WHERE listing_id = $1", [listingId],
         (error, listingQuery) => {
             if (error) {
-                console.log(
-                    listingAmenitiesId
-                );
                 // Error while retrieving user id
                 response
                     .status(
@@ -366,9 +363,6 @@ const deleteListing = (request, response) => {
         "SELECT * FROM listings WHERE listing_id = $1", [listingId],
         (error, listingQuery) => {
             if (error) {
-                console.log(
-                    listingAmenitiesId
-                );
                 // Error while retrieving user id
                 response
                     .status(
