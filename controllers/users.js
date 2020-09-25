@@ -505,7 +505,7 @@ const updateUserAddByUserName = (request, response) => {
 };
 
 // Updates account information of user with given username
-const changePasswordByUserId = (request, response) => {
+const changePasswordByUserId = async (request, response) => {
     const userid = request.params.userid;
     const { newpass } = request.body;
     const password = await bcrypt.hash(newpass, 10); // Salt rounds: 10
