@@ -507,22 +507,63 @@ const updateUserAddByUserName = (request, response) => {
 // Updates account information of user with given username
 const changePasswordByUserId = async (request, response) => {
     const userid = request.params.userid;
-    const { newpass } = request.body;
-    const password = await bcrypt.hash(newpass, 10); // Salt rounds: 10
+    const { newpass,currentpass } = request.body;
+    const newpassword = await bcrypt.hash(newpass, 10); // Salt rounds: 10
+    const currentpassword = await bcrypt.hash(currentpass, 10); // Salt rounds: 10
     database.query(
-        "UPDATE users SET password = $2 WHERE user_id = $1",
-        [userid,password],
-        (error, results) => {
+        "SELECT * FROM users WHERE user_id = $1", [userid],
+        (error, usersQuery) => {
             if (error) {
-                response.status(error.status || 400).json({
-                    error: {
-                        message: error.message,
-                    },
+                // Error while retrieving user id
+                response
+                    .status(
+                        error.status || 500
+                    )
+                    .json({
+                        error: {
+                            message: error.message,
+                        },
+                    });
+            } else {
+                const oldpass = usersQuery.rows[0].password;
+
+                bcrypt.compare(oldpass, currentpassword, (error, passwordIsValid) => {
+                    if (error) {
+                        // Error while comparing hashes
+                        response.status(error.status || 500).json({
+                            error: {
+                                message: error.message,
+                            },
+                        });
+                    } else if (passwordIsValid === false) {
+                        // Password is invalid
+
+                        response.status(401).send({
+                            message: "Password is invalid.",
+                        });
+                    } else {
+                        
+                        database.query(
+                            "UPDATE users SET password = $2 WHERE user_id = $1",
+                            [userid,newpassword],
+                            (error, results) => {
+                                if (error) {
+                                    response.status(error.status || 400).json({
+                                        error: {
+                                            message: error.message,
+                                        },
+                                    });
+                                }
+                                response.status(204).send(`passsword updated`);
+                            }
+                        );
+                    }
                 });
+                response.status(200).send();
             }
-            response.status(204).send(`User modified with ID: ${userName}`);
         }
     );
+   
 };
 
 module.exports = {
