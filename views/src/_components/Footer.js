@@ -6,7 +6,7 @@ class Footer extends Component {
             <footer className="footer mt-auto py-3">
                 <div className="container">
                     <div className="text-center">
-                        <p>© 2020 Breezebnb. No rights reserved</p>
+                        <p>© 2020 Breezebnb. All rights reserved</p>
                     </div>
                 </div>
             </footer>
