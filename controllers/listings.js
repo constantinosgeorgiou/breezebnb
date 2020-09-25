@@ -257,42 +257,106 @@ const createListing = (request, response) => {
 const updateListing = (request, response) => {
     const { listingId } = request.params;
 
-    const {
-        listingTitle,
-        listingDescription,
-        cost,
-        propertyType,
-        listingLocation,
-        rating,
-        isAvailable,
-        picture,
-    } = request.body;
+    const { listing } = request.body;
 
     database.query(
-        "UPDATE listings SET listing_title = $1, listing_description = $2, cost = $3, property_type = $4, listing_location = $5, rating = $6, is_available = $7, picture = $8 WHERE listing_id = $9", [
-            listingTitle,
-            listingDescription,
-            cost,
-            propertyType,
-            listingLocation,
-            rating,
-            isAvailable,
-            picture,
-            listingId,
-        ],
-        (error, results) => {
+        "SELECT * FROM listings WHERE listing_id = $1", [listingId],
+        (error, listingQuery) => {
             if (error) {
-                console.log(error);
-                response.status(error.status || 400).json({
-                    error: {
-                        message: error.message,
-                    },
-                });
+                console.log(
+                    listingAmenitiesId
+                );
+                // Error while retrieving user id
+                response
+                    .status(
+                        error.status || 500
+                    )
+                    .json({
+                        error: {
+                            message: error.message,
+                        },
+                    });
+            } else {
+                // Store address id to pass as parameter in INSET INTO USERS query
+                const addressId = listingQuery.rows[0].address;
+                const amenitiesId = listingQuery.rows[0].amenities;
+                const spaeceId = listingQuery.rows[0].space;
+                const rulesId = listingQuery.rows[0].rules;
+                // Create new user
+                database.query(
+                    "UPDATE listing_rules SET pets_allowed=$2 ,smoking_allowed = $3,events_allowed=$4 WHERE listing_rules_id = $1", [
+                        rulesId,
+                        listing.rules.petsAllowed,
+                        listing.rules.smokingAllowed,
+                        listing.rules.eventsAllowed,
+                    ]
+                );
+                database.query(
+                    "UPDATE addresses SET country=$2,state=$3,city=$4,zip_code=$5,street_address=$6,apartment_number=$7 WHERE address_id = $1", [
+                        addressId,
+                        listing.address.country,
+                        listing.address.state,
+                        listing.address.city,
+                        listing.address.zipCode,
+                        listing.address.streetAddress,
+                        listing.address.apartmentNumber,
+                    ]
+                );
+                database.query(
+                    "UPDATE listing_amenities SET wifi=$2,shampoo=$3 ,heating=$4,air_conditioning=$5 ,washer=$6 ,dryer=$7 ,breakfast=$8 ,indoor_fireplace=$9 ,hangers=$10 ,iron=$11 ,hair_dryer=$12 ,laptop_friendly_workspace=$13 ,tv=$14 ,crib=$15 ,high_chair=$16,self_check_in=$17 ,smoke_alarm=$18,carbon_monoxide_alarm=$19, private_bathroom=$20 ,beachfront=$21 ,waterfront=$22 WHERE listing_amenities_id = $1", [
+                        amenitiesId,
+                        listing.amenities.wifi,
+                        listing.amenities.shampoo,
+                        listing.amenities.heating,
+                        listing.amenities.airConditioning,
+                        listing.amenities.washer,
+                        listing.amenities.dryer,
+                        listing.amenities.breakfast,
+                        listing.amenities.indoorFireplace,
+                        listing.amenities.hangers,
+                        listing.amenities.iron,
+                        listing.amenities.hairDryer,
+                        listing.amenities.laptopFriendlyWorkspace,
+                        listing.amenities.tv,
+                        listing.amenities.crib,
+                        listing.amenities.highChair,
+                        listing.amenities.selfCheckIn,
+                        listing.amenities.smokeAlarm,
+                        listing.amenities.carbonMonoxideAlarm,
+                        listing.amenities.privateBathroom,
+                        listing.amenities.beachfront,
+                        listing.amenities.waterfront,
+                    ]
+                );
+                database.query(
+                    "UPDATE listing_space SET beds=$2,bathrooms=$3,rooms=$4,square_meters=$5,bedrooms=$6,living_rooms=$7,kitchens=$8 WHERE listing_space_id = $1", [
+                        spaeceId,
+                        listing.space.beds,
+                        listing.space.bathrooms,
+                        listing.space.rooms,
+                        listing.space.squareMeters,
+                        listing.space.bedrooms,
+                        listing.space.livingRooms,
+                        listing.space.kitchens,
+                    ]
+                );
+                database.query(
+                    "UPDATE listings SET title=$2,description=$3,cost=$4,property_type=$5,guests=$6,minimum_booking_days=$7 WHERE listing_id = $1", [
+                        listingId,
+                        listing.title,
+                        listing.description,
+                        listing.cost,
+                        listing.propertyType,
+                        listing.guests,
+                        listing.minimumBookingDays,
+
+                    ]
+                );
+                response.status(200).send();
             }
-            console.log(results.rows);
-            response.status(204).json(results.rows);
         }
     );
+
 };
 
 const deleteListing = (request, response) => {
@@ -317,10 +381,10 @@ const deleteListing = (request, response) => {
                     });
             } else {
                 // Store address id to pass as parameter in INSET INTO USERS query
-                const addressId =listingQuery.rows[0].address;
-                const amenitiesId =listingQuery.rows[0].amenities;
-                const spaeceId =listingQuery.rows[0].space;
-                const rulesId =listingQuery.rows[0].rules;
+                const addressId = listingQuery.rows[0].address;
+                const amenitiesId = listingQuery.rows[0].amenities;
+                const spaeceId = listingQuery.rows[0].space;
+                const rulesId = listingQuery.rows[0].rules;
                 // Create new user
                 database.query(
                     "DELETE FROM listing_rules WHERE listing_rules_id = $1", [rulesId]
