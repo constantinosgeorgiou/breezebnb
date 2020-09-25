@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS rentals_reserved;
 CREATE TABLE rentals_reserved
 (
     listing_id character VARYING(37) NOT NULL,
+    booked_by UUID REFERENCES users(user_id),
     check_in DATE NOT NULL,
     check_out DATE NOT NULL,
     PRIMARY KEY (listing_id, check_in, check_out)
