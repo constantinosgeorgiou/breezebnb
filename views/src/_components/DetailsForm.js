@@ -1,11 +1,16 @@
 import React, { Fragment } from "react";
 
-const Details = ({ listing, handleChange }) => {
+const DetailsForm = ({
+    listing,
+    handleChange,
+}) => {
     return (
         <Fragment>
             {/* Title */}
             <div className="form-group">
-                <label htmlFor="inputTitle">Title</label>
+                <label htmlFor="inputTitle">
+                    Title
+                </label>
                 <input
                     id="inputTitle"
                     type="text"
@@ -19,7 +24,9 @@ const Details = ({ listing, handleChange }) => {
 
             {/* Description */}
             <div className="form-group">
-                <label htmlFor="inputDescription">Description</label>
+                <label htmlFor="inputDescription">
+                    Description
+                </label>
                 <textarea
                     className="form-control"
                     id="inputDescription"
@@ -32,26 +39,34 @@ const Details = ({ listing, handleChange }) => {
 
             {/* Property Type */}
             <div className="form-group">
-                <label htmlFor="inputPropertyType">Property type</label>
+                <label htmlFor="inputPropertyType">
+                    Property type
+                </label>
                 <select
                     id="inputPropertyType"
                     className="form-control"
                     name="propertyType"
                     value={listing.propertyType}
                     onChange={handleChange}
-                >    
-    
-    
-    
-    
-    
-    
-                    <option value="House">House</option>
-                    <option value="Apartment">Apartment</option>
-                    <option value="Bed and Breakfast">Bed and Breakfast</option>
-                    <option value="Hostel">Hostel</option>
-                    <option value="Hotel">Hotel</option>
-                    <option value="Villa">Villa</option>
+                >
+                    <option value="House">
+                        House
+                    </option>
+                    <option value="Apartment">
+                        Apartment
+                    </option>
+                    <option value="Bed and Breakfast">
+                        Bed and Breakfast
+                    </option>
+                    <option value="Hostel">
+                        Hostel
+                    </option>
+                    <option value="Hotel">
+                        Hotel
+                    </option>
+                    <option value="Villa">
+                        Villa
+                    </option>
                 </select>
             </div>
 
@@ -59,7 +74,10 @@ const Details = ({ listing, handleChange }) => {
             <div className="form-group my-4">
                 <div className="row align-items-center">
                     <div className="col">
-                        <label htmlFor="inputGuest" className="m-0">
+                        <label
+                            htmlFor="inputGuest"
+                            className="m-0"
+                        >
                             Guests:
                         </label>
                     </div>
@@ -72,7 +90,9 @@ const Details = ({ listing, handleChange }) => {
                             // required
                             name="guests"
                             value={listing.guests}
-                            onChange={handleChange}
+                            onChange={
+                                handleChange
+                            }
                         />
                     </div>
                 </div>
@@ -97,8 +117,12 @@ const Details = ({ listing, handleChange }) => {
                             min={1}
                             // required
                             name="minimumBookingDays"
-                            value={listing.minimumBookingDays}
-                            onChange={handleChange}
+                            value={
+                                listing.minimumBookingDays
+                            }
+                            onChange={
+                                handleChange
+                            }
                         />
                     </div>
                 </div>
@@ -108,7 +132,10 @@ const Details = ({ listing, handleChange }) => {
             <div className="form-group my-3">
                 <div className="row align-items-center">
                     <div className="col">
-                        <label htmlFor="inputCost" className="m-0">
+                        <label
+                            htmlFor="inputCost"
+                            className="m-0"
+                        >
                             Cost per night:
                         </label>
                     </div>
@@ -121,7 +148,9 @@ const Details = ({ listing, handleChange }) => {
                             // required
                             name="cost"
                             value={listing.cost}
-                            onChange={handleChange}
+                            onChange={
+                                handleChange
+                            }
                         />
                     </div>
                 </div>
@@ -129,7 +158,9 @@ const Details = ({ listing, handleChange }) => {
 
             {/* Photos */}
             <div className="form-group">
-                <label htmlFor="inputPhotos">Photos</label>
+                <label htmlFor="inputPhotos">
+                    Photos
+                </label>
 
                 <input
                     id="inputPhotos"
@@ -145,4 +176,4 @@ const Details = ({ listing, handleChange }) => {
     );
 };
 
-export default Details;
+export default DetailsForm;

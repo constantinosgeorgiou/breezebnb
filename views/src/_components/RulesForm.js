@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Rules = ({ rules, handleChange }) => {
+const RulesForm = ({ rules, handleChange }) => {
     return (
         <Fragment>
             {/* Pets allowed */}
@@ -68,4 +68,4 @@ const Rules = ({ rules, handleChange }) => {
     );
 };
 
-export default Rules;
+export default RulesForm;

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Space = ({ space, handleChange }) => {
+const SpaceForm = ({ space, handleChange }) => {
     return (
         <Fragment>
             {/* Beds */}
@@ -167,4 +167,4 @@ const Space = ({ space, handleChange }) => {
     );
 };
 
-export default Space;
+export default SpaceForm;

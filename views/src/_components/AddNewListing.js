@@ -5,11 +5,11 @@ import { addListing } from "../_services/listings";
 
 import UserContext from "../_helpers/UserContext";
 
-import Details from "./Details";
-import Amenities from "./Amenities";
-import Space from "./Space";
-import Rules from "./Rules";
-import Address from "./Address";
+import DetailsForm from "./DetailsForm";
+import AmenitiesForm from "./AmenitiesForm";
+import SpaceForm from "./SpaceForm";
+import RulesForm from "./RulesForm";
+import AddressForm from "./AddressForm";
 
 class AddNewListing extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class AddNewListing extends Component {
                 guests: 0,
                 minimumBookingDays: 0,
                 owner: 0,
-                photos: {},
+                photos: null,
                 coordinates: {
                     latitude: 34,
                     longtitude: 123,
@@ -73,6 +73,7 @@ class AddNewListing extends Component {
                     eventsAllowed: false,
                 },
             },
+            selectedFile: null,
         };
     }
 
@@ -89,6 +90,14 @@ class AddNewListing extends Component {
         this.props.onHide();
     };
 
+    // On file select (from the pop up)
+    onFileChange = (event) => {
+        // Update the state
+        this.setState({
+            selectedFile: event.target.files[0],
+        });
+    };
+
     handleChange = ({ target }) => {
         const { name, value, type } = target;
 
@@ -102,7 +111,9 @@ class AddNewListing extends Component {
                 listing: {
                     ...prevState.listing,
                     [value]: {
-                        ...prevState.listing[value],
+                        ...prevState.listing[
+                            value
+                        ],
                         [name]: checked,
                     },
                 },
@@ -147,57 +158,115 @@ class AddNewListing extends Component {
     };
 
     render() {
+        const { show, onHide } = this.props;
         return (
             <Modal
-                show={this.props.show}
-                onHide={this.props.onHide}
+                show={show}
+                onHide={onHide}
                 size="lg"
                 centered
             >
-                <form onSubmit={this.handleSubmit}>
+                <form
+                    onSubmit={this.handleSubmit}
+                >
                     <Modal.Header>
-                        <Modal.Title>Add new listing</Modal.Title>
+                        <Modal.Title>
+                            Add new listing
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {/* Details */}
-                        <h5 className=" mb-3">Details</h5>
-                        <Details
-                            listing={this.state.listing}
-                            handleChange={this.handleChange}
+                        <h5 className=" mb-3">
+                            Details
+                        </h5>
+                        <DetailsForm
+                            listing={
+                                this.state.listing
+                            }
+                            handleChange={
+                                this.handleChange
+                            }
                         />
 
                         {/* Address */}
-                        <h5 className="mt-4 mb-3">Address</h5>
-                        <Address
-                            address={this.state.listing.address}
-                            handleChange={this.handleAddressChange}
+                        <h5 className="mt-4 mb-3">
+                            Address
+                        </h5>
+                        <AddressForm
+                            address={
+                                this.state.listing
+                                    .address
+                            }
+                            handleChange={
+                                this
+                                    .handleAddressChange
+                            }
                         />
                         {/* Coordinates */}
                         {/* TO DO */}
 
                         {/* Amenities */}
-                        <h5 className="mt-4 mb-3">Amenities</h5>
-                        <Amenities
-                            amenities={this.state.listing.amenities}
-                            handleChange={this.handleChange}
+                        <h5 className="mt-4 mb-3">
+                            Amenities
+                        </h5>
+                        <AmenitiesForm
+                            amenities={
+                                this.state.listing
+                                    .amenities
+                            }
+                            handleChange={
+                                this.handleChange
+                            }
                         />
 
                         {/* Space */}
-                        <h5 className="mt-4 mb-3">Space</h5>
-                        <Space
-                            space={this.state.listing.space}
-                            handleChange={this.handleSpaceChange}
+                        <h5 className="mt-4 mb-3">
+                            Space
+                        </h5>
+                        <SpaceForm
+                            space={
+                                this.state.listing
+                                    .space
+                            }
+                            handleChange={
+                                this
+                                    .handleSpaceChange
+                            }
                         />
 
                         {/* Rules */}
-                        <h5 className="mt-4 mb-3">Rules</h5>
-                        <Rules
-                            rules={this.state.listing.rules}
-                            handleChange={this.handleChange}
+                        <h5 className="mt-4 mb-3">
+                            Rules
+                        </h5>
+                        <RulesForm
+                            rules={
+                                this.state.listing
+                                    .rules
+                            }
+                            handleChange={
+                                this.handleChange
+                            }
                         />
                         {/* Owner */}
 
                         {/* Photos */}
+                        <div>
+                            <input
+                                type="file"
+                                onChange={
+                                    this
+                                        .onFileChange
+                                }
+                            />
+                            <button
+                                onClick={
+                                    this
+                                        .onFileUpload
+                                }
+                            >
+                                Upload!
+                            </button>
+                        </div>
                         {/* TODO */}
                     </Modal.Body>
                     <Modal.Footer>
@@ -205,7 +274,7 @@ class AddNewListing extends Component {
                             type="button"
                             className="btn btn-outline-secondary btn-block font-weight-bold
                 align-middle"
-                            onClick={this.props.onHide}
+                            onClick={onHide}
                         >
                             Cancel
                         </button>
