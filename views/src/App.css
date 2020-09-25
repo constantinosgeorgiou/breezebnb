@@ -48,3 +48,7 @@
     width: 4rem
 
 }
+.jumbotron {
+    background-image: url(/assets/imgs/index.jpg);
+    background-size: cover;
+    height: 100%;}
