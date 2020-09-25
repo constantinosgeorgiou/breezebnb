@@ -32,4 +32,6 @@ router.get("/type/:property_type", Listings.retrieveListingOfCertainType);
 // Retrieve all locations
 router.get("/all/locations", Listings.retrieveLocations);
 
+router.post("/bookrental", Listings.bookRental);
+
 module.exports = router;

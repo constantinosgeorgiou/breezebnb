@@ -1,5 +1,31 @@
 const database = require("../database/index");
 
+const bookRental = (request, response) => {
+    const { bookedby,checkin,checkout,listingid } = request.body;
+
+    database.query(
+        "INSERT INTO rentals_reserved ( booked_by,check_in,check_out,listing_id ) VALUES ($1, $2, $3,$4) ",[ bookedby,checkin,checkout,listingid],
+        (error, results) => {
+            if (error) {
+                response
+                    .status(error.status || 500)
+                    .json({
+                        error: {
+                            message:
+                                error.message,
+                        },
+                    });
+            } else {
+                console.log("query succed");
+            }
+            response
+                .status(200)
+                .json(results.rows);
+        }
+    );
+};
+
+
 const retrieveListings = (request, response) => {
     database.query(
         "SELECT * FROM listings ORDER BY listing_id ASC",
@@ -22,6 +48,7 @@ const retrieveListings = (request, response) => {
         }
     );
 };
+
 
 const retrieveListingById = (
     request,
@@ -785,4 +812,5 @@ module.exports = {
     SearchForAvailableListings,
     retrieveListingOfCertainType,
     retrieveLocations,
+    bookRental,
 };
