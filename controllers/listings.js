@@ -1,10 +1,16 @@
 const database = require("../database/index");
 
 const bookRental = (request, response) => {
-    const { bookedby,checkin,checkout,listingid } = request.body;
+    const {
+        bookedby,
+        checkin,
+        checkout,
+        listingid,
+    } = request.body;
 
     database.query(
-        "INSERT INTO rentals_reserved ( booked_by,check_in,check_out,listing_id ) VALUES ($1, $2, $3,$4) ",[ bookedby,checkin,checkout,listingid],
+        "INSERT INTO rentals_reserved ( booked_by,check_in,check_out,listing_id ) VALUES ($1, $2, $3,$4) ",
+        [bookedby, checkin, checkout, listingid],
         (error, results) => {
             if (error) {
                 response
@@ -24,7 +30,6 @@ const bookRental = (request, response) => {
         }
     );
 };
-
 
 const retrieveListings = (request, response) => {
     database.query(
@@ -49,7 +54,6 @@ const retrieveListings = (request, response) => {
     );
 };
 
-
 const retrieveListingById = (
     request,
     response
@@ -57,147 +61,187 @@ const retrieveListingById = (
     console.log("here");
     const { listingId } = request.params;
     console.log(listingId);
-    database.query(
-        "SELECT * FROM users u,listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id and l.listing_owner=u.user_id",
-        [listingId],
-        (error, results) => {
-            if (error) {
-                console.log(error);
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+    if (!listingId) {
+        response
+            .status(404)
+            .send({
+                message: "Listing not found.",
+            });
+    } else {
+        database.query(
+            "SELECT * FROM users u,listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id and l.listing_owner=u.user_id",
+            [listingId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    response
+                        .status(
+                            error.status || 500
+                        )
+                        .json({
+                            error: {
+                                message:
+                                    error.message,
+                            },
+                        });
+                }
+                let listing = {
+                    id:
+                        results.rows[0]
+                            .listing_id,
+                    title: results.rows[0].title,
+                    description:
+                        results.rows[0]
+                            .description,
+                    propertyType:
+                        results.rows[0]
+                            .property_type,
+                    guests:
+                        results.rows[0].guests,
+                    cost: results.rows[0].cost,
+                    minimumBookingDays:
+                        results.rows[0]
+                            .minimum_booking_days,
+                    owner:
+                        results.rows[0]
+                            .listing_owner,
+                    rating:
+                        results.rows[0].rating,
+                    address: {
+                        country:
+                            results.rows[0]
+                                .country,
+                        state:
+                            results.rows[0].state,
+                        city:
+                            results.rows[0].city,
+                        zipCode:
+                            results.rows[0]
+                                .zip_code,
+                        streetAddress:
+                            results.rows[0]
+                                .street_address,
+                        apartmentNumber:
+                            results.rows[0]
+                                .apartment_number,
+                    },
+                    amenities: {
+                        wifi:
+                            results.rows[0].wifi,
+                        shampoo:
+                            results.rows[0]
+                                .shampoo,
+                        heating:
+                            results.rows[0]
+                                .heating,
+                        airConditioning:
+                            results.rows[0]
+                                .air_conditioning,
+                        washer:
+                            results.rows[0]
+                                .washer,
+                        dryer:
+                            results.rows[0].dryer,
+                        breakfast:
+                            results.rows[0]
+                                .breakfast,
+                        indoorFireplace:
+                            results.rows[0]
+                                .indoor_fireplace,
+                        hangers:
+                            results.rows[0]
+                                .hangers,
+                        iron:
+                            results.rows[0].iron,
+                        hairDryer:
+                            results.rows[0]
+                                .hair_dryer,
+                        laptopFriendlyWorkspace:
+                            results.rows[0]
+                                .laptop_friendly_workspace,
+                        tv: results.rows[0].tv,
+                        crib:
+                            results.rows[0].crib,
+                        highChair:
+                            results.rows[0]
+                                .high_chair,
+                        selfCheckIn:
+                            results.rows[0]
+                                .self_check_in,
+                        smokeAlarm:
+                            results.rows[0]
+                                .smoke_alarm,
+                        carbonMonoxideAlarm:
+                            results.rows[0]
+                                .carbon_monoxide_alarm,
+                        privateBathroom:
+                            results.rows[0]
+                                .private_bathroom,
+                        beachfront:
+                            results.rows[0]
+                                .beachfront,
+                        waterfront:
+                            results.rows[0]
+                                .waterfront,
+                    },
+                    space: {
+                        beds:
+                            results.rows[0].beds,
+                        bathrooms:
+                            results.rows[0]
+                                .bathrooms,
+                        rooms:
+                            results.rows[0].rooms,
+                        squareMeters:
+                            results.rows[0]
+                                .square_meters,
+                        bedrooms:
+                            results.rows[0]
+                                .bedrooms,
+                        livingrooms:
+                            results.rows[0]
+                                .living_rooms,
+                        kitchens:
+                            results.rows[0]
+                                .kitchens,
+                    },
+                    rules: {
+                        petsAllowed:
+                            results.rows[0]
+                                .pets_allowed,
+                        smokingAllowed:
+                            results.rows[0]
+                                .smoking_allowed,
+                        eventsAllowed:
+                            results.rows[0]
+                                .events_allowed,
+                    },
+                    owner: {
+                        id:
+                            results.rows[0]
+                                .user_id,
+                        firstName:
+                            results.rows[0]
+                                .first_name,
+                        lastName:
+                            results.rows[0]
+                                .last_name,
+                        photo:
+                            results.rows[0].photo,
+                        joined:
+                            results.rows[0]
+                                .joined_on,
+                    },
+                };
+
+                console.log(listing);
+
+                response.status(200).send({
+                    listing,
+                }); // SUCCESS
             }
-            let listing = {
-                id: results.rows[0].listing_id,
-                title: results.rows[0].title,
-                description:
-                    results.rows[0].description,
-                propertyType:
-                    results.rows[0].property_type,
-                guests: results.rows[0].guests,
-                cost: results.rows[0].cost,
-                minimumBookingDays:
-                    results.rows[0]
-                        .minimum_booking_days,
-                owner:
-                    results.rows[0].listing_owner,
-                rating: results.rows[0].rating,
-                address: {
-                    country:
-                        results.rows[0].country,
-                    state: results.rows[0].state,
-                    city: results.rows[0].city,
-                    zipCode:
-                        results.rows[0].zip_code,
-                    streetAddress:
-                        results.rows[0]
-                            .street_address,
-                    apartmentNumber:
-                        results.rows[0]
-                            .apartment_number,
-                },
-                amenities: {
-                    wifi: results.rows[0].wifi,
-                    shampoo:
-                        results.rows[0].shampoo,
-                    heating:
-                        results.rows[0].heating,
-                    airConditioning:
-                        results.rows[0]
-                            .air_conditioning,
-                    washer:
-                        results.rows[0].washer,
-                    dryer: results.rows[0].dryer,
-                    breakfast:
-                        results.rows[0].breakfast,
-                    indoorFireplace:
-                        results.rows[0]
-                            .indoor_fireplace,
-                    hangers:
-                        results.rows[0].hangers,
-                    iron: results.rows[0].iron,
-                    hairDryer:
-                        results.rows[0]
-                            .hair_dryer,
-                    laptopFriendlyWorkspace:
-                        results.rows[0]
-                            .laptop_friendly_workspace,
-                    tv: results.rows[0].tv,
-                    crib: results.rows[0].crib,
-                    highChair:
-                        results.rows[0]
-                            .high_chair,
-                    selfCheckIn:
-                        results.rows[0]
-                            .self_check_in,
-                    smokeAlarm:
-                        results.rows[0]
-                            .smoke_alarm,
-                    carbonMonoxideAlarm:
-                        results.rows[0]
-                            .carbon_monoxide_alarm,
-                    privateBathroom:
-                        results.rows[0]
-                            .private_bathroom,
-                    beachfront:
-                        results.rows[0]
-                            .beachfront,
-                    waterfront:
-                        results.rows[0]
-                            .waterfront,
-                },
-                space: {
-                    beds: results.rows[0].beds,
-                    bathrooms:
-                        results.rows[0].bathrooms,
-                    rooms: results.rows[0].rooms,
-                    squareMeters:
-                        results.rows[0]
-                            .square_meters,
-                    bedrooms:
-                        results.rows[0].bedrooms,
-                    livingrooms:
-                        results.rows[0]
-                            .living_rooms,
-                    kitchens:
-                        results.rows[0].kitchens,
-                },
-                rules: {
-                    petsAllowed:
-                        results.rows[0]
-                            .pets_allowed,
-                    smokingAllowed:
-                        results.rows[0]
-                            .smoking_allowed,
-                    eventsAllowed:
-                        results.rows[0]
-                            .events_allowed,
-                },
-                owner: {
-                    id: results.rows[0].user_id,
-                    firstName:
-                        results.rows[0]
-                            .first_name,
-                    lastName:
-                        results.rows[0].last_name,
-                    photo: results.rows[0].photo,
-                    joined:
-                        results.rows[0].joined_on,
-                },
-            };
-
-            console.log(listing);
-
-            response.status(200).send({
-                listing,
-            }); // SUCCESS
-        }
-    );
+        );
+    }
 };
 
 const createListing = (request, response) => {
@@ -537,7 +581,7 @@ const updateListing = (request, response) => {
 
 const deleteListing = (request, response) => {
     const { listingId } = request.params;
-
+    console.log("delete: ", listingId);
     database.query(
         "SELECT * FROM listings WHERE listing_id = $1",
         [listingId],
@@ -563,14 +607,13 @@ const deleteListing = (request, response) => {
                     listingQuery.rows[0].space;
                 const rulesId =
                     listingQuery.rows[0].rules;
-                // Create new user
                 database.query(
-                    "DELETE FROM listing_rules WHERE listing_rules_id = $1",
-                    [rulesId]
+                    "DELETE FROM photos_listings WHERE listing_id = $1",
+                    [listingId]
                 );
                 database.query(
-                    "DELETE FROM addresses WHERE address_id = $1",
-                    [addressId]
+                    "DELETE FROM listings WHERE listing_id = $1",
+                    [listingId]
                 );
                 database.query(
                     "DELETE FROM listing_amenities WHERE listing_amenities_id = $1",
@@ -581,9 +624,14 @@ const deleteListing = (request, response) => {
                     [spaeceId]
                 );
                 database.query(
-                    "DELETE FROM listings WHERE listing_id = $1",
-                    [listingId]
+                    "DELETE FROM listing_rules WHERE listing_rules_id = $1",
+                    [rulesId]
                 );
+                database.query(
+                    "DELETE FROM addresses WHERE address_id = $1",
+                    [addressId]
+                );
+                console.log("Done");
                 response.status(200).send();
             }
         }
@@ -794,6 +842,10 @@ const retrieveLocations = (request, response) => {
 
                     locations.push(location);
                 });
+
+                console.log(
+                    "locations: " + locations
+                );
 
                 response.status(200).send({
                     locations,

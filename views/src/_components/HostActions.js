@@ -1,7 +1,10 @@
 import React from "react";
 import { Component } from "react";
 
-import { updateListing } from "../_services/listings";
+import {
+    updateListing,
+    removeListing,
+} from "../_services/listings";
 
 import {
     BiEdit,
@@ -11,6 +14,7 @@ import {
 
 import EditListingModal from "./EditListingModal";
 import RemoveListingModal from "./RemoveListingModal";
+import { Redirect } from "react-router-dom";
 
 class HostActions extends Component {
     constructor(props) {
@@ -18,19 +22,13 @@ class HostActions extends Component {
         this.state = {
             showEdit: false,
             showRemove: false,
-            updated: false,
+            done: false,
             message: "",
 
             initialListingState: this.props
                 .initialListingState,
             submitListing: {},
         };
-    }
-
-    componentDidMount() {
-        this.setState((prevState) => ({
-            listing: this.props.listing,
-        }));
     }
 
     handleHideEdit = () => {
@@ -66,11 +64,35 @@ class HostActions extends Component {
                 });
             });
 
-        this.handleHideEdit()
+        this.handleHideEdit();
     };
 
-    handleRemoveChange = (change) => {
-        change.preventDefault();
+    submitRemove = (event) => {
+        event.preventDefault();
+
+        const { listing } = this.props;
+
+        console.log(
+            "remove listing" +
+                JSON.stringify(listing, null, 4)
+        );
+        removeListing(listing.id)
+            .then((response) => {
+                this.setState({
+                    done: true,
+                    message: "Removed listing",
+                });
+
+                // this.props.history.push("/host");
+                // window.location.reload();
+                return <Redirect to="/host" />;
+            })
+            .catch((error) => {
+                this.setState({
+                    done: false,
+                    message: error.message,
+                });
+            });
     };
 
     render() {
@@ -88,20 +110,14 @@ class HostActions extends Component {
                 initialListingState,
                 showEdit,
                 showRemove,
-                updated,
+                done,
                 message,
             },
             handleHideEdit,
             handleHideRemove,
             sumbitEdit,
+            submitRemove,
         } = this;
-
-        console.log(
-            "actions: " +
-                handleEditAddressChange +
-                handleEditChange +
-                handleEditSpaceChange
-        );
 
         return (
             <div className="card-body">
@@ -117,7 +133,7 @@ class HostActions extends Component {
                         </span>
                     </p>
                 )}
-                {updated ? (
+                {done ? (
                     <p className="card-text text-success text-center">
                         {message}
                     </p>
@@ -189,9 +205,9 @@ class HostActions extends Component {
                             handleHideRemove={
                                 handleHideRemove
                             }
-                            // handleRemoveChange={
-                            //     handleRemoveChange
-                            // }
+                            submitRemove={
+                                submitRemove
+                            }
                         />
                     </div>
                 </div>

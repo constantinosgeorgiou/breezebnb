@@ -28,13 +28,11 @@ class HostDashboard extends Component {
             const { data: { listings } } = response
 
             this.setState((prevState) => ({
-                ...prevState,
                 listings,
                 isLoading: false
             }))
         }).catch((error) => {
             this.setState((prevState) => ({
-                ...prevState,
                 error,
                 isLoading: false
             }))

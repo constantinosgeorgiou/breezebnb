@@ -39,46 +39,46 @@ class SearchBar extends Component {
 
             isDesktop: false, // Used to render different views
 
-            // Options for typeahead
-            // locations: [],
-            locations: [
-                {
-                    id: 0,
-                    country: "Anywhere",
-                    state: "",
-                    city: "",
-                },
-                {
-                    id: 1,
-                    country: "Greece",
-                    state: "Athens",
-                    city: "Zografou",
-                },
-                {
-                    id: 2,
-                    country: "Greece",
-                    state: "Athens",
-                    city: "Kolonaki",
-                },
-                {
-                    id: 3,
-                    country: "Greece",
-                    state: "Thessaloniki",
-                    city: "Kentro",
-                },
-                {
-                    id: 4,
-                    country: "Cyprus",
-                    state: "Nicosia",
-                    city: "Dali",
-                },
-                {
-                    id: 5,
-                    country: "Cyprus",
-                    state: "Limassol",
-                    city: "Azgata",
-                },
-            ],
+            // Options
+            locations: [],
+            // locations: [
+            //     {
+            //         id: 0,
+            //         country: "Anywhere",
+            //         state: "",
+            //         city: "",
+            //     },
+            //     {
+            //         id: 1,
+            //         country: "Greece",
+            //         state: "Athens",
+            //         city: "Zografou",
+            //     },
+            //     {
+            //         id: 2,
+            //         country: "Greece",
+            //         state: "Athens",
+            //         city: "Kolonaki",
+            //     },
+            //     {
+            //         id: 3,
+            //         country: "Greece",
+            //         state: "Thessaloniki",
+            //         city: "Kentro",
+            //     },
+            //     {
+            //         id: 4,
+            //         country: "Cyprus",
+            //         state: "Nicosia",
+            //         city: "Dali",
+            //     },
+            //     {
+            //         id: 5,
+            //         country: "Cyprus",
+            //         state: "Limassol",
+            //         city: "Azgata",
+            //     },
+            // ],
             //use this function to get opioions dynamicaly
         };
 
@@ -88,7 +88,21 @@ class SearchBar extends Component {
     }
 
     componentDidMount() {
-        getLocations();
+        getLocations()
+            .then(({ data }) => {
+                const { locations } = data;
+                console.log("loc: ", locations);
+                this.setState((prevState) => ({
+                    isLoading: false,
+                    locations,
+                }));
+            })
+            .catch((error) => {
+                this.setState((prevState) => ({
+                    isLoading: false,
+                    error,
+                }));
+            });
 
         // Update view
         this.updateViewForDesktop();
@@ -133,12 +147,12 @@ class SearchBar extends Component {
             .then((response) => {
                 console.log(
                     "response: " +
-                    JSON.stringify(
-                        response.data
-                            .listings,
-                        null,
-                        4
-                    )
+                        JSON.stringify(
+                            response.data
+                                .listings,
+                            null,
+                            4
+                        )
                 );
 
                 this.setState((prevState) => ({
@@ -149,7 +163,7 @@ class SearchBar extends Component {
             .catch((error) => {
                 console.log(
                     "Error while searching: " +
-                    error
+                        error
                 );
             });
 
@@ -396,90 +410,18 @@ class SearchBar extends Component {
                                                         Location
                                                     </small>
                                                 </label>
-                                                <AsyncTypeahead
-                                                    id="locationTypeaheadInput"
-                                                    isLoading={
-                                                        this
-                                                            .state
-                                                            .isLoading
-                                                    }
-                                                    labelKey={(
-                                                        option
-                                                    ) => {
-                                                        if (
-                                                            option.country ===
-                                                            "Anywhere"
-                                                        ) {
-                                                            return `${option.country}`;
-                                                        } else {
-                                                            return `${option.city}, ${option.state}, ${option.country}`;
-                                                        }
-                                                    }}
-                                                    onSearch={(query) => {
-                                                        this.setState(
-                                                            (
-                                                                prevState
-                                                            ) => ({
-                                                                ...prevState,
-                                                                isLoading: true,
-                                                            })
-                                                        );
-                                                        getLocations().then(
-                                                            (
-                                                                response
-                                                            ) => {
-                                                                let payload =
-                                                                    response
-                                                                        .data
-                                                                        .payload;
-
-                                                                let locations = payload.locations;
-
-                                                                this.setState(
-                                                                    (
-                                                                        prevState
-                                                                    ) => ({
-                                                                        ...prevState,
-                                                                        isLoading: false,
-                                                                        locations,
-                                                                    })
-                                                                );
-                                                            },
-                                                            (
-                                                                error
-                                                            ) => {
-                                                                this.setState(
-                                                                    (
-                                                                        prevState
-                                                                    ) => ({
-                                                                        ...prevState,
-                                                                        isLoading: false,
-                                                                        error,
-                                                                    })
-                                                                );
-                                                            }
-                                                        );
-                                                    }}
-                                                    // onChange={(location) => {
-                                                    //     this.setState(
-                                                    //         (prevState) => ({
-                                                    //             ...prevState,
-                                                    //             location,
-                                                    //         })
-                                                    //     );
-                                                    // }}
-                                                    // options={
-                                                    //     this.state.locations
-                                                    // }
-                                                    placeholder="Begin your journey"
-                                                    emptyLabel="No matches found for given location."
-                                                    highlightOnlyResult={
-                                                        true
-                                                    }
-                                                    caseSensitive // Filtering ignores case
-                                                    ignoreDiacritics // Filtering ignores accents and diacritical marks
-                                                    
-                                                />
+                                                {/* location */}
+                                                <select
+                                                    id="inputLocation"
+                                                    className="form-control"
+                                                    name="location"
+                                                    // value={}
+                                                    // onChange={}
+                                                >
+                                                    <option value="">
+                                                        Test
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -589,219 +531,147 @@ class SearchBar extends Component {
                             </form>
                         </div>
                     ) : (
-                            <div className="card rounded-lg">
-                                <form
-                                    onSubmit={
-                                        this
-                                            .handleSubmit
-                                    }
-                                >
-                                    <div className="card-body">
-                                        {/* Form search. Displayed below md viewport */}
-                                        <div className="row pl-2 align-items-center">
-                                            {/* Location */}
-                                            <div className="col-md mb-2">
-                                                <div className="card-text form-group">
-                                                    <label htmlFor="locationTypeheadInput">
-                                                        <small>
-                                                            Location
+                        <div className="card rounded-lg">
+                            <form
+                                onSubmit={
+                                    this
+                                        .handleSubmit
+                                }
+                            >
+                                <div className="card-body">
+                                    {/* Form search. Displayed below md viewport */}
+                                    <div className="row pl-2 align-items-center">
+                                        {/* Location */}
+                                        <div className="col-md mb-2">
+                                            <div className="card-text form-group">
+                                                <label htmlFor="inputLocation">
+                                                    <small>
+                                                        Location
                                                     </small>
-                                                    </label>
-                                                    <AsyncTypeahead
-                                                        id="locationTypeaheadInput"
-                                                        isLoading={
-                                                            this
-                                                                .state
-                                                                .isLoading
-                                                        }
-                                                        labelKey={(
-                                                            option
-                                                        ) => {
-                                                            if (
-                                                                option.country ===
-                                                                "Anywhere"
-                                                            ) {
-                                                                return `${option.country}`;
-                                                            } else {
-                                                                return `${option.city}, ${option.state}, ${option.country}`;
-                                                            }
-                                                        }}
-                                                        onSearch={(query) => {
-                                                            this.setState(
-                                                                (
-                                                                    prevState
-                                                                ) => ({
-                                                                    ...prevState,
-                                                                    isLoading: true,
-                                                                })
-                                                            );
-                                                            getLocations().then(
-                                                                (
-                                                                    response
-                                                                ) => {
-                                                                    let payload =
-                                                                        response
-                                                                            .data
-                                                                            .payload;
-
-                                                                    let locations = payload.locations;
-
-                                                                    this.setState(
-                                                                        (
-                                                                            prevState
-                                                                        ) => ({
-                                                                            ...prevState,
-                                                                            isLoading: false,
-                                                                            locations,
-                                                                        })
-                                                                    );
-                                                                },
-                                                                (
-                                                                    error
-                                                                ) => {
-                                                                    this.setState(
-                                                                        (
-                                                                            prevState
-                                                                        ) => ({
-                                                                            ...prevState,
-                                                                            isLoading: false,
-                                                                            error,
-                                                                        })
-                                                                    );
-                                                                }
-                                                            );
-                                                        }}
-                                                        // onChange={(location) => {
-                                                        //     this.setState(
-                                                        //         (prevState) => ({
-                                                        //             ...prevState,
-                                                        //             location,
-                                                        //         })
-                                                        //     );
-                                                        // }}
-                                                        // options={
-                                                        //     this.state.locations
-                                                        // }
-                                                        placeholder="Anywhere"
-                                                        emptyLabel="No matches found for given location."
-                                                        highlightOnlyResult={
-                                                            true
-                                                        }
-                                                        caseSensitive // Filtering ignores case
-                                                        ignoreDiacritics // Filtering ignores accents and diacritical marks
-                                                        filterBy={['city', 'state']}
-                                                    />
-                                                </div>
+                                                </label>
+                                                {/* location */}
+                                                <select
+                                                    id="inputLocation"
+                                                    className="form-control"
+                                                    name="location"
+                                                    // value={}
+                                                    // onChange={}
+                                                >
+                                                    <option value="">
+                                                        Test
+                                                    </option>
+                                                </select>
                                             </div>
+                                        </div>
 
-                                            {/* Check in */}
-                                            <div className="col-md mb-2">
-                                                <div className="card-text form-group">
-                                                    <label htmlFor="checkInDateInput">
-                                                        <small>
-                                                            Check
-                                                            in
+                                        {/* Check in */}
+                                        <div className="col-md mb-2">
+                                            <div className="card-text form-group">
+                                                <label htmlFor="checkInDateInput">
+                                                    <small>
+                                                        Check
+                                                        in
                                                     </small>
-                                                    </label>
-                                                    <input
-                                                        id="checkInDateInput"
-                                                        type="date"
-                                                        name="checkInDate"
-                                                        className="form-control"
-                                                        value={
-                                                            this
-                                                                .checkInDate
-                                                        }
-                                                        onChange={
-                                                            this
-                                                                .handleChange
-                                                        }
-                                                    />
-                                                </div>
+                                                </label>
+                                                <input
+                                                    id="checkInDateInput"
+                                                    type="date"
+                                                    name="checkInDate"
+                                                    className="form-control"
+                                                    value={
+                                                        this
+                                                            .checkInDate
+                                                    }
+                                                    onChange={
+                                                        this
+                                                            .handleChange
+                                                    }
+                                                />
                                             </div>
+                                        </div>
 
-                                            {/* Check out */}
-                                            <div className=" col-md mb-2">
-                                                <div className="card-text form-group">
-                                                    <label htmlFor="checkOutDateInput">
-                                                        <small>
-                                                            Check
-                                                            out
+                                        {/* Check out */}
+                                        <div className=" col-md mb-2">
+                                            <div className="card-text form-group">
+                                                <label htmlFor="checkOutDateInput">
+                                                    <small>
+                                                        Check
+                                                        out
                                                     </small>
-                                                    </label>
-                                                    <input
-                                                        id="checkOutDateInput"
-                                                        type="date"
-                                                        name="checkOutDate"
-                                                        className="form-control"
-                                                        value={
-                                                            this
-                                                                .checkOutDate
-                                                        }
-                                                        onChange={
-                                                            this
-                                                                .handleChange
-                                                        }
-                                                    />
-                                                </div>
+                                                </label>
+                                                <input
+                                                    id="checkOutDateInput"
+                                                    type="date"
+                                                    name="checkOutDate"
+                                                    className="form-control"
+                                                    value={
+                                                        this
+                                                            .checkOutDate
+                                                    }
+                                                    onChange={
+                                                        this
+                                                            .handleChange
+                                                    }
+                                                />
                                             </div>
+                                        </div>
 
-                                            {/* Guests */}
-                                            <div className="col-md mb-4">
-                                                <div className="card-text form-group">
-                                                    <label htmlFor="guestsInput">
-                                                        <small>
-                                                            Guests
+                                        {/* Guests */}
+                                        <div className="col-md mb-4">
+                                            <div className="card-text form-group">
+                                                <label htmlFor="guestsInput">
+                                                    <small>
+                                                        Guests
                                                     </small>
-                                                    </label>
-                                                    <input
-                                                        id="guestsInput"
-                                                        type="number"
-                                                        name="guests"
-                                                        className="form-control"
-                                                        value={
-                                                            this
-                                                                .guests
-                                                        }
-                                                        onChange={
-                                                            this
-                                                                .handleChange
-                                                        }
-                                                    />
-                                                </div>
+                                                </label>
+                                                <input
+                                                    id="guestsInput"
+                                                    type="number"
+                                                    name="guests"
+                                                    className="form-control"
+                                                    value={
+                                                        this
+                                                            .guests
+                                                    }
+                                                    onChange={
+                                                        this
+                                                            .handleChange
+                                                    }
+                                                />
                                             </div>
+                                        </div>
 
-                                            {/* Seach block */}
-                                            <div className="col-md mt-2">
-                                                <div className="card-text from group">
-                                                    <button
-                                                        className="btn btn-primary btn-block rounded-pill"
-                                                        type="submit"
-                                                    >
-                                                        <BiSearch />{" "}
+                                        {/* Seach block */}
+                                        <div className="col-md mt-2">
+                                            <div className="card-text from group">
+                                                <button
+                                                    className="btn btn-primary btn-block rounded-pill"
+                                                    type="submit"
+                                                >
+                                                    <BiSearch />{" "}
                                                     Search
                                                 </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        )}
+                                </div>
+                            </form>
+                        </div>
+                    )}
                     {this.state.listings.length >
                         0 && (
-                            <Redirect
-                                to={{
-                                    pathname:
-                                        "/results",
-                                    state: {
-                                        listings: this
-                                            .state
-                                            .listings,
-                                    },
-                                }}
-                            />
-                        )}
+                        <Redirect
+                            to={{
+                                pathname:
+                                    "/results",
+                                state: {
+                                    listings: this
+                                        .state
+                                        .listings,
+                                },
+                            }}
+                        />
+                    )}
                 </div>
             );
         }

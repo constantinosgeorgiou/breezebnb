@@ -27,17 +27,6 @@ class EditListingModal extends Component {
             sumbitEdit,
         } = this.props;
 
-        console.log(
-            "hidedit" + handleHideEdit + showEdit
-        );
-
-        console.log(
-            "edit: " +
-                handleEditAddressChange +
-                handleEditChange +
-                handleEditSpaceChange
-        );
-
         return (
             <Modal
                 show={showEdit}

@@ -86,6 +86,10 @@ class SignUpPage extends Component {
             confirmPassword,
         } = this.state;
 
+        console.log(
+            password + "===" + confirmPassword
+        );
+
         if (password !== confirmPassword) {
             this.setState((prevState) => ({
                 ...prevState,
@@ -169,10 +173,11 @@ class SignUpPage extends Component {
                 ? 100
                 : progressPersent + 34;
 
-        this.setState({
+        this.setState((prevState) => ({
+            ...prevState,
             currentStep: currentStep,
             progressPersent: progressPersent,
-        });
+        }));
     };
 
     // Helper function for previous step
@@ -190,10 +195,11 @@ class SignUpPage extends Component {
                 ? 0
                 : progressPersent - 34;
 
-        this.setState({
+        this.setState((prevState) => ({
+            ...prevState,
             currentStep: currentStep,
             progressPersent: progressPersent,
-        });
+        }));
     };
 
     // Helper function that renders previous step button
@@ -403,6 +409,11 @@ class SignUpPage extends Component {
                                                         .state
                                                         .password
                                                 }
+                                                confirmPassword={
+                                                    this
+                                                        .state
+                                                        .confirmPassword
+                                                }
                                             />
                                             <Step4
                                                 currentStep={
@@ -427,13 +438,17 @@ class SignUpPage extends Component {
                                         </form>
                                         {this
                                             .state
-                                            .passwordError && (
+                                            .password !==
+                                        this.state
+                                            .confirmPassword ? (
                                             <p className="text-danger float-right d-block">
                                                 Passwords
                                                 do
                                                 not
                                                 match
                                             </p>
+                                        ) : (
+                                            <p></p>
                                         )}
                                     </div>
                                 </div>
@@ -756,6 +771,9 @@ const Step3 = (props) => {
                     className="form-control"
                     id="confirmPasswordInput"
                     placeholder="Write your password again."
+                    name="confirmPassword"
+                    value={props.confirmPassword}
+                    onChange={props.handleChange}
                 />
             </div>
         </div>
