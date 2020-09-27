@@ -1,7 +1,7 @@
 import axios from "axios";
 import authorizationHeader from "../_helpers/AuthorizationHeader";
 
-// const API_URL = "http://localhost:5000";
+const API_URL = process.env.API_URL;
 
 export function getCurrentUser() {
     return JSON.parse(

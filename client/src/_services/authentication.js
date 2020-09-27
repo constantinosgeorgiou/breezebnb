@@ -4,10 +4,12 @@ import authorizationHeader from "../_helpers/AuthorizationHeader";
 
 import { getCurrentUser } from "./users";
 
-// const API_URL = "http://localhost:5000";
+const API_URL = process.env.API_URL;
 
 export function signup(user) {
-    return axios.post(API_URL + "/auth/signup", { user });
+    return axios.post(API_URL + "/auth/signup", {
+        user,
+    });
 }
 
 // Make a POST request to the server with username and password.
@@ -15,7 +17,8 @@ export function signup(user) {
 // Store JWT to local storage
 export function signin(username, password) {
     const normalURL = API_URL + "/auth/signin";
-    const adminURL = API_URL + "/admin" + "/auth/signin";
+    const adminURL =
+        API_URL + "/admin" + "/auth/signin";
 
     return axios
         .post(normalURL, {
@@ -23,12 +26,17 @@ export function signin(username, password) {
             password: password,
         })
         .then((response) => {
-            console.log("Axios sign in: ", response.data);
+            console.log(
+                "Axios sign in: ",
+                response.data
+            );
 
             if (response.data.accessToken) {
                 localStorage.setItem(
                     "user",
-                    JSON.stringify(response.data.user)
+                    JSON.stringify(
+                        response.data.user
+                    )
                 );
             }
 
@@ -36,7 +44,9 @@ export function signin(username, password) {
         })
         .catch((error) => {
             console.log("Error: ", error);
-            Promise.reject("Authentication failed.");
+            Promise.reject(
+                "Authentication failed."
+            );
         });
 }
 
