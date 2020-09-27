@@ -8,12 +8,12 @@ const helmet = require("helmet"); // Used as protection from some well-known web
 
 const app = express();
 const PORT = process.env.PORT;
-const CORS_ORIGIN = process.env.CORS_ORIGIN;
+// const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
 // Cords set up
 // ------------
 // Only allow requests from CORS_ORIGIN
-const corsOptions = { origin: CORS_ORIGIN };
+// const corsOptions = { origin: CORS_ORIGIN };
 // app.use(cors(corsOptions));
 app.use(cors());
 
