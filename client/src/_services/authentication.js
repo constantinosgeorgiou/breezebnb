@@ -4,7 +4,7 @@ import authorizationHeader from "../_helpers/AuthorizationHeader";
 
 import { getCurrentUser } from "./users";
 
-const API_URL = "http://localhost:5000";
+// const API_URL = "http://localhost:5000";
 
 export function signup(user) {
     return axios.post(API_URL + "/auth/signup", { user });
