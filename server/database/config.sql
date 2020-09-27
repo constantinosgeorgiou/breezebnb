@@ -14,15 +14,19 @@
 --
 -- CREATE DATABASE breezebnb
 -- OWNER breezebnb;
+
 -- ------------------------------
 -- EXTENSIONS
 -- ------------------------------
 CREATE EXTENSION
 IF NOT EXISTS "uuid-ossp";
+
 -- ------------------------------
 -- EUROPEAN DATE FORMAT
 -- ------------------------------
-SET DateStyle TO European;
+SET DateStyle
+TO European;
+
 -- ------------------------------
 -- CREATE TYPES
 -- ------------------------------
@@ -36,8 +40,7 @@ CREATE TYPE USER_ROLE AS ENUM
 (
     'admin',
     'guest',
-    'host',
-    'ghost' -- guest AND host
+    'host'
 );
 
 CREATE TYPE PROPERTY_TYPE AS ENUM
