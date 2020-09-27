@@ -19,6 +19,7 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
+    "publishToHeroku":"cd ../ && git subtree push --prefix client heroku-client master || true",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
