@@ -1,6 +1,3 @@
-# BreezeBnB
-
-
 [![License][license-badge]](lisense)
 
 <p align="center">
@@ -8,7 +5,7 @@
     <img src="client/src/assets/logo.svg" alt="Logo" height="80">
   </a>
 
-  <h3 align="center">BreezeBnB</h3>
+  <h1 align="center">Breezebnb</h1>
 
   <p align="center">
     An AirBnB clone made as part of coursework of my Web Application Technologies course at my university :mortar_board:
@@ -25,25 +22,24 @@
 </p>
 
 ## Table of contents
-- [BreezeBnB](#breezebnb)
-  - [Table of contents](#table-of-contents)
-  - [About the project](#about-the-project)
-  - [Technologies](#technologies)
-    - [Server](#server)
-    - [Client](#client)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-    - [Server](#server-1)
-    - [Client](#client-1)
-    - [Database](#database)
-      - [**Install PostgresQL**](#install-postgresql)
-      - [**Configure database**](#configure-database)
-  - [Start everything up](#start-everything-up)
-  - [Features](#features)
-  - [Status](#status)
-  - [Inspiration](#inspiration)
-  - [Created by](#created-by)
-  - [License](#license)
+- [Table of contents](#table-of-contents)
+- [About the project](#about-the-project)
+- [Technologies](#technologies)
+  - [Server](#server)
+  - [Client](#client)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+  - [Server](#server-1)
+  - [Client](#client-1)
+  - [Database](#database)
+    - [**Install PostgresQL**](#install-postgresql)
+    - [**Configure database**](#configure-database)
+- [Start everything up](#start-everything-up)
+- [Features](#features)
+- [Status](#status)
+- [Inspiration](#inspiration)
+- [Created by](#created-by)
+- [License](#license)
 
 ## About the project
 
