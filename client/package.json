@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.x",
+    "node": "10.x"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -19,7 +23,7 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "publishToHeroku":"cd ../ && git subtree push --prefix client heroku-client master || true",
+    "publishToHeroku": "cd ../ && git subtree push --prefix client heroku-client master || true",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
