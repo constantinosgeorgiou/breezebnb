@@ -62,11 +62,9 @@ const retrieveListingById = (
     const { listingId } = request.params;
     console.log(listingId);
     if (!listingId) {
-        response
-            .status(404)
-            .send({
-                message: "Listing not found.",
-            });
+        response.status(404).send({
+            message: "Listing not found.",
+        });
     } else {
         database.query(
             "SELECT * FROM users u,listings l,addresses a,listing_rules lr,listing_space ls,listing_amenities la WHERE l.listing_id = $1 and l.address=a.address_id and l.amenities=la.listing_amenities_id and l.space=ls.listing_space_id and l.rules=lr.listing_rules_id and l.listing_owner=u.user_id",
@@ -827,6 +825,16 @@ const retrieveLocations = (request, response) => {
                             message:
                                 error.message,
                         },
+                    });
+            } else if (results.rowCount === 0) {
+                let locations = [];
+
+                response
+                    .status(200)
+                    .send({
+                        message:
+                            "No locations available",
+                        locations,
                     });
             } else {
                 let locations = [];
