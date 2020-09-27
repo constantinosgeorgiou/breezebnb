@@ -7,7 +7,10 @@
     "node": "10.x"
   },
   "scripts": {
-    "publishToHeroku":"cd ../ && git subtree push --prefix server heroku-server master || true",
+    "publishToHeroku": "cd ../ && git subtree push --prefix server heroku-server master || true",
+    "database-config": "cat database/config.sql | heroku pg:psql postgresql-dimensional-21825 --app breezebnb-api",
+    "database-create-tables": "cat database/create-all-tables.sql | heroku pg:psql postgresql-dimensional-21825 --app breezebnb-api",
+    "database-drop-tables": "cat database/drop-all-tables.sql | heroku pg:psql postgresql-dimensional-21825 --app breezebnb-api",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
