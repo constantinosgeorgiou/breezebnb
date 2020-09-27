@@ -41,50 +41,9 @@ class SearchBar extends Component {
 
             // Options
             locations: [],
-            // locations: [
-            //     {
-            //         id: 0,
-            //         country: "Anywhere",
-            //         state: "",
-            //         city: "",
-            //     },
-            //     {
-            //         id: 1,
-            //         country: "Greece",
-            //         state: "Athens",
-            //         city: "Zografou",
-            //     },
-            //     {
-            //         id: 2,
-            //         country: "Greece",
-            //         state: "Athens",
-            //         city: "Kolonaki",
-            //     },
-            //     {
-            //         id: 3,
-            //         country: "Greece",
-            //         state: "Thessaloniki",
-            //         city: "Kentro",
-            //     },
-            //     {
-            //         id: 4,
-            //         country: "Cyprus",
-            //         state: "Nicosia",
-            //         city: "Dali",
-            //     },
-            //     {
-            //         id: 5,
-            //         country: "Cyprus",
-            //         state: "Limassol",
-            //         city: "Azgata",
-            //     },
-            // ],
-            //use this function to get opioions dynamicaly
         };
 
-        this.updateViewForDesktop = this.updateViewForDesktop.bind(
-            this
-        );
+        this.updateViewForDesktop = this.updateViewForDesktop.bind(this);
     }
 
     componentDidMount() {
@@ -106,48 +65,31 @@ class SearchBar extends Component {
 
         // Update view
         this.updateViewForDesktop();
-        window.addEventListener(
-            "resize",
-            this.updateViewForDesktop
-        );
+        window.addEventListener("resize", this.updateViewForDesktop);
     }
 
     componentWillUnmount() {
-        window.removeEventListener(
-            "resize",
-            this.updateViewForDesktop
-        );
+        window.removeEventListener("resize", this.updateViewForDesktop);
     }
 
     updateViewForDesktop() {
-        this.setState({
-            isDesktop: window.innerWidth >= 768,
-        });
+        this.setState({ isDesktop: window.innerWidth >= 768, });
     }
 
     handleChange = (event) => {
         const { name, value } = event.target;
 
-        this.setState({
-            [name]: value,
-        });
+        this.setState({ [name]: value, });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const {
-            location,
-            checkInDate,
-            checkOutDate,
-        } = this.state;
 
-        let wrongFormatCheckIn = checkInDate.split(
-            "-"
-        );
+        const { location, checkInDate, checkOutDate, } = this.state;
 
-        let wrongFormatCheckOut = checkOutDate.split(
-            "-"
-        );
+        let wrongFormatCheckIn = checkInDate.split("-");
+
+        let wrongFormatCheckOut = checkOutDate.split("-");
 
         let parsedLocation = JSON.parse(
             this.state.location
@@ -178,13 +120,8 @@ class SearchBar extends Component {
             .then((response) => {
                 console.log(
                     "response: " +
-                        JSON.stringify(
-                            response.data
-                                .listings,
-                            null,
-                            4
-                        )
-                );
+                    JSON.stringify(
+                        response.data.listings, null, 4));
 
                 this.setState((prevState) => ({
                     listings:
@@ -194,7 +131,7 @@ class SearchBar extends Component {
             .catch((error) => {
                 console.log(
                     "Error while searching: " +
-                        error
+                    error
                 );
             });
     };
@@ -241,7 +178,7 @@ class SearchBar extends Component {
                                                 >
                                                     <small>
                                                         Location
-                                                    </small>
+</small>
                                                 </label>
                                                 {/* location */}
                                                 <select
@@ -262,29 +199,29 @@ class SearchBar extends Component {
                                                         (
                                                             location
                                                         ) => (
-                                                            <option
-                                                                key={
-                                                                    location.id
-                                                                }
-                                                                value={JSON.stringify(
-                                                                    location
-                                                                )}
-                                                            >
-                                                                {
-                                                                    location.city
-                                                                }
+                                                                <option
+                                                                    key={
+                                                                        location.id
+                                                                    }
+                                                                    value={JSON.stringify(
+                                                                        location
+                                                                    )}
+                                                                >
+                                                                    {
+                                                                        location.city
+                                                                    }
 
-                                                                ,{" "}
-                                                                {
-                                                                    location.state
-                                                                }
+,{" "}
+                                                                    {
+                                                                        location.state
+                                                                    }
 
-                                                                ,{" "}
-                                                                {
-                                                                    location.country
-                                                                }
-                                                            </option>
-                                                        )
+,{" "}
+                                                                    {
+                                                                        location.country
+                                                                    }
+                                                                </option>
+                                                            )
                                                     )}
                                                 </select>
                                             </div>
@@ -300,7 +237,7 @@ class SearchBar extends Component {
                                                     <small>
                                                         Check
                                                         in
-                                                    </small>
+</small>
                                                 </label>
                                                 <input
                                                     id="checkInDateInput"
@@ -329,7 +266,7 @@ class SearchBar extends Component {
                                                     <small>
                                                         Check
                                                         out
-                                                    </small>
+</small>
                                                 </label>
                                                 <input
                                                     id="checkOutDateInput"
@@ -357,7 +294,7 @@ class SearchBar extends Component {
                                                 >
                                                     <small>
                                                         Guests
-                                                    </small>
+</small>
                                                 </label>
                                                 <input
                                                     id="guestsInput"
@@ -396,179 +333,176 @@ class SearchBar extends Component {
                             </form>
                         </div>
                     ) : (
-                        <div className="card rounded-lg">
-                            <form
-                                onSubmit={
-                                    this
-                                        .handleSubmit
-                                }
-                            >
-                                <div className="card-body">
-                                    {/* Form search. Displayed below md viewport */}
-                                    <div className="row pl-2 align-items-center">
-                                        {/* Location */}
-                                        <div className="col-md mb-2">
-                                            <div className="card-text form-group">
-                                                <label htmlFor="inputLocation">
-                                                    <small>
-                                                        Location
-                                                    </small>
-                                                </label>
-                                                {/* location */}
-                                                <select
-                                                    id="inputLocation"
-                                                    className="form-control"
-                                                    name="location"
-                                                    value={
-                                                        this
-                                                            .state
-                                                            .location
-                                                    }
-                                                    onChange={
-                                                        this
-                                                            .handleChange
-                                                    }
-                                                >
-                                                    {this.state.locations.map(
-                                                        (
-                                                            location
-                                                        ) => (
-                                                            <option
-                                                                key={
-                                                                    location.id
-                                                                }
-                                                                value={JSON.stringify(
-                                                                    location
-                                                                )}
-                                                            >
-                                                                {
-                                                                    location.city
-                                                                }
+                            <div className="card rounded-lg">
+                                <form
+                                    onSubmit={
+                                        this
+                                            .handleSubmit
+                                    }
+                                >
+                                    <div className="card-body">
+                                        {/* Form search. Displayed below md viewport */}
+                                        <div className="row pl-2 align-items-center">
+                                            {/* Location */}
+                                            <div className="col-md mb-2">
+                                                <div className="card-text form-group">
+                                                    <label htmlFor="inputLocation">
+                                                        <small>
+                                                            Location
+</small>
+                                                    </label>
+                                                    {/* location */}
+                                                    <select
+                                                        id="inputLocation"
+                                                        className="form-control"
+                                                        name="location"
+                                                        value={
+                                                            this.state.location
+                                                        }
+                                                        onChange={
+                                                            this
+                                                                .handleChange
+                                                        }
+                                                    >
+                                                        {this.state.locations.map(
+                                                            (
+                                                                location
+                                                            ) => (
+                                                                    <option
+                                                                        key={
+                                                                            location.id
+                                                                        }
+                                                                        value={JSON.stringify(location
+                                                                        )}
+                                                                    >
+                                                                        {
+                                                                            location.city
+                                                                        }
 
-                                                                ,{" "}
-                                                                {
-                                                                    location.state
-                                                                }
+,{" "}
+                                                                        {
+                                                                            location.state
+                                                                        }
 
-                                                                ,{" "}
-                                                                {
-                                                                    location.country
-                                                                }
-                                                            </option>
-                                                        )
-                                                    )}
-                                                </select>
+,{" "}
+                                                                        {
+                                                                            location.country
+                                                                        }
+                                                                    </option>
+                                                                )
+                                                        )}
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* Check in */}
-                                        <div className="col-md mb-2">
-                                            <div className="card-text form-group">
-                                                <label htmlFor="checkInDateInput">
-                                                    <small>
-                                                        Check
-                                                        in
-                                                    </small>
-                                                </label>
-                                                <input
-                                                    id="checkInDateInput"
-                                                    type="date"
-                                                    name="checkInDate"
-                                                    className="form-control"
-                                                    value={
-                                                        this
-                                                            .checkInDate
-                                                    }
-                                                    onChange={
-                                                        this
-                                                            .handleChange
-                                                    }
-                                                />
+                                            {/* Check in */}
+                                            <div className="col-md mb-2">
+                                                <div className="card-text form-group">
+                                                    <label htmlFor="checkInDateInput">
+                                                        <small>
+                                                            Check
+                                                            in
+</small>
+                                                    </label>
+                                                    <input
+                                                        id="checkInDateInput"
+                                                        type="date"
+                                                        name="checkInDate"
+                                                        className="form-control"
+                                                        value={
+                                                            this
+                                                                .checkInDate
+                                                        }
+                                                        onChange={
+                                                            this
+                                                                .handleChange
+                                                        }
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* Check out */}
-                                        <div className=" col-md mb-2">
-                                            <div className="card-text form-group">
-                                                <label htmlFor="checkOutDateInput">
-                                                    <small>
-                                                        Check
-                                                        out
-                                                    </small>
-                                                </label>
-                                                <input
-                                                    id="checkOutDateInput"
-                                                    type="date"
-                                                    name="checkOutDate"
-                                                    className="form-control"
-                                                    value={
-                                                        this
-                                                            .checkOutDate
-                                                    }
-                                                    onChange={
-                                                        this
-                                                            .handleChange
-                                                    }
-                                                />
+                                            {/* Check out */}
+                                            <div className=" col-md mb-2">
+                                                <div className="card-text form-group">
+                                                    <label htmlFor="checkOutDateInput">
+                                                        <small>
+                                                            Check
+                                                            out
+</small>
+                                                    </label>
+                                                    <input
+                                                        id="checkOutDateInput"
+                                                        type="date"
+                                                        name="checkOutDate"
+                                                        className="form-control"
+                                                        value={
+                                                            this
+                                                                .checkOutDate
+                                                        }
+                                                        onChange={
+                                                            this
+                                                                .handleChange
+                                                        }
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* Guests */}
-                                        <div className="col-md mb-4">
-                                            <div className="card-text form-group">
-                                                <label htmlFor="guestsInput">
-                                                    <small>
-                                                        Guests
-                                                    </small>
-                                                </label>
-                                                <input
-                                                    id="guestsInput"
-                                                    type="number"
-                                                    name="guests"
-                                                    className="form-control"
-                                                    value={
-                                                        this
-                                                            .guests
-                                                    }
-                                                    onChange={
-                                                        this
-                                                            .handleChange
-                                                    }
-                                                />
+                                            {/* Guests */}
+                                            <div className="col-md mb-4">
+                                                <div className="card-text form-group">
+                                                    <label htmlFor="guestsInput">
+                                                        <small>
+                                                            Guests
+</small>
+                                                    </label>
+                                                    <input
+                                                        id="guestsInput"
+                                                        type="number"
+                                                        name="guests"
+                                                        className="form-control"
+                                                        value={
+                                                            this
+                                                                .guests
+                                                        }
+                                                        onChange={
+                                                            this
+                                                                .handleChange
+                                                        }
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* Seach block */}
-                                        <div className="col-md mt-2">
-                                            <div className="card-text from group">
-                                                <button
-                                                    className="btn btn-primary btn-block rounded-pill"
-                                                    type="submit"
-                                                >
-                                                    <BiSearch />{" "}
-                                                    Search
-                                                </button>
+                                            {/* Seach block */}
+                                            <div className="col-md mt-2">
+                                                <div className="card-text from group">
+                                                    <button
+                                                        className="btn btn-primary btn-block rounded-pill"
+                                                        type="submit"
+                                                    >
+                                                        <BiSearch />{" "}
+Search
+</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                    )}
+                                </form>
+                            </div>
+                        )}
                     {this.state.listings.length >
                         0 && (
-                        <Redirect
-                            to={{
-                                pathname:
-                                    "/results",
-                                state: {
-                                    listings: this
-                                        .state
-                                        .listings,
-                                },
-                            }}
-                        />
-                    )}
+                            <Redirect
+                                to={{
+                                    pathname:
+                                        "/results",
+                                    state: {
+                                        listings: this
+                                            .state
+                                            .listings,
+                                    },
+                                }}
+                            />
+                        )}
                 </div>
             );
         }

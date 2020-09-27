@@ -1,7 +1,7 @@
 import axios from "axios";
 import authorizationHeader from "../_helpers/AuthorizationHeader";
 
-const API_URL = process.env.API_URL;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 export function getCurrentUser() {
     return JSON.parse(
@@ -11,7 +11,7 @@ export function getCurrentUser() {
 
 export function getReceivedReviews(userName) {
     return axios.get(
-        `${API_URL}/users/${userName}/reviews-received`,
+        `${REACT_APP_API_URL}/users/${userName}/reviews-received`,
         {},
         {
             headers: authorizationHeader(),
@@ -25,7 +25,7 @@ export function updateUserInfo(user) {
             JSON.stringify(user, null, 4)
     );
     return axios.put(
-        API_URL +
+        REACT_APP_API_URL +
             "/users/update/account-info/" +
             user.userName,
         {
@@ -40,7 +40,7 @@ export function updateUserInfo(user) {
 export function updateUserAdd(user) {
     console.log("update user Address!!!" + user);
     return axios.put(
-        API_URL +
+        REACT_APP_API_URL +
             "/users/update/address/" +
             user.userName,
         {
@@ -56,7 +56,7 @@ export function getListingsOfUser(id) {
     console.log("host id:", id);
 
     return axios.get(
-        API_URL + "/hosting/" + id,
+        REACT_APP_API_URL + "/hosting/" + id,
         {},
         {
             headers: authorizationHeader(),

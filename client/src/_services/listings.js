@@ -1,11 +1,13 @@
 import axios from "axios";
 import authorizationHeader from "../_helpers/AuthorizationHeader";
 
-const API_URL = process.env.API_URL;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+
+console.log("REACT_APP_API_URL: " + process.env.REACT_APP_API_URL)
 
 export function searchListings(parameters) {
     return axios.post(
-        `${API_URL}/listings/search`,
+        `${REACT_APP_API_URL}/listings/search`,
         {
             check_in: parameters.checkIn,
             check_out: parameters.checkout,
@@ -20,18 +22,18 @@ export function searchListings(parameters) {
 }
 
 export function getListingInformation(id) {
-    return axios.get(`${API_URL}/listings/${id}`);
+    return axios.get(`${REACT_APP_API_URL}/listings/${id}`);
 }
 
 export function getLocations() {
     return axios.get(
-        API_URL + "/listings/all/locations"
+        REACT_APP_API_URL + "/listings/all/locations"
     );
 }
 
 export function addListing(listing) {
     return axios.post(
-        API_URL + "/listings/new",
+        REACT_APP_API_URL + "/listings/new",
         { listing },
         {
             headers: authorizationHeader(),
@@ -41,7 +43,7 @@ export function addListing(listing) {
 
 export function updateListing(listing) {
     return axios.put(
-        API_URL + "/listings/edit/" + listing.id,
+        REACT_APP_API_URL + "/listings/edit/" + listing.id,
         { listing },
         {
             headers: authorizationHeader(),
@@ -51,7 +53,7 @@ export function updateListing(listing) {
 
 export function removeListing(id) {
     return axios.delete(
-        API_URL + "/listings/delete/" + id,
+        REACT_APP_API_URL + "/listings/delete/" + id,
         {},
         {
             headers: authorizationHeader(),
