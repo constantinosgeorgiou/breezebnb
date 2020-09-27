@@ -4,6 +4,8 @@ import { signout } from "../_services/authentication";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import UserContext from "../_helpers/UserContext";
 
+import logo from "../assets/logo.svg";
+
 class Navigation extends Component {
     static contextType = UserContext;
 
@@ -35,7 +37,14 @@ class Navigation extends Component {
                 {(context) => (
                     <Navbar collapseOnSelect expand="lg">
                         <Container fluid>
-                            <Navbar.Brand href="/">BreezeBnB</Navbar.Brand>
+                            <Navbar.Brand href="/">
+                                <img
+                                    alt=""
+                                    src={logo}
+                                    height="30"
+                                    className="d-inline-block align-top text-primary"
+                                />
+                            </Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="mr-auto"></Nav>
