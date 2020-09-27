@@ -25,6 +25,9 @@
 
 
 ## Build and run server
+
+[How to Deploy Multiple Apps Under a Single GitHub Repository to Heroku](https://medium.com/better-programming/how-to-deploy-multiple-apps-under-a-single-github-repository-to-heroku-f6177489d38)
+
 ```bash
 git clone https://github.com/constantinosgeorgiou/breezebnb.git
 cd breezebnb
