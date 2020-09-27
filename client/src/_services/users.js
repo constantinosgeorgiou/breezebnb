@@ -52,6 +52,7 @@ export function updateUserAdd(user) {
     );
 }
 
+
 export function getListingsOfUser(id) {
     console.log("host id:", id);
 
