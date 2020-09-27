@@ -1,17 +1,33 @@
 # BreezeBnB
 
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+[![License][license-badge]](lisense)
 
-Part of coursework of my Web Applications course at my university. This porject is prety much an AirBnB clone.
+<p align="center">
+  <a href="https://github.com/constantinosgeorgiou/breezebnb">
+    <img src="client/src/assets/logo.svg" alt="Logo" height="80">
+  </a>
 
-Check it out [**live**](http://breezebnb.herokuapp.com "BreezeBnB's Homepage")
+  <h3 align="center">BreezeBnB</h3>
+
+  <p align="center">
+    An AirBnB clone made as part of coursework of my Web Application Technologies course at my university :mortar_board:
+    <br />
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/wiki"> :book: <strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://breezebnb.herokuapp.com/">View Demo</a>
+    ·
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues">Request Feature</a>
+  </p>
+</p>
 
 ## Table of contents
 - [BreezeBnB](#breezebnb)
   - [Table of contents](#table-of-contents)
-  - [General info](#general-info)
-  - [Screenshots](#screenshots)
+  - [About the project](#about-the-project)
   - [Technologies](#technologies)
     - [Server](#server)
     - [Client](#client)
@@ -26,14 +42,21 @@ Check it out [**live**](http://breezebnb.herokuapp.com "BreezeBnB's Homepage")
   - [Features](#features)
   - [Status](#status)
   - [Inspiration](#inspiration)
-  - [Contact](#contact)
+  - [Created by](#created-by)
   - [License](#license)
 
-## General info
-Add more general information about project. What the purpose of the project is? Motivation?
+## About the project
 
-## Screenshots
-[Example screenshot]()
+[![BreezeBnB Homepage][breezebnb-screenshot]](https://breezebnb.herokuapp.com/)
+
+This was a project I made during my Web Application Technologies course at my university. As you might have guessed from the name it's similar to [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website"). That means that it has the following features:
+
+- Search for listings as a guest or anonymous user
+- Create a guest account, in order to book listings
+- View and book listings as a guest
+- Apply to become a host
+- Post / edit / delete your listings as a host
+- Edit / delete your account
 
 ## Technologies
 
@@ -222,23 +245,37 @@ npm start
 Low and behold a tab on your browser should open with the client running.
 
 ## Features
-List of features ready and TODOs for future development
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
 
-To-do list:
-- Wow improvement to be done 1
-- Wow improvement to be done 2
+List of features
+
+- Search for listings as a guest or anonymous user
+- Create a guest account, in order to book listings
+- View and book listings as a guest
+- Apply to become a host
+- Post / edit / delete your listings as a host
+- Edit / delete your account
+
+
+See the [open issues](https://github.com/constantinosgeorgiou/breezebnb/issues) for a list of future features (and known issues).
+
 
 ## Status
 Project is: _in progress_, _finished_, _no longer continue_ and why?
 
 ## Inspiration
 Project inspired by [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website")
-## Contact
-Created by [@constantinosgeorgiou](https://www.flynerd.pl/) - feel free to contact me!
+
+
+## Created by
+
+- [constantinosgeorgiou](https://www.constantinosgeorgiou.com/) - feel free to contact me!
+- [leonidasefrem](https://github.com/leonidasefrem)
 
 ## License
 
 [MIT License](https://mit-license.org/)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[license]: http://badges.mit-license.org
+[license-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat-square
+[breezebnb-screenshot]: https://breezebnb.herokuapp.com/static/media/index.06d48066.jpg
