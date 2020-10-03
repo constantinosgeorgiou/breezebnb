@@ -1,5 +1,5 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
+
 const Users = require("../controllers/users");
 const Reviews = require("../controllers/reviews");
 
@@ -7,17 +7,28 @@ const { isAuthenticated } = require("../middleware/authentication");
 
 const { isAdmin } = require("../middleware/authorization");
 
-// Find all users
-router.get("/", [isAuthenticated, isAdmin], Users.retrieveUsers);
+// Find user by username
+router.get("/:username", isAuthenticated, Users.retrieveUserByUsername);
 
-// Find user by ID
-router.get("/:userName", isAuthenticated, Users.retrieveUserByUserName);
+// Update user by username
+router.put("/update/:username", isAuthenticated, Users.updateUserByUsername);
 
-// Find first name and last name by ID
-router.get("/name/:user_id", Users.retrieveUserNameByUserId);
+// Delete user by username
+router.delete("/delete/:username", isAuthenticated, Users.deleteUserByUsername);
 
-// Delete user
-router.delete("/:userid", Users.deleteUserByUserId);
+// Update user address
+router.put(
+    "/update/address/:useName",
+    isAuthenticated,
+    Users.updateUserAddByUserName
+);
+
+// Update user password
+router.put(
+    "/changePassword/:userid",
+    isAuthenticated,
+    Users.changePasswordByUserId
+);
 
 // Retrieve all reviews directed to user
 router.get(
@@ -25,14 +36,5 @@ router.get(
     isAuthenticated,
     Reviews.retrieveReceivedReviews
 );
-// Update user account inforamtions
-router.put("/update/account-info/:userName", isAuthenticated, Users.updateUserInfoByUserName);
-
-// Update user address
-router.put("/update/address/:useName",isAuthenticated, Users.updateUserAddByUserName);
-
-// Update user password
-router.put("/changePassword/:userid",isAuthenticated, Users.changePasswordByUserId);
-
 
 module.exports = router;

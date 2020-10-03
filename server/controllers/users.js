@@ -21,19 +21,9 @@ const signup = async (request, response) => {
     } = request.body.user;
 
     // Retrieve and hash password
-    const password = await bcrypt.hash(
-        request.body.user.password,
-        10
-    ); // Salt rounds: 10
+    const password = await bcrypt.hash(request.body.user.password, 10); // Salt rounds: 10
 
-    console.log(
-        "User sign up:" +
-            JSON.stringify(
-                request.body.user,
-                null,
-                4
-            )
-    );
+    console.log("User sign up:" + JSON.stringify(request.body.user, null, 4));
     console.log("password: " + password);
 
     // Store address of user
@@ -50,21 +40,15 @@ const signup = async (request, response) => {
         (error, addressQuery) => {
             if (error) {
                 // Error while retrieving user id
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
                 // Store address id to pass as parameter in INSET INTO USERS query
-                const addressId =
-                    addressQuery.rows[0]
-                        .address_id;
-                const about =
-                    "Welcome to my profile";
+                const addressId = addressQuery.rows[0].address_id;
+                const about = "Welcome to my profile";
 
                 // Create new user
                 database.query(
@@ -85,35 +69,20 @@ const signup = async (request, response) => {
                     (error, results) => {
                         if (error) {
                             console.log(error);
-                            response
-                                .status(
-                                    error.status ||
-                                        400
-                                )
-                                .json({
-                                    error: {
-                                        message:
-                                            error.message,
-                                    },
-                                });
+                            response.status(error.status || 400).json({
+                                error: {
+                                    message: error.message,
+                                },
+                            });
                         } else {
                             // User created
 
                             // Create user object with all the data
                             let user = {
                                 // Add user id and "joined on" to user object
-                                id:
-                                    results
-                                        .rows[0]
-                                        .user_id,
-                                joined:
-                                    results
-                                        .rows[0]
-                                        .joined_on,
-                                approved:
-                                    results
-                                        .rows[0]
-                                        .approved,
+                                id: results.rows[0].user_id,
+                                joined: results.rows[0].joined_on,
+                                approved: results.rows[0].approved,
                                 about: about,
                                 userName: userName,
                                 firstName: firstName,
@@ -125,69 +94,43 @@ const signup = async (request, response) => {
                                 birthday: birthday,
                                 address: address,
                             };
-                            console.log(
-                                JSON.stringify(
-                                    user,
-                                    null,
-                                    4
-                                )
-                            );
+                            console.log(JSON.stringify(user, null, 4));
                             // Construct the payload
                             const payload = {
                                 id: user.id,
                             };
 
                             // Generate an authentication token
-                            const token = jwt.sign(
-                                payload,
-                                JWT_SECRET,
-                                {
-                                    expiresIn:
-                                        "8h",
-                                }
-                            );
+                            const token = jwt.sign(payload, JWT_SECRET, {
+                                expiresIn: "8h",
+                            });
 
                             // Store token into database
                             database.query(
                                 "INSERT INTO tokens VALUES ($1, $2)",
                                 [token, user.id],
-                                (
-                                    error,
-                                    results
-                                ) => {
+                                (error, results) => {
                                     if (error) {
                                         // Error while storing the token
                                         response
-                                            .status(
-                                                error.status ||
-                                                    500
-                                            )
-                                            .json(
-                                                {
-                                                    error: {
-                                                        message:
-                                                            error.message,
-                                                    },
-                                                }
-                                            );
+                                            .status(error.status || 500)
+                                            .json({
+                                                error: {
+                                                    message: error.message,
+                                                },
+                                            });
                                     } else {
                                         // Add token to user object
                                         user.accessToken = token;
 
-                                        response
-                                            .status(
-                                                201
-                                            )
-                                            .send(
-                                                {
-                                                    message:
-                                                        "Successfully created account! Welcome " +
-                                                        user.userName +
-                                                        "!",
-                                                    user,
-                                                    accessToken: token,
-                                                }
-                                            ); // SUCCESS
+                                        response.status(201).send({
+                                            message:
+                                                "Successfully created account! Welcome " +
+                                                user.userName +
+                                                "!",
+                                            user,
+                                            accessToken: token,
+                                        }); // SUCCESS
                                     }
                                 }
                             );
@@ -212,14 +155,11 @@ const signin = (request, response) => {
             if (error) {
                 console.log("Error: ", error);
                 // Internal server error
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else if (results.rowCount === 0) {
                 // User not found
                 response.status(404).send({
@@ -227,53 +167,32 @@ const signin = (request, response) => {
                 });
             } else {
                 // Passowrd hash
-                const hash =
-                    results.rows[0].password;
+                const hash = results.rows[0].password;
 
                 // Create user object
                 let user = {
                     id: results.rows[0].user_id,
-                    userName:
-                        results.rows[0].user_name,
-                    firstName:
-                        results.rows[0]
-                            .first_name,
-                    lastName:
-                        results.rows[0].last_name,
+                    userName: results.rows[0].user_name,
+                    firstName: results.rows[0].first_name,
+                    lastName: results.rows[0].last_name,
                     about: results.rows[0].about,
                     email: results.rows[0].email,
                     phone: results.rows[0].phone,
-                    userRole:
-                        results.rows[0].user_role,
+                    userRole: results.rows[0].user_role,
                     photo: results.rows[0].photo,
-                    approved:
-                        results.rows[0].birthday,
-                    joined:
-                        results.rows[0].joined_on,
+                    approved: results.rows[0].birthday,
+                    joined: results.rows[0].joined_on,
                     address: {
-                        country:
-                            results.rows[0]
-                                .country,
-                        state:
-                            results.rows[0].state,
-                        city:
-                            results.rows[0].city,
-                        zipCode:
-                            results.rows[0]
-                                .zip_code,
-                        streetAddress:
-                            results.rows[0]
-                                .street_address,
-                        apartmentNumber:
-                            results.rows[0]
-                                .apartment_number,
+                        country: results.rows[0].country,
+                        state: results.rows[0].state,
+                        city: results.rows[0].city,
+                        zipCode: results.rows[0].zip_code,
+                        streetAddress: results.rows[0].street_address,
+                        apartmentNumber: results.rows[0].apartment_number,
                     },
                 };
 
-                console.log(
-                    "user: ",
-                    JSON.stringify(user, null, 4)
-                );
+                console.log("user: ", JSON.stringify(user, null, 4));
 
                 // Verify password is correct
                 // Compares plain text password with hash
@@ -282,105 +201,67 @@ const signin = (request, response) => {
                 //   goes FIRST, followd by hash
                 //   Example:
                 //    bcrypt.compare(PLAIN_TEXT, HASH, callback function)
-                bcrypt.compare(
-                    password,
-                    hash,
-                    (error, passwordIsValid) => {
-                        if (error) {
-                            // Error while comparing hashes
-                            response
-                                .status(
-                                    error.status ||
-                                        500
-                                )
-                                .json({
-                                    error: {
+                bcrypt.compare(password, hash, (error, passwordIsValid) => {
+                    if (error) {
+                        // Error while comparing hashes
+                        response.status(error.status || 500).json({
+                            error: {
+                                message: error.message,
+                            },
+                        });
+                    } else if (passwordIsValid === false) {
+                        // Password is invalid
+
+                        response.status(401).send({
+                            accessToken: null,
+                            message: "Password is invalid.",
+                        });
+                    } else {
+                        // Password is valid
+
+                        // Construct the payload
+                        const payload = {
+                            id: user.id,
+                        };
+
+                        // Generate an authentication token
+                        const token = jwt.sign(payload, JWT_SECRET, {
+                            expiresIn: "8h",
+                        });
+
+                        // Store token into database
+                        database.query(
+                            "INSERT INTO tokens VALUES ($1, $2)",
+                            [token, user.id],
+                            (error, results) => {
+                                if (error) {
+                                    // Error while storing the token
+                                    response.status(error.status || 500).json({
+                                        error: {
+                                            message: error.message,
+                                        },
+                                    });
+                                } else {
+                                    // Add token to user object
+                                    user.accessToken = token;
+
+                                    // NOTE Regarding the underscores ( _ ):
+                                    //   Data was mapped to the user object
+                                    //   from the results of the database.
+                                    //   In the database fields have underscores.
+                                    response.status(200).send({
                                         message:
-                                            error.message,
-                                    },
-                                });
-                        } else if (
-                            passwordIsValid ===
-                            false
-                        ) {
-                            // Password is invalid
-
-                            response
-                                .status(401)
-                                .send({
-                                    accessToken: null,
-                                    message:
-                                        "Password is invalid.",
-                                });
-                        } else {
-                            // Password is valid
-
-                            // Construct the payload
-                            const payload = {
-                                id: user.id,
-                            };
-
-                            // Generate an authentication token
-                            const token = jwt.sign(
-                                payload,
-                                JWT_SECRET,
-                                {
-                                    expiresIn:
-                                        "8h",
+                                            "Successfully signed in! Welcome " +
+                                            user.userName +
+                                            "!",
+                                        user,
+                                        accessToken: token,
+                                    }); // SUCCESS
                                 }
-                            );
-
-                            // Store token into database
-                            database.query(
-                                "INSERT INTO tokens VALUES ($1, $2)",
-                                [token, user.id],
-                                (
-                                    error,
-                                    results
-                                ) => {
-                                    if (error) {
-                                        // Error while storing the token
-                                        response
-                                            .status(
-                                                error.status ||
-                                                    500
-                                            )
-                                            .json(
-                                                {
-                                                    error: {
-                                                        message:
-                                                            error.message,
-                                                    },
-                                                }
-                                            );
-                                    } else {
-                                        // Add token to user object
-                                        user.accessToken = token;
-
-                                        // NOTE Regarding the underscores ( _ ):
-                                        //   Data was mapped to the user object
-                                        //   from the results of the database.
-                                        //   In the database fields have underscores.
-                                        response
-                                            .status(
-                                                200
-                                            )
-                                            .send(
-                                                {
-                                                    message:
-                                                        "Successfully signed in! Welcome " +
-                                                        user.userName +
-                                                        "!",
-                                                    user,
-                                                    accessToken: token,
-                                                }
-                                            ); // SUCCESS
-                                    }
-                                }
-                            );
-                        }
+                            }
+                        );
                     }
-                );
+                });
             }
         }
     );
@@ -395,14 +276,11 @@ const signout = (request, response) => {
         (error, results) => {
             if (error) {
                 // Error while fetching tokens of user
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
                 // Remove current token from database
                 database.query(
@@ -411,42 +289,27 @@ const signout = (request, response) => {
                     (error, removed) => {
                         if (error) {
                             // Error while deleting token
-                            response
-                                .status(
-                                    error.status ||
-                                        500
-                                )
-                                .json({
-                                    error: {
-                                        message:
-                                            error.message,
-                                    },
-                                });
+                            response.status(error.status || 500).json({
+                                error: {
+                                    message: error.message,
+                                },
+                            });
                         } else {
                             // Construct array of tokens
                             let tokens = [];
-                            results.rows.forEach(
-                                (row) => {
-                                    tokens.push(
-                                        row.token
-                                    );
-                                }
-                            );
+                            results.rows.forEach((row) => {
+                                tokens.push(row.token);
+                            });
 
                             // Remove current token from request.user.tokens
                             const leftOverTokens = tokens.filter(
-                                (token) =>
-                                    token !==
-                                    request.token
+                                (token) => token !== request.token
                             );
                             request.user.tokens = leftOverTokens;
 
-                            response
-                                .status(204)
-                                .send({
-                                    message:
-                                        "Successful sign out.",
-                                }); // SUCCESS
+                            response.status(204).send({
+                                message: "Successful sign out.",
+                            }); // SUCCESS
                         }
                     }
                 );
@@ -464,24 +327,17 @@ const signoutAll = (request, response) => {
         (error, deleted) => {
             if (error) {
                 // Error while deleting tokens of user
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
                 // Remove all tokens from request.user.tokens
-                request.user.tokens.splice(
-                    0,
-                    request.user.tokens.length
-                );
+                request.user.tokens.splice(0, request.user.tokens.length);
 
                 response.status(204).send({
-                    message:
-                        "Successful sign out.",
+                    message: "Successful sign out.",
                 }); // SUCCESS
             }
         }
@@ -494,57 +350,41 @@ const retrieveUsers = (request, response) => {
         "SELECT * FROM users ORDER BY user_id ASC",
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             }
 
-            response
-                .status(200)
-                .json(results.rows); // SUCCESS
+            response.status(200).json(results.rows); // SUCCESS
         }
     );
 };
 
 // Retrieves a user by given username
-const retrieveUserByUserName = (
-    request,
-    response
-) => {
-    const userName = request.params.userName;
+const retrieveUserByUsername = (request, response) => {
+    const { username } = request.params;
 
     database.query(
         "SELECT * FROM users WHERE user_name = $1",
-        [userName],
+        [username],
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             }
 
-            response
-                .status(200)
-                .json(results.rows);
+            response.status(200).json(results.rows);
         }
     );
 };
 
 // Updates data of user with given username
-const updateUserByUserName = (
-    request,
-    response
-) => {
+const updateUserByUserName = (request, response) => {
     const userName = request.params.userName;
     const { firstName, email } = request.body;
 
@@ -553,29 +393,19 @@ const updateUserByUserName = (
         [firstName, email, userName],
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 400)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             }
-            response
-                .status(204)
-                .send(
-                    `User modified with ID: ${userName}`
-                );
+            response.status(204).send(`User modified with ID: ${userName}`);
         }
     );
 };
 
 // Deletes a user with given username
-const deleteUserByUserId = (
-    request,
-    response
-) => {
+const deleteUserByUserId = (request, response) => {
     const userid = request.params.userid;
 
     database.query(
@@ -584,87 +414,59 @@ const deleteUserByUserId = (
         (error, usersQuery) => {
             if (error) {
                 // Error while retrieving user id
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
-                const addressId =
-                    usersQuery.rows[0].address;
+                const addressId = usersQuery.rows[0].address;
 
-                database.query(
-                    "DELETE FROM addresses WHERE address_id = $1",
-                    [addressId]
-                );
-                database.query(
-                    "DELETE FROM users WHERE user_id = $1",
-                    [userid]
-                );
+                database.query("DELETE FROM addresses WHERE address_id = $1", [
+                    addressId,
+                ]);
+                database.query("DELETE FROM users WHERE user_id = $1", [
+                    userid,
+                ]);
                 response.status(200).send();
             }
         }
     );
 };
 
-const retrieveUserNameByUserId = (
-    request,
-    response
-) => {
+const retrieveUserNameByUserId = (request, response) => {
     const user_id = request.params.user_id;
     database.query(
         "SELECT first_name,last_name FROM users WHERE user_id = $1",
         [user_id],
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             }
-            response
-                .status(200)
-                .json(results.rows);
+            response.status(200).json(results.rows);
         }
     );
 };
 
 // Updates account information of user with given username
-const updateUserInfoByUserName = (
-    request,
-    response
-) => {
+const updateUserInfoByUserName = (request, response) => {
     const userid = request.params.userid;
     const { user } = request.body;
-    console.log(
-        "update: " + JSON.stringify(user, null, 4)
-    );
+    console.log("update: " + JSON.stringify(user, null, 4));
     database.query(
         "UPDATE users SET first_name = $1, email = $2, last_name = $3, phone= $4 WHERE user_id = $5",
-        [
-            user.firstName,
-            user.email,
-            user.lastName,
-            user.phone,
-            user.id,
-        ],
+        [user.firstName, user.email, user.lastName, user.phone, user.id],
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 400)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
                 response.status(204).send({
                     message: `User modified with ID: ${user.username}`,
@@ -674,16 +476,10 @@ const updateUserInfoByUserName = (
     );
 };
 // Updates address of user with given username
-const updateUserAddByUserName = (
-    request,
-    response
-) => {
+const updateUserAddByUserName = (request, response) => {
     const userid = request.params.userid;
     const { user } = request.body;
-    console.log(
-        "addresss: " +
-            JSON.stringify(user, null, 4)
-    );
+    console.log("addresss: " + JSON.stringify(user, null, 4));
     database.query(
         "UPDATE addresses SET country = $1, state = $2, city = $3, zip_code= $4, street_address=$5, apartment_Number=$6 WHERE address_id IN (SELECT address FROM users where user_id=$7)",
         [
@@ -697,57 +493,39 @@ const updateUserAddByUserName = (
         ],
         (error, results) => {
             if (error) {
-                response
-                    .status(error.status || 400)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 400).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
                 response
                     .status(204)
-                    .send(
-                        `User modified with ID: ${user.userName}`
-                    );
+                    .send(`User modified with ID: ${user.userName}`);
             }
         }
     );
 };
 
 // Updates account information of user with given username
-const changePasswordByUserId = async (
-    request,
-    response
-) => {
+const changePasswordByUserId = async (request, response) => {
     const userid = request.params.userid;
     const { newpass, currentpass } = request.body;
-    const newpassword = await bcrypt.hash(
-        newpass,
-        10
-    ); // Salt rounds: 10
-    const currentpassword = await bcrypt.hash(
-        currentpass,
-        10
-    ); // Salt rounds: 10
+    const newpassword = await bcrypt.hash(newpass, 10); // Salt rounds: 10
+    const currentpassword = await bcrypt.hash(currentpass, 10); // Salt rounds: 10
     database.query(
         "SELECT * FROM users WHERE user_id = $1",
         [userid],
         (error, usersQuery) => {
             if (error) {
                 // Error while retrieving user id
-                response
-                    .status(error.status || 500)
-                    .json({
-                        error: {
-                            message:
-                                error.message,
-                        },
-                    });
+                response.status(error.status || 500).json({
+                    error: {
+                        message: error.message,
+                    },
+                });
             } else {
-                const oldpass =
-                    usersQuery.rows[0].password;
+                const oldpass = usersQuery.rows[0].password;
 
                 bcrypt.compare(
                     oldpass,
@@ -755,62 +533,34 @@ const changePasswordByUserId = async (
                     (error, passwordIsValid) => {
                         if (error) {
                             // Error while comparing hashes
-                            response
-                                .status(
-                                    error.status ||
-                                        500
-                                )
-                                .json({
-                                    error: {
-                                        message:
-                                            error.message,
-                                    },
-                                });
-                        } else if (
-                            passwordIsValid ===
-                            false
-                        ) {
+                            response.status(error.status || 500).json({
+                                error: {
+                                    message: error.message,
+                                },
+                            });
+                        } else if (passwordIsValid === false) {
                             // Password is invalid
 
-                            response
-                                .status(401)
-                                .send({
-                                    message:
-                                        "Password is invalid.",
-                                });
+                            response.status(401).send({
+                                message: "Password is invalid.",
+                            });
                         } else {
                             database.query(
                                 "UPDATE users SET password = $2 WHERE user_id = $1",
-                                [
-                                    userid,
-                                    newpassword,
-                                ],
-                                (
-                                    error,
-                                    results
-                                ) => {
+                                [userid, newpassword],
+                                (error, results) => {
                                     if (error) {
                                         response
-                                            .status(
-                                                error.status ||
-                                                    400
-                                            )
-                                            .json(
-                                                {
-                                                    error: {
-                                                        message:
-                                                            error.message,
-                                                    },
-                                                }
-                                            );
+                                            .status(error.status || 400)
+                                            .json({
+                                                error: {
+                                                    message: error.message,
+                                                },
+                                            });
                                     }
                                     response
-                                        .status(
-                                            204
-                                        )
-                                        .send(
-                                            `passsword updated`
-                                        );
+                                        .status(204)
+                                        .send(`passsword updated`);
                                 }
                             );
                         }
@@ -822,6 +572,8 @@ const changePasswordByUserId = async (
     );
 };
 
+const deleteUserByUsername = () => {};
+
 module.exports = {
     signup,
     signin,
@@ -829,7 +581,7 @@ module.exports = {
     signoutAll,
 
     retrieveUsers,
-    retrieveUserByUserName,
+    retrieveUserByUsername,
     retrieveUserNameByUserId,
 
     changePasswordByUserId,

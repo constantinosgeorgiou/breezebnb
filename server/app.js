@@ -1,7 +1,7 @@
-require("dotenv").config();
+require("dotenv").config(); // Used to access enviroment variables
 
 const express = require("express");
-const cloudinary = require('cloudinary').v2
+const cloudinary = require("cloudinary").v2;
 const bodyParser = require("body-parser"); // Incoming request body parsing middleware
 const cors = require("cors"); // Used for Cross-origin resource sharing
 const helmet = require("helmet"); // Used as protection from some well-known web vulnerabilities by setting HTTP headers appropriately
@@ -9,6 +9,18 @@ const helmet = require("helmet"); // Used as protection from some well-known web
 const app = express();
 const PORT = process.env.PORT;
 // const CORS_ORIGIN = process.env.CORS_ORIGIN;
+
+// Requiring routes
+const IndexRoutes = require("./routes/index.js");
+const AuthenticationRoutes = require("./routes/authentication.js");
+const UsersRoutes = require("./routes/users.js");
+const ListingsRoutes = require("./routes/listings.js");
+const ReviewsRoutes = require("./routes/reviews.js");
+const MessagesRoutes = require("./routes/messages.js");
+const AdminRoutes = require("./routes/admin.js");
+const PhotosRoutes = require("./routes/photos.js");
+const MapsRoutes = require("./routes/maps.js");
+const HostingRoutes = require("./routes/hosting.js");
 
 // Cords set up
 // ------------
@@ -29,19 +41,9 @@ app.use(bodyParser.json());
 // is of type application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Requiring routes
-const IndexRoutes = require("./routes/index.js");
-const UsersRoutes = require("./routes/users.js");
-const ListingsRoutes = require("./routes/listings.js");
-const ReviewsRoutes = require("./routes/reviews.js");
-const MessagesRoutes = require("./routes/messages.js");
-const AdminRoutes = require("./routes/admin.js");
-const PhotosRoutes = require("./routes/photos.js");
-const MapsRoutes = require("./routes/maps.js");
-const HostingRoutes = require("./routes/hosting.js");
-
 // Using routes
 app.use("/", IndexRoutes);
+app.use("/auth", AuthenticationRoutes);
 app.use("/users", UsersRoutes);
 app.use("/reviews", ReviewsRoutes);
 app.use("/listings", ListingsRoutes);
@@ -55,11 +57,9 @@ app.listen(PORT, () => {
     console.log(`Listening on ${PORT}.`);
 });
 
-
 // cloudinary configuration
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET
-  });
-  
+    api_secret: process.env.API_SECRET,
+});
