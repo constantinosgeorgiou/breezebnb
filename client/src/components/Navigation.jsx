@@ -1,100 +1,185 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
-import { UserContextConsumer } from "context/userContext";
+import { Link as RouterLink } from "react-router-dom";
 
-import { Navbar, Nav, Container } from "react-bootstrap";
+import ListItemLink from "components/ListItemLink";
 
-// import { signout } from "services/authentication";
+import {
+    AppBar,
+    Box,
+    Button,
+    Divider,
+    Hidden,
+    Link,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    SwipeableDrawer,
+    Toolbar,
+    Typography,
+} from "@material-ui/core";
 
-import logo from "assets/images/brand/logo.svg";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import HouseOutlinedIcon from "@material-ui/icons/HouseOutlined";
+import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 
-class Navigation extends Component {
-    // handleSignOut = () => {
-    //     if (this.context.user !== null) {
-    //         signout()
-    //             .then((response) => {
-    //                 console.log("response: " + response);
+const Navigation = ({ user }) => {
+    const [isBurgerMenuOpen, toggleBurgerMenu] = useState(false);
+    const burgerAnchor = "right";
 
-    //                 // Remove from context
-    //                 this.context.removeUser();
+    const [profileAnchor, setProfileAnchor] = useState(null);
 
-    //                 // Remove from local storage
-    //                 localStorage.removeItem("user");
+    const openProfileMenu = (event) => {
+        setProfileAnchor(event.currentTarget);
+    };
 
-    //                 // Refresh window
-    //                 window.location.reload();
-    //             })
-    //             .catch((error) => {
-    //                 console.log("error: ", error);
-    //             });
-    //     }
-    // };
+    const closeProfileMenu = () => {
+        setProfileAnchor(null);
+    };
 
-    render() {
-        return (
-            <UserContextConsumer>
-                {(context) => (
-                    <Navbar collapseOnSelect expand="lg">
-                        <Container fluid>
-                            <Navbar.Brand href="/">
-                                <img
-                                    alt=""
-                                    src={logo}
-                                    height="30"
-                                    className="d-inline-block align-top text-primary"
-                                />
-                            </Navbar.Brand>
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                            <Navbar.Collapse id="responsive-navbar-nav">
-                                <Nav className="mr-auto"></Nav>
-                                <Nav>
-                                    {context.user !== null ? (
-                                        context.user.userRole === "host" ? (
-                                            <Nav.Link href="/host">
-                                                Hostiting
-                                            </Nav.Link>
-                                        ) : (
-                                            <Nav.Link href="/apply-for-hosting">
-                                                Become a host
-                                            </Nav.Link>
-                                        )
-                                    ) : (
-                                        <Nav.Link href="/apply-for-hosting">
-                                            Become a host
-                                        </Nav.Link>
-                                    )}
+    return (
+        <Fragment>
+            <AppBar position="sticky">
+                <Toolbar>
+                    {/* Left side */}
+                    <Box display="flex" flexGrow={1}>
+                        <Link
+                            component={RouterLink}
+                            to="/"
+                            color="inherit"
+                            underline="none"
+                        >
+                            <Typography variant="h6" noWrap>
+                                BreezeBnB
+                            </Typography>
+                        </Link>
+                    </Box>
 
-                                    {context.user === null ? (
-                                        <Fragment>
-                                            <Nav.Link href="/signin">
-                                                Sign In
-                                            </Nav.Link>
-                                            <Nav.Link href="/signup">
-                                                Sign Up
-                                            </Nav.Link>
-                                        </Fragment>
-                                    ) : (
-                                        <Fragment>
-                                            <Nav.Link href="/profile">
-                                                Profile
-                                            </Nav.Link>
-                                            <Nav.Link
-                                            // onClick={this.handleSignOut}
-                                            >
-                                                Sign out
-                                            </Nav.Link>
-                                        </Fragment>
-                                    )}
-                                </Nav>
-                            </Navbar.Collapse>
-                        </Container>
-                    </Navbar>
-                )}
-            </UserContextConsumer>
-        );
-    }
-}
+                    {/* Right side */}
+                    <Box>
+                        {/* Menu */}
+                        <Hidden smUp>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open menu"
+                                edge="end"
+                                onClick={toggleBurgerMenu}
+                            >
+                                <MenuOutlinedIcon />
+                            </IconButton>
+                        </Hidden>
 
-Navigation.contextType = UserContextConsumer;
+                        {/* Navigation */}
+                        <Hidden xsDown>
+                            <Button color="inherit">
+                                <Link
+                                    component={RouterLink}
+                                    to="/apply-for-hosting"
+                                    color="inherit"
+                                >
+                                    Become a host
+                                </Link>
+                            </Button>
+
+                            {user ? (
+                                <Fragment>
+                                    <IconButton
+                                        aria-label="profile"
+                                        aria-controls="profileMenu"
+                                        aria-haspopup="true"
+                                        onClick={openProfileMenu}
+                                        color="inherit"
+                                    >
+                                        <AccountCircleOutlinedIcon />
+                                    </IconButton>
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    <Button color="inherit">
+                                        <Link
+                                            component={RouterLink}
+                                            to="/sign-in"
+                                            color="inherit"
+                                        >
+                                            Sign in
+                                        </Link>
+                                    </Button>
+                                    <Button color="inherit">
+                                        <Link
+                                            component={RouterLink}
+                                            to="/sign-up"
+                                            color="inherit"
+                                        >
+                                            Sign up
+                                        </Link>
+                                    </Button>
+                                </Fragment>
+                            )}
+                        </Hidden>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+
+            {/* Profile menu */}
+            <Menu
+                id="profileMenu"
+                anchorEl={profileAnchor}
+                keepMounted
+                elevation={0}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                }}
+                open={Boolean(profileAnchor)}
+                onClose={closeProfileMenu}
+            >
+                <MenuItem onClick={closeProfileMenu}>Profile</MenuItem>
+                <MenuItem onClick={closeProfileMenu}>Logout</MenuItem>
+            </Menu>
+
+            {/* Burger menu */}
+            <SwipeableDrawer
+                anchor={burgerAnchor}
+                open={isBurgerMenuOpen}
+                onClose={() => toggleBurgerMenu(false)}
+                onOpen={() => toggleBurgerMenu(true)}
+            >
+                <List>
+                    <ListItemLink
+                        to="/apply-for-hosting"
+                        primary="Become a hsot"
+                        icon={<HouseOutlinedIcon />}
+                    />
+                </List>
+                <Divider />
+                <List>
+                    {user ? (
+                        <Fragment>
+                            <ListItemLink to="/profile" primary="Profile" />
+                            <ListItemLink to="/sign-out" primary="Sign out" />
+                        </Fragment>
+                    ) : (
+                        <Fragment>
+                            <ListItemLink to="/sign-in" primary="Sign in" />
+                            <ListItemLink to="/sign-up" primary="Sign up" />
+                        </Fragment>
+                    )}
+                </List>
+            </SwipeableDrawer>
+        </Fragment>
+
+        // {renderProfileMenu}
+        // {renderBurgerMenu}
+    );
+};
 
 export default Navigation;

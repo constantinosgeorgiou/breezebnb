@@ -1,26 +1,29 @@
 import React from "react";
-import { Jumbotron, Container } from "react-bootstrap";
 
-import SearchBar from "pages/Home/components/SearchBar";
-// import indexphoto from "../assets/imgs/index.jpg";
+import { Container, Typography } from "@material-ui/core";
+
+import Jumbotron from "components/Jumbotron";
+
+// import SearchBar from "components/SearchBar";
+
+import eifell_tower from "assets/images/eifell_tower.jpg";
 
 const Home = () => {
-    return (
-        <main role="main">
+    const withBackgroundImage = {
+        backgroundImage: `url(${eifell_tower})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: `100vw`,
+        height: "80vh",
+    };
 
-            <Jumbotron>
-                <Container>
-                    <SearchBar />
-                </Container>
-            </Jumbotron>
-            <Container>
-                {/* <img
-                    src={indexphoto}
-                    className="card-img img-sign-in"
-                    alt=""
-                ></img> */}
-            </Container>
-        </main>
+    return (
+        <Container maxWidth="xl" disableGutters style={withBackgroundImage}>
+            <Typography component="h1" variant="h3" color="inherit">
+                This is a title
+            </Typography>
+            {/* <SearchBar /> */}
+        </Container>
     );
 };
 
