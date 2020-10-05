@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserContextProvider } from "context/userContext";
 import App from "components/App";
-import "bootstrap/dist/css/bootstrap.min.css";
-
+// import "bootstrap/dist/css/bootstrap.min.css";
+import M from "materialize-css";
 // Attempt silent token refresh before startup
 // accountService.refreshToken().finally(ReactDOM);
 

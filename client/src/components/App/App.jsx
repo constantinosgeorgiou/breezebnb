@@ -2,7 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "components/ProtectedRoute";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import M from "materialize-css";
 import "./App.css";
 
 import Navigation from "components/Navigation";
@@ -24,7 +25,7 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <Navigation />
+                {/* <Navigation /> */}
 
                 <Switch>
                     {/* Public routes */}

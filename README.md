@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/constantinosgeorgiou/breezebnb">
-    <img src="client/src/assets/logo.svg" alt="Logo" height="80">
+    <img src="client/src/assets/images/brand/logo.svg" alt="Logo" height="80">
   </a>
 
   <h1 align="center">Breezebnb</h1>
