@@ -2,8 +2,6 @@ import React from "react";
 
 import { Container, Typography } from "@material-ui/core";
 
-import Jumbotron from "components/Jumbotron";
-
 // import SearchBar from "components/SearchBar";
 
 import eifell_tower from "assets/images/eifell_tower.jpg";
@@ -18,7 +16,12 @@ const Home = () => {
     };
 
     return (
-        <Container maxWidth="xl" disableGutters style={withBackgroundImage}>
+        <Container
+            component="main"
+            maxWidth="xl"
+            disableGutters
+            style={withBackgroundImage}
+        >
             <Typography component="h1" variant="h3" color="inherit">
                 This is a title
             </Typography>
