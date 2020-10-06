@@ -13,9 +13,6 @@ import {
     Link,
     IconButton,
     List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
     Menu,
     MenuItem,
     SwipeableDrawer,
@@ -47,12 +44,7 @@ const Navigation = ({ user }) => {
                 <Toolbar>
                     {/* Left side */}
                     <Box display="flex" flexGrow={1}>
-                        <Link
-                            component={RouterLink}
-                            to="/"
-                            color="inherit"
-                            underline="none"
-                        >
+                        <Link component={RouterLink} to="/" color="inherit" underline="none">
                             <Typography variant="h6" noWrap>
                                 BreezeBnB
                             </Typography>
@@ -100,20 +92,12 @@ const Navigation = ({ user }) => {
                             ) : (
                                 <Fragment>
                                     <Button color="inherit">
-                                        <Link
-                                            component={RouterLink}
-                                            to="/sign-in"
-                                            color="inherit"
-                                        >
+                                        <Link component={RouterLink} to="/sign-in" color="inherit">
                                             Sign in
                                         </Link>
                                     </Button>
                                     <Button color="inherit">
-                                        <Link
-                                            component={RouterLink}
-                                            to="/sign-up"
-                                            color="inherit"
-                                        >
+                                        <Link component={RouterLink} to="/sign-up" color="inherit">
                                             Sign up
                                         </Link>
                                     </Button>
