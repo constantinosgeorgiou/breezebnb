@@ -14,6 +14,7 @@ import {
 
 import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 
+import AccountDetailsForm from "./components/AccountDetailsForm";
 import AddressForm from "./components/AddressForm";
 import PersonalInformationForm from "./components/PersonalInformationForm";
 
@@ -49,7 +50,7 @@ const getStepContent = (step) => {
         case 1:
             return <AddressForm />;
         case 2:
-            return 3;
+            return <AccountDetailsForm />;
         case 3:
             return 4;
         case 4:
