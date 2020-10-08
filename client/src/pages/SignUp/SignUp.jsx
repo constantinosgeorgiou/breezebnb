@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 import {
     Avatar,
@@ -16,6 +16,7 @@ import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 
 import AccountDetailsForm from "./components/AccountDetailsForm";
 import AddressForm from "./components/AddressForm";
+import HostingForm from "./components/HostingForm";
 import PersonalInformationForm from "./components/PersonalInformationForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +53,7 @@ const getStepContent = (step) => {
         case 2:
             return <AccountDetailsForm />;
         case 3:
-            return 4;
+            return <HostingForm />;
         case 4:
             return 5;
         default:
