@@ -15,6 +15,7 @@ import {
 import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 
 import AddressForm from "./components/AddressForm";
+import PersonalInformationForm from "./components/PersonalInformationForm";
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
@@ -44,7 +45,7 @@ const steps = ["Personal information", "Address", "Account details", "Hosting", 
 const getStepContent = (step) => {
     switch (step) {
         case 0:
-            return 1;
+            return <PersonalInformationForm />;
         case 1:
             return <AddressForm />;
         case 2:
