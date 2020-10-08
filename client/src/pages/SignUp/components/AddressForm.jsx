@@ -9,6 +9,7 @@ const AddressForm = (props) => {
             </Typography>
 
             <Grid container spacing={3}>
+                {/* Address */}
                 <Grid item xs={12}>
                     <TextField
                         id="address"
@@ -18,6 +19,8 @@ const AddressForm = (props) => {
                         autoComplete="shipping addressLine"
                     />
                 </Grid>
+
+                {/* City */}
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="city"
@@ -27,6 +30,8 @@ const AddressForm = (props) => {
                         autoComplete="shipping city"
                     />
                 </Grid>
+
+                {/* State */}
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="state"
@@ -36,6 +41,8 @@ const AddressForm = (props) => {
                         autoComplete="shipping state"
                     />
                 </Grid>
+
+                {/* Postal code */}
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="postalCode"
@@ -45,6 +52,8 @@ const AddressForm = (props) => {
                         autoComplete="shipping postalCode"
                     />
                 </Grid>
+
+                {/* Country */}
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="country"
