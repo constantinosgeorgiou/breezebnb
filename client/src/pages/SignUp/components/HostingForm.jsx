@@ -10,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HostingForm = () => {
+const HostingForm = (props) => {
     const classes = useStyles();
+
+    const { user, handleChange } = props;
 
     return (
         <Fragment>
@@ -34,7 +36,14 @@ const HostingForm = () => {
 
                 <Grid item xs={12}>
                     <FormControlLabel
-                        control={<Checkbox color="secondary" name="host" value="yes" />}
+                        control={
+                            <Checkbox
+                                color="secondary"
+                                checked={user.hosting}
+                                value={user.hosting}
+                                onChange={handleChange("hosting")}
+                            />
+                        }
                         label="Apply for hosting"
                     />
                 </Grid>

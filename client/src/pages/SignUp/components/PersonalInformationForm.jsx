@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 
 import { Grid, TextField, Typography } from "@material-ui/core";
 
-const PersonalInformationForm = () => {
+const PersonalInformationForm = (props) => {
+    const { user, handleChange } = props;
+
     return (
         <Fragment>
             <Typography variant="h6" gutterBottom>
@@ -13,10 +15,11 @@ const PersonalInformationForm = () => {
                 {/* First name */}
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        id="firstName"
-                        name="firstName"
-                        label="First name"
                         fullWidth
+                        id="firstName"
+                        label="First name"
+                        value={user.firstName}
+                        onChange={handleChange("firstName")}
                         autoComplete="given-name"
                     />
                 </Grid>
@@ -24,10 +27,11 @@ const PersonalInformationForm = () => {
                 {/* Last name */}
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        id="lastName"
-                        name="lastName"
-                        label="Last name"
                         fullWidth
+                        id="lastName"
+                        label="Last name"
+                        value={user.lastName}
+                        onChange={handleChange("lastName")}
                         autoComplete="family-name"
                     />
                 </Grid>
@@ -35,17 +39,25 @@ const PersonalInformationForm = () => {
                 {/* Phone */}
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        id="phone"
-                        name="phone"
-                        label="Phone"
                         fullWidth
-                        autoComplete="phone"
+                        id="phone"
+                        label="Phone"
+                        value={user.phone}
+                        onChange={handleChange("phone")}
+                        autoComplete="tel"
                     />
                 </Grid>
 
                 {/* Birthday */}
                 <Grid item xs={12} sm={6}>
-                    <TextField id="birthday" name="phone" label="Birthday" fullWidth />
+                    <TextField
+                        fullWidth
+                        id="birthday"
+                        label="Birthday"
+                        value={user.birthday}
+                        onChange={handleChange("birthday")}
+                        autoComplete="bday"
+                    />
                 </Grid>
             </Grid>
         </Fragment>
