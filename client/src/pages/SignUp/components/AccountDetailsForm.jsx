@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
+
 import { Grid, TextField, Typography } from "@material-ui/core";
 
-const AccountDetailsForm = () => {
+const AccountDetailsForm = (props) => {
+    const { user, handleChange } = props;
+
     return (
         <Fragment>
             <Typography variant="h6" gutterBottom>
@@ -12,10 +15,11 @@ const AccountDetailsForm = () => {
                 {/* Username */}
                 <Grid item xs={12}>
                     <TextField
-                        id="username"
-                        name="username"
-                        label="Username"
                         fullWidth
+                        id="username"
+                        label="Username"
+                        value={user.username}
+                        onChange={handleChange("username")}
                         autoComplete="username"
                     />
                 </Grid>
@@ -23,26 +27,35 @@ const AccountDetailsForm = () => {
                 {/* Email */}
                 <Grid item xs={12}>
                     <TextField
-                        id="email"
-                        name="email"
-                        label="Email"
                         fullWidth
+                        id="email"
+                        label="Email"
+                        value={user.email}
+                        onChange={handleChange("email")}
                         autoComplete="email"
                     />
                 </Grid>
 
                 {/* Password */}
                 <Grid item xs={12} sm={6}>
-                    <TextField id="password" name="password" label="Password" fullWidth />
+                    <TextField
+                        fullWidth
+                        id="password"
+                        label="Password"
+                        value={user.password}
+                        onChange={handleChange("password")}
+                        autoComplete="current-password"
+                    />
                 </Grid>
 
                 {/* Password Confirmation */}
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        id="passwordConfirm"
-                        name="passwordConfirm"
-                        label="Confirm password"
                         fullWidth
+                        id="passwordConfirm"
+                        label="Confirm password"
+                        value={user.passwordConfirm}
+                        onChange={handleChange("passwordConfirm")}
                     />
                 </Grid>
             </Grid>
