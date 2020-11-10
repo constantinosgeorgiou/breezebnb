@@ -1,4 +1,8 @@
-[![License][license-badge]](lisense)
+
+[![Status][project-status]](milestones-url)
+[![GitHub milestones][milestones]](milestones-url) 
+[![GitHub milestone][milestone-1]](milestone-1-url)
+[![License][license-badge]](lisense) 
 
 <p align="center">
   <a href="https://github.com/constantinosgeorgiou/breezebnb">
@@ -275,3 +279,8 @@ Project inspired by [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB webs
 [license]: http://badges.mit-license.org
 [license-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat-square
 [breezebnb-screenshot]: https://breezebnb.herokuapp.com/static/media/index.06d48066.jpg
+[project-status]: https://img.shields.io/badge/status-under%20development-orange?style=flat-square
+[milestones]: https://img.shields.io/github/milestones/open/constantinosgeorgiou/breezebnb?style=flat-square
+[milestone-1]: https://img.shields.io/github/milestones/progress-percent/constantinosgeorgiou/breezebnb/1?style=flat-square
+[milestones-url]: https://github.com/constantinosgeorgiou/breezebnb/milestones
+[milestone-1-url]: https://github.com/constantinosgeorgiou/breezebnb/milestone/1
