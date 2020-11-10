@@ -1,8 +1,8 @@
 
-[![Status][project-status]](milestones-url)
-[![GitHub milestones][milestones]](milestones-url) 
-[![GitHub milestone][milestone-1]](milestone-1-url)
-[![License][license-badge]](lisense) 
+[![Status][badge-project-status]][url-milestones]
+[![GitHub milestones][badge-milestones]][url-milestones]
+[![GitHub milestone][badge-milestone-1]][url-milestone-1]
+[![License][badge-license]][url-license]
 
 <p align="center">
   <a href="https://github.com/constantinosgeorgiou/breezebnb">
@@ -25,8 +25,7 @@
   </p>
 </p>
 
-## Table of contents
-- [Table of contents](#table-of-contents)
+## Table of contents <!-- omit in toc -->
 - [About the project](#about-the-project)
 - [Technologies](#technologies)
   - [Server](#server)
@@ -36,8 +35,6 @@
   - [Server](#server-1)
   - [Client](#client-1)
   - [Database](#database)
-    - [**Install PostgresQL**](#install-postgresql)
-    - [**Configure database**](#configure-database)
 - [Start everything up](#start-everything-up)
 - [Features](#features)
 - [Status](#status)
@@ -144,7 +141,7 @@ Define enviroment variables of the client
 ### Database
 This is probably where you're gonna have some difficulty setting up a local enviroment of the project.
 
-#### **Install PostgresQL**
+#### **Install PostgresQL**  <!-- omit in toc -->
 
 For the database section of the web app we need to create a dedicated *database* and a dedicated *database user*.
 
@@ -157,7 +154,7 @@ Also, while I was setting up the database user I got the following error, of whi
 > Fix for error: ["psql: FATAL: Peer authentication failed for user"](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614)
 
 
-#### **Configure database**
+#### **Configure database**  <!-- omit in toc -->
 
 Once you have created the new database and its' user we need to configure it.
 
@@ -260,7 +257,11 @@ See the [open issues](https://github.com/constantinosgeorgiou/breezebnb/issues) 
 
 
 ## Status
-Project is: _in progress_, _finished_, _no longer continue_ and why?
+Project is: _in progress_.
+
+We are working on a complete re-work of the front end, for both functional and aesthetic reasons. We are replacing bootstrap with [Material-UI](https://material-ui.com/) and redoing the way we used the [React Context API](https://reactjs.org/docs/context.html), as well as they way we handled user data.
+
+There's an open [milestone][url-milestone-1] to view the progress of said re-work.
 
 ## Inspiration
 Project inspired by [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website")
@@ -275,12 +276,21 @@ Project inspired by [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB webs
 
 [MIT License](https://mit-license.org/)
 
-<!-- MARKDOWN LINKS & IMAGES -->
-[license]: http://badges.mit-license.org
-[license-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat-square
-[breezebnb-screenshot]: https://breezebnb.herokuapp.com/static/media/index.06d48066.jpg
-[project-status]: https://img.shields.io/badge/status-under%20development-orange?style=flat-square
-[milestones]: https://img.shields.io/github/milestones/open/constantinosgeorgiou/breezebnb?style=flat-square
-[milestone-1]: https://img.shields.io/github/milestones/progress-percent/constantinosgeorgiou/breezebnb/1?style=flat-square
-[milestones-url]: https://github.com/constantinosgeorgiou/breezebnb/milestones
-[milestone-1-url]: https://github.com/constantinosgeorgiou/breezebnb/milestone/1
+<!-- MARKDOWN IMAGES -->
+[image-breezebnb]: https://breezebnb.herokuapp.com/static/media/index.06d48066.jpg
+
+<!-- MARKDOWN BADGES -->
+[badge-license]: http://img.shields.io/:license-mit-blue.svg?style=flat-square
+
+[badge-project-status]: https://img.shields.io/badge/status-under%20development-orange?style=flat-square
+
+[badge-milestones]: https://img.shields.io/github/milestones/open/constantinosgeorgiou/breezebnb?style=flat-square
+
+[badge-milestone-1]: https://img.shields.io/github/milestones/progress-percent/constantinosgeorgiou/breezebnb/1?style=flat-square
+
+<!-- MARKDOWN LINKS -->
+[url-milestones]: https://github.com/constantinosgeorgiou/breezebnb/milestones
+
+[url-milestone-1]: https://github.com/constantinosgeorgiou/breezebnb/milestone/1
+
+[url-license]: http://badges.mit-license.org
