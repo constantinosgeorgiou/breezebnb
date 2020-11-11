@@ -1,19 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect } from "react-router-dom";
+import { UserContextConsumer } from "context/userContext";
 
-import { getCurrentUser } from "services/users";
+const ProtectedRoute = (props) => {
+    const Component = props.component;
 
-class ProtectedRoute extends Component {
-    render() {
-        const Component = this.props.component;
-        const currentUser = getCurrentUser();
-
-        if (currentUser) {
-            return <Component />;
-        } else {
-            return <Redirect to={{ pathname: "/signin" }} />;
-        }
-    }
-}
+    return (
+        <UserContextConsumer>
+            {(context) =>
+                context.user ? <Component /> : <Redirect to={{ pathname: "/sign-in" }} />
+            }
+        </UserContextConsumer>
+    );
+};
 
 export default ProtectedRoute;
