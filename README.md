@@ -44,7 +44,7 @@
 
 ## About the project
 
-[![BreezeBnB Homepage][breezebnb-screenshot]](https://breezebnb.herokuapp.com/)
+[![BreezeBnB Homepage][image-breezebnb]](https://breezebnb.herokuapp.com/)
 
 This was a project I made during my Web Application Technologies course at my university. As you might have guessed from the name it's similar to [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website"). That means that it has the following features:
 
