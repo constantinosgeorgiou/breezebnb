@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-// import ProtectedRoute from "components/ProtectedRoute";
+import ProtectedRoute from "components/ProtectedRoute";
 
 import { makeStyles } from "@material-ui/core";
 
@@ -16,7 +16,7 @@ import ApplyForHosting from "pages/ApplyForHosting/ApplyForHosting";
 // import Listing from "pages/Listing";
 
 // Protected routes
-// import Profile from "pages/Profile";
+import Profile from "pages/Profile";
 // import HostDashboard from "pages/HostDashboard";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ const App = (props) => {
                 {/* <Route path="/listings/:listingId" component={Listing} /> */}
 
                 {/* Protected routes */}
-                {/* <ProtectedRoute path="/profile" component={Profile} /> */}
+                <ProtectedRoute path="/profile" component={Profile} />
                 {/* <ProtectedRoute path="/host" component={HostDashboard} /> */}
             </Switch>
 
