@@ -12,7 +12,7 @@
   <h1 align="center">Breezebnb</h1>
 
   <p align="center">
-    An AirBnB clone made as part of coursework of my Web Application Technologies course at my university :mortar_board:
+    Project inspired by AirBnB. Made as part of coursework of my Web Application Technologies course at my university :mortar_board:
     <br />
     <a href="https://github.com/constantinosgeorgiou/breezebnb/wiki"> :book: <strong>Explore the docs »</strong></a>
     <br />
