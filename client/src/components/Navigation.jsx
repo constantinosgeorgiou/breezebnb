@@ -44,7 +44,7 @@ const Navigation = (props) => {
         <UserContextConsumer>
             {(context) => (
                 <Fragment>
-                    <AppBar position="sticky">
+                    <AppBar position="sticky" color="transparent">
                         <Toolbar>
                             {/* Left side */}
                             <Box display="flex" flexGrow={1}>
@@ -54,8 +54,8 @@ const Navigation = (props) => {
                                     color="inherit"
                                     underline="none"
                                 >
-                                    <Typography variant="h6" noWrap>
-                                        BreezeBnB
+                                    <Typography variant="h6" noWrap color="primary">
+                                        breezebnb
                                     </Typography>
                                 </Link>
                             </Box>
