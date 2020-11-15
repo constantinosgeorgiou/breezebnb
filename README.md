@@ -12,16 +12,16 @@
   <h1 align="center">Breezebnb</h1>
 
   <p align="center">
-    Project inspired by [airbnb](https://www.airbnb.com/ "airbnb website"). Made as part of coursework of my Web Application Technologies course at my university :mortar_board:
+  Project inspired by <a href="https://www.airbnb.com/" target="_blank">airbnb</a>. Made as part of coursework of my Web Application Technologies course at my university :mortar_board:
     <br />
-    <a href="https://github.com/constantinosgeorgiou/breezebnb/wiki"> :book: <strong>Explore the docs »</strong></a>
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/wiki" target="_blank"> :book: <strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://breezebnb.herokuapp.com/">View Demo</a>
+    <a href="https://breezebnb.herokuapp.com/" target="_blank">View Demo</a>
     ·
-    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues">Report Bug</a>
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues" target="_blank">Report Bug</a>
     ·
-    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues">Request Feature</a>
+    <a href="https://github.com/constantinosgeorgiou/breezebnb/issues" target="_blank">Request Feature</a>
   </p>
 </p>
 
