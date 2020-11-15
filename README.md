@@ -12,7 +12,7 @@
   <h1 align="center">Breezebnb</h1>
 
   <p align="center">
-    Project inspired by AirBnB. Made as part of coursework of my Web Application Technologies course at my university :mortar_board:
+    Project inspired by [airbnb](https://www.airbnb.com/ "airbnb website"). Made as part of coursework of my Web Application Technologies course at my university :mortar_board:
     <br />
     <a href="https://github.com/constantinosgeorgiou/breezebnb/wiki"> :book: <strong>Explore the docs »</strong></a>
     <br />
@@ -46,7 +46,7 @@
 
 [![BreezeBnB Homepage][image-breezebnb]](https://breezebnb.herokuapp.com/)
 
-This was a project I made during my Web Application Technologies course at my university. As you might have guessed from the name it's similar to [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website"). That means that it has the following features:
+This was a project we made during our Web Application Technologies course at my university. As you might have guessed from the name it's similar to [airbnb](https://www.airbnb.com/ "airbnb website"). That means that it has the following features:
 
 - Search for listings as a guest or anonymous user
 - Create a guest account, in order to book listings
@@ -150,7 +150,7 @@ The following article helped me create a new database as well as a new database 
 
 [How to install and use PostgresQL](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
 
-Also, while I was setting up the database user I got the following error, of which there's a link to the fix I applied.
+Also, while we were setting up the database user we got the following error, of which there's a link to the fix we applied.
 > Fix for error: ["psql: FATAL: Peer authentication failed for user"](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614)
 
 
@@ -259,17 +259,17 @@ See the [open issues](https://github.com/constantinosgeorgiou/breezebnb/issues) 
 ## Status
 Project is: _in progress_.
 
-We are working on a complete re-work of the front end, for both functional and aesthetic reasons. We are replacing bootstrap with [Material-UI](https://material-ui.com/) and redoing the way we used the [React Context API](https://reactjs.org/docs/context.html), as well as they way we handled user data.
+We are working on a complete re-work of the front end, for both functional and aesthetic reasons. We are replacing bootstrap with [Material-UI](https://material-ui.com/) and re-doing the way we used the [React Context API](https://reactjs.org/docs/context.html), as well as they way we handled user data.
 
 There's an open [milestone][url-milestone-1] to view the progress of said re-work.
 
 ## Inspiration
-Project inspired by [AirBnB]([airbnb.com/](https://www.airbnb.com/) "AirBnB website")
+Project inspired by [airbnb]([airbnb.com/](https://www.airbnb.com/) "airbnb website")
 
 
 ## Created by
 
-- [constantinosgeorgiou](https://www.constantinosgeorgiou.com/) - feel free to contact me!
+- [constantinosgeorgiou](https://www.constantinosgeorgiou.com/ "Constantinos' personal website") - feel free to contact me!
 - [leonidasefrem](https://github.com/leonidasefrem)
 
 ## License
