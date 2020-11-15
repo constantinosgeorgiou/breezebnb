@@ -8,30 +8,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Review = (props) => {
-    const { user } = props;
+const ReviewSignUp = (props) => {
+    const { formik } = props;
 
     const classes = useStyles();
 
     return (
         <Fragment>
-            <Typography variant="h6" gutterBottom>
-                All good?
-            </Typography>
-
             <Grid container spacing={3}>
                 {/* First name    Last name */}
                 <Grid item xs={6}>
                     <Typography variant="caption" className={classes.muted}>
                         First name
                     </Typography>
-                    <Typography>{user.firstName}</Typography>
+                    <Typography>{formik.values.firstName}</Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="caption" className={classes.muted}>
                         Last name
                     </Typography>
-                    <Typography>{user.lastName}</Typography>
+                    <Typography>{formik.values.lastName}</Typography>
                 </Grid>
 
                 {/* Birthday */}
@@ -39,7 +35,7 @@ const Review = (props) => {
                     <Typography variant="caption" className={classes.muted}>
                         Birthday
                     </Typography>
-                    <Typography>{user.birthday}</Typography>
+                    <Typography>{formik.values.birthday}</Typography>
                 </Grid>
 
                 {/* Phone */}
@@ -47,7 +43,7 @@ const Review = (props) => {
                     <Typography variant="caption" className={classes.muted}>
                         Phone
                     </Typography>
-                    <Typography>{user.phone}</Typography>
+                    <Typography>{formik.values.phone}</Typography>
                 </Grid>
 
                 {/* Address */}
@@ -56,10 +52,10 @@ const Review = (props) => {
                         Address
                     </Typography>
                     <Typography>
-                        {user.streetAddress}, {user.city}
+                        {formik.values.streetAddress}, {formik.values.city}
                     </Typography>
                     <Typography>
-                        {user.state}, {user.postalCode}, {user.country}
+                        {formik.values.state}, {formik.values.postalCode}, {formik.values.country}
                     </Typography>
                 </Grid>
 
@@ -68,7 +64,7 @@ const Review = (props) => {
                     <Typography variant="caption" className={classes.muted}>
                         Username
                     </Typography>
-                    <Typography>{user.username}</Typography>
+                    <Typography>{formik.values.username}</Typography>
                 </Grid>
 
                 {/* Email */}
@@ -76,7 +72,7 @@ const Review = (props) => {
                     <Typography variant="caption" className={classes.muted}>
                         Email
                     </Typography>
-                    <Typography>{user.email}</Typography>
+                    <Typography>{formik.values.email}</Typography>
                 </Grid>
 
                 {/* Password */}
@@ -84,11 +80,11 @@ const Review = (props) => {
                     <Typography variant="caption" className={classes.muted}>
                         Password
                     </Typography>
-                    <Typography>{user.password}</Typography>
+                    <Typography>{formik.values.password}</Typography>
                 </Grid>
 
                 {/* Hosting */}
-                {user.hosting ? (
+                {formik.values.hosting ? (
                     <Grid item xs={12}>
                         <Box>
                             <Typography variant="caption" className={classes.muted}>
@@ -99,7 +95,7 @@ const Review = (props) => {
                             control={
                                 <Checkbox
                                     color="secondary"
-                                    checked={user.hosting}
+                                    checked={formik.values.hosting}
                                     disableRipple="false"
                                 />
                             }
@@ -114,4 +110,4 @@ const Review = (props) => {
     );
 };
 
-export default Review;
+export default ReviewSignUp;

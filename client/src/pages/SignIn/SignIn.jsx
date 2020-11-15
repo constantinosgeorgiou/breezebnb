@@ -85,6 +85,7 @@ const SignIn = (props) => {
                     {/* Username */}
                     <TextField
                         variant="outlined"
+                        color="black"
                         margin="normal"
                         required
                         fullWidth
@@ -130,7 +131,12 @@ const SignIn = (props) => {
 
                     <Grid container>
                         <Grid item xs>
-                            <Link component={RouterLink} to="/forgot-password" variant="body2">
+                            <Link
+                                component={RouterLink}
+                                to="/forgot-password"
+                                variant="body2"
+                                color="grey"
+                            >
                                 Forgot password?
                             </Link>
                         </Grid>

@@ -3,14 +3,10 @@ import React, { Fragment } from "react";
 import { Grid, TextField, Typography } from "@material-ui/core";
 
 const AccountDetailsForm = (props) => {
-    const { user, handleChange } = props;
+    const { formik } = props;
 
     return (
         <Fragment>
-            <Typography variant="h6" gutterBottom>
-                Account details
-            </Typography>
-
             <Grid container spacing={3}>
                 {/* Username */}
                 <Grid item xs={12}>
@@ -18,8 +14,8 @@ const AccountDetailsForm = (props) => {
                         fullWidth
                         id="username"
                         label="Username"
-                        value={user.username}
-                        onChange={handleChange("username")}
+                        value={formik.values.username}
+                        onChange={formik.handleChange}
                         autoComplete="username"
                     />
                 </Grid>
@@ -30,8 +26,8 @@ const AccountDetailsForm = (props) => {
                         fullWidth
                         id="email"
                         label="Email"
-                        value={user.email}
-                        onChange={handleChange("email")}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
                         autoComplete="email"
                     />
                 </Grid>
@@ -42,8 +38,8 @@ const AccountDetailsForm = (props) => {
                         fullWidth
                         id="password"
                         label="Password"
-                        value={user.password}
-                        onChange={handleChange("password")}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
                         autoComplete="current-password"
                     />
                 </Grid>
@@ -54,8 +50,8 @@ const AccountDetailsForm = (props) => {
                         fullWidth
                         id="passwordConfirm"
                         label="Confirm password"
-                        value={user.passwordConfirm}
-                        onChange={handleChange("passwordConfirm")}
+                        value={formik.values.passwordConfirm}
+                        onChange={formik.handleChange}
                     />
                 </Grid>
             </Grid>

@@ -1,94 +1,73 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
-import {
-    Avatar,
-    Button,
-    Container,
-    makeStyles,
-    Paper,
-    Step,
-    StepLabel,
-    Stepper,
-    Typography,
-} from "@material-ui/core";
+import { Hidden } from "@material-ui/core";
 
-import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
+import { useFormik } from "formik";
 
-import AccountDetailsForm from "./components/AccountDetailsForm";
-import AddressForm from "./components/AddressForm";
-import HostingForm from "./components/HostingForm";
-import PersonalInformationForm from "./components/PersonalInformationForm";
-import Review from "./components/Review";
+import PersonalInformationForm from "./components/steps/PersonalInformationForm";
+import AddressForm from "./components/steps/AddressForm";
+import AccountDetailsForm from "./components/steps/AccountDetailsForm";
+import HostingForm from "./components/steps/HostingForm";
+import ReviewSignUp from "./components/steps/ReviewSignUp";
 
-const useStyles = makeStyles((theme) => ({
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.light,
-    },
-    button: {
-        marginTop: theme.spacing(3),
-        marginLeft: theme.spacing(1),
-    },
-    buttons: {
-        display: "flex",
-        justifyContent: "flex-end",
-    },
-    paper: {
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3),
-        padding: theme.spacing(2),
-    },
-    stepper: {
-        padding: theme.spacing(3, 0, 5),
-    },
-}));
+import MobileView from "./components/MobileView";
+import DesktopView from "./components/DesktopView";
 
-const steps = ["Personal information", "Address", "Account details", "Hosting", "All good?"];
+const getSteps = () => {
+    return ["Personal information", "Address", "Account details", "Hosting", "All good?"];
+};
 
-const getStepContent = (step, user, handleChange) => {
+const getStepContent = (step, formik) => {
     switch (step) {
         case 0:
-            return <PersonalInformationForm user={user} handleChange={handleChange} />;
+            return <PersonalInformationForm formik={formik} />;
         case 1:
-            return <AddressForm user={user} handleChange={handleChange} />;
+            return <AddressForm formik={formik} />;
         case 2:
-            return <AccountDetailsForm user={user} handleChange={handleChange} />;
+            return <AccountDetailsForm formik={formik} />;
         case 3:
-            return <HostingForm user={user} handleChange={handleChange} />;
+            return <HostingForm formik={formik} />;
         case 4:
-            return <Review user={user} handleChange={handleChange} />;
+            return <ReviewSignUp formik={formik} />;
+
         default:
-            throw new Error("Unknown step");
+            throw new Error("unknown step");
     }
 };
 
 const SignUp = (props) => {
-    const classes = useStyles();
+    const steps = getSteps();
 
     const [activeStep, setActiveStep] = useState(0);
 
-    const [user, setUser] = useState({
-        // Personal information
-        firstName: "Jane",
-        lastName: "Doe",
-        birthday: "12 / 08 / 2000",
-        phone: "901 - 123434",
+    const formik = useFormik({
+        initialValues: {
+            // Personal information
+            firstName: "Jane",
+            lastName: "Doe",
+            birthday: "12 / 08 / 2000",
+            phone: "901 - 123434",
 
-        // Address
-        streetAddress: "Blah 12",
-        city: "Athens",
-        state: "Attiki",
-        postalCode: "54123",
-        country: "Greece",
+            // Address
+            streetAddress: "Blah 12",
+            city: "Athens",
+            state: "Attiki",
+            postalCode: "54123",
+            country: "Greece",
 
-        // Account details
-        username: "janedoe",
-        email: "jane@doe.com",
-        password: "123456",
-        passwordConfirm: "123456",
+            // Account details
+            username: "janedoe",
+            email: "jane@doe.com",
+            password: "123456",
+            passwordConfirm: "123456",
 
-        // Hosting
-        hosting: false,
+            // Hosting
+            hosting: false,
+        },
+        validateOnChange: {},
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 4));
+        },
     });
 
     const handleNext = () => {
@@ -99,55 +78,25 @@ const SignUp = (props) => {
         setActiveStep(activeStep - 1);
     };
 
-    const handleChange = (prop) => (event) => {
-        const {
-            target: { type, value },
-        } = event;
-
-        if (type === "checkbox") {
-            setUser({ ...user, hosting: !user.hosting });
-        } else {
-            setUser({ ...user, [prop]: value });
-        }
-    };
-
     return (
-        <Container component="main" maxWidth="sm">
-            <Paper className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <ExploreOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <Stepper activeStep={activeStep} className={classes.stepper}>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                {/* Render the form of each step */}
-                {getStepContent(activeStep, user, handleChange)}
+        <Fragment>
+            {/* Desktop view */}
+            <Hidden smUp>
+                <MobileView
+                    getSteps={getSteps}
+                    getStepContent={getStepContent}
+                    activeStep={activeStep}
+                    handleNext={handleNext}
+                    handleBack={handleBack}
+                    formik={formik}
+                />
+            </Hidden>
 
-                <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                        <Button onClick={handleBack} className={classes.button}>
-                            Back
-                        </Button>
-                    )}
-
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                    >
-                        {activeStep === steps.length - 1 ? "Create account" : "Next"}
-                    </Button>
-                </div>
-            </Paper>
-        </Container>
+            {/* Mobile view */}
+            <Hidden xsDown>
+                <DesktopView steps={steps} />
+            </Hidden>
+        </Fragment>
     );
 };
 

@@ -2,14 +2,10 @@ import { Grid, TextField, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
 
 const AddressForm = (props) => {
-    const { user, handleChange } = props;
+    const { formik } = props;
 
     return (
         <Fragment>
-            <Typography variant="h6" gutterBottom>
-                Address
-            </Typography>
-
             <Grid container spacing={3}>
                 {/* Street Address */}
                 <Grid item xs={12}>
@@ -17,8 +13,8 @@ const AddressForm = (props) => {
                         fullWidth
                         id="streetAddress"
                         label="Street address"
-                        value={user.streetAddress}
-                        onChange={handleChange("streetAddress")}
+                        value={formik.values.streetAddress}
+                        onChange={formik.handleChange}
                         autoComplete="street-address"
                     />
                 </Grid>
@@ -29,8 +25,8 @@ const AddressForm = (props) => {
                         fullWidth
                         id="city"
                         label="City"
-                        value={user.city}
-                        onChange={handleChange("city")}
+                        value={formik.values.city}
+                        onChange={formik.handleChange}
                         autoComplete="address-level2"
                     />
                 </Grid>
@@ -41,8 +37,8 @@ const AddressForm = (props) => {
                         fullWidth
                         id="state"
                         label="State / Province / Region"
-                        value={user.state}
-                        onChange={handleChange("state")}
+                        value={formik.values.state}
+                        onChange={formik.handleChange}
                         autoComplete="address-level1"
                     />
                 </Grid>
@@ -53,8 +49,8 @@ const AddressForm = (props) => {
                         fullWidth
                         id="postalCode"
                         label="Zip / Postal code"
-                        value={user.postalCode}
-                        onChange={handleChange("postalCode")}
+                        value={formik.values.postalCode}
+                        onChange={formik.handleChange}
                         autoComplete="postal-code"
                     />
                 </Grid>
@@ -65,8 +61,8 @@ const AddressForm = (props) => {
                         fullWidth
                         id="country"
                         label="Country"
-                        value={user.country}
-                        onChange={handleChange("country")}
+                        value={formik.values.country}
+                        onChange={formik.handleChange}
                         autoComplete="country"
                     />
                 </Grid>

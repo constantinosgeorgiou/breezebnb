@@ -3,14 +3,10 @@ import React, { Fragment } from "react";
 import { Grid, TextField, Typography } from "@material-ui/core";
 
 const PersonalInformationForm = (props) => {
-    const { user, handleChange } = props;
+    const { formik } = props;
 
     return (
         <Fragment>
-            <Typography variant="h6" gutterBottom>
-                Personal information
-            </Typography>
-
             <Grid container spacing={3}>
                 {/* First name */}
                 <Grid item xs={12} sm={6}>
@@ -18,8 +14,8 @@ const PersonalInformationForm = (props) => {
                         fullWidth
                         id="firstName"
                         label="First name"
-                        value={user.firstName}
-                        onChange={handleChange("firstName")}
+                        value={formik.values.firstName}
+                        onChange={formik.handleChange}
                         autoComplete="given-name"
                     />
                 </Grid>
@@ -30,8 +26,8 @@ const PersonalInformationForm = (props) => {
                         fullWidth
                         id="lastName"
                         label="Last name"
-                        value={user.lastName}
-                        onChange={handleChange("lastName")}
+                        value={formik.values.lastName}
+                        onChange={formik.handleChange}
                         autoComplete="family-name"
                     />
                 </Grid>
@@ -42,8 +38,8 @@ const PersonalInformationForm = (props) => {
                         fullWidth
                         id="phone"
                         label="Phone"
-                        value={user.phone}
-                        onChange={handleChange("phone")}
+                        value={formik.values.phone}
+                        onChange={formik.handleChange}
                         autoComplete="tel"
                     />
                 </Grid>
@@ -54,8 +50,8 @@ const PersonalInformationForm = (props) => {
                         fullWidth
                         id="birthday"
                         label="Birthday"
-                        value={user.birthday}
-                        onChange={handleChange("birthday")}
+                        value={formik.values.birthday}
+                        onChange={formik.handleChange}
                         autoComplete="bday"
                     />
                 </Grid>

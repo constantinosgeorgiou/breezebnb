@@ -13,18 +13,10 @@ const useStyles = makeStyles((theme) => ({
 const HostingForm = (props) => {
     const classes = useStyles();
 
-    const { user, handleChange } = props;
+    const { formik } = props;
 
     return (
         <Fragment>
-            <Box alignItems="center" display="flex" className={classes.hosting}>
-                <Box>
-                    <HouseOutlinedIcon fontSize="large" />
-                </Box>
-                <Box>
-                    <Typography variant="h6">Hosting</Typography>
-                </Box>
-            </Box>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Typography>
@@ -39,9 +31,9 @@ const HostingForm = (props) => {
                         control={
                             <Checkbox
                                 color="secondary"
-                                checked={user.hosting}
-                                value={user.hosting}
-                                onChange={handleChange("hosting")}
+                                checked={formik.values.hosting}
+                                value={formik.values.hosting}
+                                onChange={formik.handleChange}
                             />
                         }
                         label="Apply for hosting"
