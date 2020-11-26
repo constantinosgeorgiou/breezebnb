@@ -94,7 +94,14 @@ const SignUp = (props) => {
 
             {/* Mobile view */}
             <Hidden xsDown>
-                <DesktopView steps={steps} />
+                <DesktopView
+                    getSteps={getSteps}
+                    getStepContent={getStepContent}
+                    activeStep={activeStep}
+                    handleNext={handleNext}
+                    handleBack={handleBack}
+                    formik={formik}
+                />
             </Hidden>
         </Fragment>
     );
