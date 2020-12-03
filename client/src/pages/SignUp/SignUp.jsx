@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Hidden } from "@material-ui/core";
 
 import { useFormik } from "formik";
+import * as yup from "yup";
 
 import PersonalInformationForm from "./components/steps/PersonalInformationForm";
 import AddressForm from "./components/steps/AddressForm";
@@ -12,6 +13,22 @@ import ReviewSignUp from "./components/steps/ReviewSignUp";
 
 import MobileView from "./components/MobileView";
 import DesktopView from "./components/DesktopView";
+
+const validationSchema = yup.object({
+    firstName: yup.string("Enter your first name").required("First name is required"),
+    lastName: yup.string("Enter your last name").required("Last name is required"),
+    phone: yup.string("Enter your phone number").required("Phone number is required"),
+    birthday: yup.date("Enter your birthday").required("Birthday is required"),
+    email: yup.string("Enter an email").email("Enter a valid email").required("Email is required"),
+    password: yup
+        .string("Enter password")
+        .min(8, "Password should be of minimum 8 characters length")
+        .required("Password is required"),
+    confirmPassword: yup
+        .string("Confirm password")
+        .required("Confirm your password")
+        .oneOf([yup.ref("password")], "Passwords do not match"),
+});
 
 const getSteps = () => {
     return ["Personal information", "Address", "Account details", "Hosting", "All good?"];
@@ -43,28 +60,30 @@ const SignUp = (props) => {
     const formik = useFormik({
         initialValues: {
             // Personal information
-            firstName: "Jane",
-            lastName: "Doe",
-            birthday: "12 / 08 / 2000",
-            phone: "901 - 123434",
+            firstName: "",
+            lastName: "",
+            birthday: "",
+            phone: "",
 
             // Address
-            streetAddress: "Blah 12",
-            city: "Athens",
-            state: "Attiki",
-            postalCode: "54123",
-            country: "Greece",
+            streetAddress: "",
+            city: "",
+            state: "",
+            postalCode: "",
+            country: "",
 
             // Account details
-            username: "janedoe",
-            email: "jane@doe.com",
-            password: "123456",
-            passwordConfirm: "123456",
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
 
             // Hosting
             hosting: false,
         },
-        validateOnChange: {},
+
+        validationSchema: validationSchema,
+
         onSubmit: (values) => {
             alert(JSON.stringify(values, null, 4));
         },

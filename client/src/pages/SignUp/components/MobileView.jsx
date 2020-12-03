@@ -60,43 +60,56 @@ const MobileView = (props) => {
                     </Typography>
                 </Box>
 
-                <Container className={classes.body}>
-                    <Typography component="h2" variant="h6" gutterBottom>
-                        {steps[activeStep]}
-                    </Typography>
-                    {getStepContent(activeStep, formik)}
-                </Container>
+                <form onSubmit={formik.handleSubmit}>
+                    <Container className={classes.body}>
+                        <Typography component="h2" variant="h6" gutterBottom>
+                            {steps[activeStep]}
+                        </Typography>
+                        {getStepContent(activeStep, formik)}
+                    </Container>
 
-                <MobileStepper
-                    steps={maxSteps}
-                    position="bottom"
-                    variant="progress"
-                    activeStep={activeStep}
-                    nextButton={
-                        <Button
-                            size="small"
-                            onClick={handleNext}
-                            disabled={activeStep === maxSteps - 1}
-                        >
-                            Next
-                            {theme.direction === "rtl" ? (
-                                <KeyboardArrowLeftRoundedIcon />
+                    <MobileStepper
+                        steps={maxSteps}
+                        position="bottom"
+                        variant="progress"
+                        activeStep={activeStep}
+                        nextButton={
+                            activeStep === maxSteps - 1 ? (
+                                <Button size="small" type="submit">
+                                    Sign up
+                                    {theme.direction === "rtl" ? (
+                                        <KeyboardArrowLeftRoundedIcon />
+                                    ) : (
+                                        <KeyboardArrowRightRoundedIcon />
+                                    )}
+                                </Button>
                             ) : (
-                                <KeyboardArrowRightRoundedIcon />
-                            )}
-                        </Button>
-                    }
-                    backButton={
-                        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                            {theme.direction === "rtl" ? (
-                                <KeyboardArrowRightRoundedIcon />
-                            ) : (
-                                <KeyboardArrowLeftRoundedIcon />
-                            )}
-                            Back
-                        </Button>
-                    }
-                />
+                                <Button
+                                    size="small"
+                                    onClick={handleNext}
+                                    disabled={activeStep === maxSteps - 1}
+                                >
+                                    Next
+                                    {theme.direction === "rtl" ? (
+                                        <KeyboardArrowLeftRoundedIcon />
+                                    ) : (
+                                        <KeyboardArrowRightRoundedIcon />
+                                    )}
+                                </Button>
+                            )
+                        }
+                        backButton={
+                            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                                {theme.direction === "rtl" ? (
+                                    <KeyboardArrowRightRoundedIcon />
+                                ) : (
+                                    <KeyboardArrowLeftRoundedIcon />
+                                )}
+                                Back
+                            </Button>
+                        }
+                    />
+                </form>
             </Paper>
         </Container>
     );

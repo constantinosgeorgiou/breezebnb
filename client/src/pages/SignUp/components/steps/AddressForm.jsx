@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import React, { Fragment } from "react";
 
 const AddressForm = (props) => {
@@ -12,10 +12,13 @@ const AddressForm = (props) => {
                     <TextField
                         fullWidth
                         id="streetAddress"
+                        autoComplete="street-address"
                         label="Street address"
                         value={formik.values.streetAddress}
                         onChange={formik.handleChange}
-                        autoComplete="street-address"
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.streetAddress && Boolean(formik.errors.streetAddress)}
+                        helperText={formik.touched.streetAddress ? formik.errors.streetAddress : ""}
                     />
                 </Grid>
 
@@ -24,10 +27,13 @@ const AddressForm = (props) => {
                     <TextField
                         fullWidth
                         id="city"
+                        autoComplete="address-level2"
                         label="City"
                         value={formik.values.city}
                         onChange={formik.handleChange}
-                        autoComplete="address-level2"
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.city && Boolean(formik.errors.city)}
+                        helperText={formik.touched.city ? formik.errors.city : ""}
                     />
                 </Grid>
 
@@ -36,10 +42,13 @@ const AddressForm = (props) => {
                     <TextField
                         fullWidth
                         id="state"
+                        autoComplete="address-level1"
                         label="State / Province / Region"
                         value={formik.values.state}
                         onChange={formik.handleChange}
-                        autoComplete="address-level1"
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.state && Boolean(formik.errors.state)}
+                        helperText={formik.touched.state ? formik.errors.state : ""}
                     />
                 </Grid>
 
@@ -48,10 +57,13 @@ const AddressForm = (props) => {
                     <TextField
                         fullWidth
                         id="postalCode"
+                        autoComplete="postal-code"
                         label="Zip / Postal code"
                         value={formik.values.postalCode}
                         onChange={formik.handleChange}
-                        autoComplete="postal-code"
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.postalCode && Boolean(formik.errors.postalCode)}
+                        helperText={formik.touched.postalCode ? formik.errors.postalCode : ""}
                     />
                 </Grid>
 
@@ -60,10 +72,13 @@ const AddressForm = (props) => {
                     <TextField
                         fullWidth
                         id="country"
+                        autoComplete="country"
                         label="Country"
                         value={formik.values.country}
                         onChange={formik.handleChange}
-                        autoComplete="country"
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.country && Boolean(formik.errors.country)}
+                        helperText={formik.touched.country ? formik.errors.country : ""}
                     />
                 </Grid>
             </Grid>

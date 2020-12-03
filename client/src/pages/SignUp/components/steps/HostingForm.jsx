@@ -1,18 +1,8 @@
 import React, { Fragment } from "react";
 
-import { Box, Checkbox, FormControlLabel, Grid, makeStyles, Typography } from "@material-ui/core";
-
-import HouseOutlinedIcon from "@material-ui/icons/HouseOutlined";
-
-const useStyles = makeStyles((theme) => ({
-    hosting: {
-        marginBottom: theme.spacing(2),
-    },
-}));
+import { Checkbox, FormControlLabel, Grid, Typography } from "@material-ui/core";
 
 const HostingForm = (props) => {
-    const classes = useStyles();
-
     const { formik } = props;
 
     return (
