@@ -40,7 +40,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.3.0",
     "react-map-gl": "^5.2.8",
     "react-mapbox-gl-geocoder": "^1.1.0"
